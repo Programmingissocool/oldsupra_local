@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Keep local development on the requested host instead of redirecting to the
+# production domain. Production overrides this list in settings_prod.py.
+CANONICAL_HOST_EXEMPT = ('localhost', '127.0.0.1', 'testserver')
+
 
 PAYGE_PASSWORD = os.environ.get("PAYGE_PASSWORD", "")
 TBC_CLIENT_ID = os.environ.get("TBC_CLIENT_ID", "")

@@ -7,7 +7,9 @@ from django.db.models import Min,Max
 
 
 def defaultcontent(request):
-    SiteInfo = Site_Content.objects.get(name="DEFAULT")
+    # A newly migrated development database has no production content yet.
+    # Templates can render with an empty value until a DEFAULT row is created.
+    SiteInfo = Site_Content.objects.filter(name="DEFAULT").first()
     return dict(SiteInfo=SiteInfo)
 
 def About_Usall(request):
@@ -62,4 +64,4 @@ def get_filters(request):
 	data={
 		'minMaxPrice':minMaxPrice,
 	}
-	return data    
+	return data
