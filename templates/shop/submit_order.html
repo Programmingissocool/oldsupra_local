@@ -1,0 +1,159 @@
+{% extends 'hurstbase.html' %}
+
+
+
+
+{% load static %}
+
+
+{% block content %}
+<div class="heading-banner-area overlay-bg">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="heading-banner">
+								<div class="heading-banner-title">
+									<h2>order complete</h2>
+								</div>
+								<div class="breadcumbs pb-15">
+									<ul>
+										<li><a href="#">Home</a></li>
+										<li>order complete</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- HEADING-BANNER END -->
+			<!-- ORDER-AREA START -->
+			<div class="shopping-cart-area  pt-80 pb-80">
+				<div class="container">	
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="shopping-cart">
+								<!-- Nav tabs -->
+								<ul class="cart-page-menu nav row clearfix mb-30">
+									<li><a href="#shopping-cart" data-bs-toggle="tab">shopping cart</a></li>	<li><a href="#check-out" data-bs-toggle="tab">check out</a></li>
+									<li><a class="active" href="#order-complete" data-bs-toggle="tab">order complete</a></li>
+								</ul>
+
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<!-- shopping-cart start -->
+									<div class="tab-pane" id="shopping-cart">
+							
+									</div>
+									<!-- shopping-cart end -->
+									<!-- wishlist start -->
+									<div class="tab-pane" id="wishlist">
+																	
+									</div>
+									<!-- wishlist end -->
+									<!-- check-out start -->
+									<div class="tab-pane" id="check-out">
+																		
+									</div>
+									<!-- check-out end -->
+									<!-- order-complete start -->
+									<div class="tab-pane active" id="order-complete">
+										<form action="#">
+											<div class="thank-recieve bg-white mb-30">
+												<p>Thank you. Your order has been received.</p>
+											</div>
+											<div class="order-info bg-white text-center clearfix mb-30">
+												<div class="single-order-info">
+													<h4 class="title-1 text-uppercase text-light-black mb-0">{{order.order_number}}</h4>
+													<p class="text-uppercase text-light-black mb-0"><strong>m 2653257</strong></p>
+												</div>
+												<div class="single-order-info">
+													<h4 class="title-1 text-uppercase text-light-black mb-0">Date</h4>
+													<p class="text-uppercase text-light-black mb-0"><strong></strong>{{order.created_at}}</p>
+												</div>
+												<div class="single-order-info">
+													<h4 class="title-1 text-uppercase text-light-black mb-0">Total</h4>
+													<p class="text-uppercase text-light-black mb-0"><strong>{{grand_total}}</strong></p>
+												</div>
+												<div class="single-order-info">
+													<h4 class="title-1 text-uppercase text-light-black mb-0">payment method</h4>
+													<p class="text-uppercase text-light-black mb-0"><a href="#"><strong>{{order.payment.BANK}}</strong></a></p>
+												</div>
+											</div>
+											<div class="shop-cart-table check-out-wrap">
+												<div class="row">
+													<div class="col-md-6">
+														<div class="our-order payment-details pr-20">
+															<h4 class="title-1 title-border text-uppercase mb-30">our order</h4>
+															<table>
+																<thead>
+																	<tr>
+																		<th><strong>Product</strong></th>
+																		<th class="text-end"><strong>Total</strong></th>
+																	</tr>
+																</thead>
+																<tbody>
+																 {% for item in ordered_products %}
+																	<tr>
+																		<td>{{item.product.Product_name}} x {{ item.product.quantity }}</td>
+																		<td class="text-end">{{item.price}}</td>
+																	</tr>
+																	    {% endfor %}
+																	
+																	<tr>
+																		<td>Cart Subtotal</td>
+																		<td class="text-end">{{total}}</td>
+																	</tr>
+																	<tr>
+																		<td>Shipping and Handing</td>
+																		<td class="text-end">{{shipping}}</td>
+																	</tr>
+																
+																	<tr>
+																		<td>Order Total</td>
+																		<td class="text-end">{{grand_total}}</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+										
+												</div>
+											</div>
+										</form>										
+									</div>
+									<!-- order-complete end -->
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% if response in 'Succeeded,100,completed,success' or response == 'success' %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  if (typeof fbq === 'function') {
+
+    // Build the product ID list
+    const productIds = [
+      {% for p in ordered_products %}
+        '{{ p.product.id }}'{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ];
+
+    fbq('track', 'Purchase', {
+      content_ids: productIds,
+      content_type: 'product',
+      value: {{ grand_total|floatformat:2 }},
+      currency: 'USD'
+    });
+
+    console.log('✅ FB Pixel Purchase event fired for products:', productIds);
+  } else {
+    console.warn('⚠️ FB Pixel not ready for Purchase event.');
+  }
+});
+</script>
+{% endif %}
+{% endblock %}

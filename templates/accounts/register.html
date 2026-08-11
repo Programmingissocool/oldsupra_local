@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- Change the value of lang="en" attribute if your website's language is not English.
+You can find the code of your language here - https://www.w3schools.com/tags/ref_language_codes.asp -->
+
+
+{% extends 'base.html' %}
+
+
+
+
+{% load static %}
+
+
+{% block content %}
+
+<!-- breadcrumb area start -->
+   <div class="breadcrumb-area">
+       <div class="container-fluid">
+           <div class="row">
+               <div class="col-12">
+                   <div class="breadcrumb-wrap">
+                       <nav aria-label="breadcrumb">
+                           <ul class="breadcrumb">
+                               <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                               <li class="breadcrumb-item active" aria-current="page">Register</li>
+                           </ul>
+                       </nav>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- breadcrumb area end -->
+
+   <!-- Start of Login Wrapper -->
+   <div class="login-wrapper pb-70">
+       <div class="container-fluid">
+           <div class="row">
+               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                   <main id="primary" class="site-main">
+                       <div class="user-login">
+                           <div class="row">
+                               <div class="col-12 col-sm-12 col-md-12">
+                                   <div class="section-title text-center">
+                                       <h3>Create an Account</h3>
+                                   </div>
+                               </div>
+                           </div> <!-- end of row -->
+                           <div class="row">
+                               <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 offset-xl-2">
+                                 <div class="text-center pt-20 top-bordered">
+                                     <p>Already Registered ?<a href="{% url 'login' %}">Click Here to Login</a>.</p>
+                                 </div>
+                                   <div class="registration-form login-form">
+                                       <form action="{% url 'register'%}" method="POST">
+                                          {% csrf_token %}
+
+                                           <div class="form-group mb-3 row">
+                                               <label for="f-name" class="col-12 col-sm-12 col-md-4 col-form-label">First Name</label>
+
+                                               <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+
+                                                {{ form.first_name }}
+                                               </div>
+
+                                           </div>
+                                           <div class="form-group mb-3 row">
+                                               <label for="l-name" class="col-12 col-sm-12 col-md-4 col-form-label">Last Name</label>
+                                               <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                                   {{ form.last_name }}
+                                               </div>
+                                           </div>
+                                           <div class="form-group mb-3 row">
+                                               <label for="email" class="col-12 col-sm-12 col-md-4 col-form-label">Email Address</label>
+                                               <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                                    {{form.email}}
+                                               </div>
+                                           </div>
+                                           <div class="form-group mb-3 row">
+                                               <label for="inputpassword" class="col-12 col-sm-12 col-md-4 col-form-label">Phone Number</label>
+                                               <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                                    {{form.phone_number}}
+                                               </div>
+                                           </div>
+                                           <div class="form-group mb-3 row">
+                                               <label for="newpassword" class="col-12 col-sm-12 col-md-4 col-form-label">Password</label>
+                                               <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                                   {{ form.password }}
+
+                                               </div>
+                                           </div>
+                                           <div class="form-group mb-3 row">
+                                               <label for="c-password" class="col-12 col-sm-12 col-md-4 col-form-label">Confirm Password</label>
+                                               <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                                   {{form.confirm_password}}
+
+                                               </div>
+                                           </div>
+                                           <!-- <div class="form-group mb-3 row">
+                                               <label for="birth" class="col-12 col-sm-12 col-md-4 col-form-label">Birthdate (Optional)</label>
+                                               <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                                                   <input type="date" class="form-control" id="birth" placeholder="MM / DD / YYYY" required="">
+                                               </div>
+                                           </div> -->
+                                           <div class="form-check row g-0 mt-5">
+                                               <div class="col-12 col-sm-12 col-md-8 offset-md-4 col-lg-6 offset-lg-4">
+                                                   <div class="custom-checkbox">
+                                                       <input class="form-check-input" type="checkbox" id="offer" required="">
+                                                       <span class="checkmark"></span>
+                                                       <label class="form-check-label" for="offer">Receive offers from our partners</label>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           <div class="form-check row g-0 mt-4">
+                                               <div class="col-12 col-sm-12 col-md-8 offset-md-4 col-lg-8 offset-lg-4">
+                                                   <div class="custom-checkbox">
+                                                       <input class="form-check-input" type="checkbox" id="subscribe" ">
+                                                       <span class="checkmark"></span>
+                                                       <label class="form-check-label" for="subscribe">Sign up for our newsletter<br>Subscribe to our newsletters now and stay up-to-date with new collections, the latest lookbooks and exclusive offers..</label>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                           <div class="register-box d-flex justify-content-end mt-20">
+                                               <button type="submit" class="btn btn-secondary">Register</button>
+                                           </div>
+                                       </form>
+                                   </div>
+                               </div>
+                           </div>
+                       </div> <!-- end of user-login -->
+                   </main> <!-- end of #primary -->
+               </div>
+           </div> <!-- end of row -->
+       </div> <!-- end of container -->
+   </div>
+   <!-- End of Login Wrapper -->
+
+  <!-- scroll to top -->
+   <div class="scroll-top not-visible">
+       <i class="fa fa-angle-up"></i>
+   </div> <!-- /End Scroll to Top -->
+
+
+{% endblock %}

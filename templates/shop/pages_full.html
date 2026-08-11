@@ -1,0 +1,43 @@
+{% extends 'hurstbase.html' %}
+
+
+{% block content %}
+
+
+<div class="blog-area blog-2 blog-details-area  pt-80 pb-80">
+				<div class="container">	
+					<div class="blog">
+						<div class="row">
+							<!-- Single-blog start -->
+							<div class="col-lg-12">
+								<div class="single-blog mb-30">
+									<!--<div class="blog-photo">-->
+									<!--	<a href="#"><img src="img/blog/10.jpg" alt="" /></a>-->
+									<!--	<div class="like-share fix">-->
+									<!--		<a href="#"><i class="zmdi zmdi-account"></i><span>Thomas</span></a>-->
+									<!--		<a href="#"><i class="zmdi zmdi-favorite"></i><span>89 Like</span></a>-->
+									<!--		<a href="#"><i class="zmdi zmdi-comments"></i><span>59 Comments</span></a>-->
+									<!--		<a class="d-none d-md-block" href="#"><i class="zmdi zmdi-share"></i><span>29 Share</span></a>-->
+									<!--	</div>-->
+									<!--	<div class="post-date post-date-2">-->
+									<!--		<span class="text-dark-red">30</span>-->
+									<!--		<span class="text-dark-red text-uppercase">June</span>-->
+									<!--	</div>-->
+									<!--</div>-->
+									<div class="blog-info blog-details-info">
+										<h4 class="post-title post-title-2"><a href="#">{{pages_full.page_name}}</a></h4>
+										<p>{{pages_full.description|safe}}</p>
+										
+									
+																		
+									</div>
+								</div>
+							</div>
+							<!-- Single-blog end -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+{% endblock %}

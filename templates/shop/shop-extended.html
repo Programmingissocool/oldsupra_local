@@ -1,0 +1,1091 @@
+<!doctype html>
+{% load static %}
+ {% load i18n %}
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>{% if categories %}{{ categories.Meta_title }}  {% else %}OldSupra{% endif %}</title>
+
+<meta name="description" content="{% if categories %}{{ categories.description }}{% else %}OldSupra online shop{% endif %}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="https://oldsupra.ge{{ categories.cat_image.url }}">
+
+		<link rel="shortcut icon" href="{% static 'Logosupra.png' %}" type="image/x-icon">
+		<!-- Place favicon.ico in the root directory -->
+
+		<!-- Google Font -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+
+		<!-- all css here -->
+		<!-- bootstrap v3.3.6 css -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+		 <link rel="canonical" href="{{ request.build_absolute_uri }}">
+		<!-- animate css -->
+		<link rel="stylesheet" href="{% static 'css/animate.min.css' %}"> <!-- jquery-ui.min css -->
+<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"> <!-- meanmenu css -->
+<link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}"> <!-- nivo-slider css -->
+<link rel="stylesheet" href="{% static 'lib/css/nivo-slider.css' %}">
+<link rel="stylesheet" href="{% static 'lib/css/preview.css' %}"> <!-- slick css -->
+<link rel="stylesheet" href="{% static 'css/slick.min.css' %}"> <!-- lightbox css -->
+<link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}"> <!-- material-design-iconic-font css -->
+<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.css' %}"> <!-- All common css of theme -->
+<link rel="stylesheet" href="{% static 'css/default.css' %}"> <!-- style css -->
+<link rel="stylesheet" href="{% static 'css/style.min.css' %}"> <!-- shortcode css -->
+<link rel="stylesheet" href="{% static 'css/shortcode.css' %}"> <!-- responsive css -->
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<link rel="stylesheet" href="{% static 'css/test.css' %}">
+<!--<link rel="stylesheet" href="{% static 'scss/dist/output-scss.css' %}"/>-->
+<!--<link rel="stylesheet" href="{% static 'scss/dist/output-tailwind.css' %}"/>-->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TDFFC3Z');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+<script src="{% static 'js/vendor/modernizr-3.11.2.min.js' %}"></script>
+<style>
+    /* Define the cart icon and image movement */
+/* Define the cart icon and image movement */
+
+/*body {*/
+/*    padding-top: 35px; */
+/*}*/
+
+
+.all-cart-product {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+/* Optional scrollbar styling */
+.all-cart-product::-webkit-scrollbar {
+    width: 6px;
+}
+
+.all-cart-product::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.all-cart-product::-webkit-scrollbar-thumb {
+    background: #294062;
+    border-radius: 10px;
+}
+
+.all-cart-product::-webkit-scrollbar-thumb:hover {
+    background: #1d2f49;
+}
+
+.mini-cart .mini-cart-brief {
+    overflow: hidden !important;
+}
+
+.mini-cart .all-cart-product {
+    max-height: 320px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+
+#top-bar {
+    background-color: #294062;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    font-size: 14px;
+    padding: 8px 0;
+}
+
+.gift-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 12px 7px 10px;
+  border-radius: 999px;
+
+  background: #E25822;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+
+  box-shadow: 0 4px 12px rgba(226, 88, 34, 0.35);
+
+  user-select: none;
+  pointer-events: none; /* let card click pass through */
+}
+
+.gift-badge__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+
+.pro-label.new-label{
+
+    position:absolute;
+
+    top:14px;
+    left:14px;
+
+    z-index:5;
+}
+
+/* GIFT LABEL */
+
+.gift-label{
+
+    position:absolute;
+
+    top:14px;
+    right:14px;
+
+    z-index:5;
+
+    display:flex;
+    align-items:center;
+    gap:4px;
+
+    padding:6px 10px;
+
+    border-radius:10px;
+
+    
+    background: #FF5721;
+    color: #fff;
+
+    font-size:11px;
+    font-weight:700;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.14);
+
+    letter-spacing:.3px;
+
+    transition:.2s ease;
+}
+
+.gift-label:hover{
+    transform:translateY(-1px);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .gift-label{
+
+        top:10px;
+        right:10px;
+
+        padding:5px 8px;
+
+        font-size:10px;
+    }
+
+}
+
+    .single-product {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-info {
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px; /* Adjust as needed */
+}
+
+.type-name {
+    min-height: 48px; /* Keeps all titles same height, even with 2 lines */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 0 5px;
+}
+
+.pro-price {
+    margin-top: 10px;
+}
+
+.product-to-cart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffcc00;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.btn-primary {
+    background-color: #294062;
+    color: white;
+}
+
+
+.btn-apply {
+    background-color: #294062;
+    color: white;
+    
+}
+
+
+
+.btn-reset {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.top-bar {
+    width: 100%;
+    height: 60px;
+    background: #f6e7e4;
+    border-top: 1px solid #e6d6d2;
+    border-bottom: 1px solid #e6d6d2;
+    position: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* ტექსტები ვერტიკალურად */
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 450;
+    color: #ef5b3a;
+    letter-spacing: .2px;
+    z-index: 9999;
+}
+
+.top-bar #countdown {
+    font-weight: 700;
+    margin: 0 4px;
+}
+
+header {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    z-index: 9998;
+}
+
+.line-1 {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+
+.line-2 {
+    font-size: 13px;
+}
+
+#line-1 #countdown,
+#countdown {
+    font-weight: 700;
+}
+
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1424236331274463');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+	</head>
+ <body id="body" class="tt-boxed tt-smooth-scroll tt-magic-cursor tt-transition">
+     
+   {% include 'includes/top_bar.html' %}
+   
+    <!-- Page transition and wrapper content -->
+    <div id="page-transition">
+      <div class="ptr-overlay"></div>
+      <div class="ptr-preloader">
+        <div class="ptr-prel-content">
+          <img src="{% static 'img/suprawhite.svg' %}" class="ptr-prel-image tt-logo-light" alt="Logo">
+        </div>
+      </div>
+    </div>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TDFFC3Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+		<!-- WRAPPER START -->
+
+
+			<header id="sticky-menu" class="header header-2">
+				<div class="header-area">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-4 offset-md-4 col-7">
+								<div class="logo text-md-center">
+									<a href="{% url 'home' %}"><img src="{% static 'newlogo.png' %}" alt="" /></a>
+								</div>
+							</div>
+							<div class="col-md-4 col-5">
+								<div class="mini-cart text-end">
+									<ul>
+										<li>
+										 <a class="cart-icon" href="#">
+                <i class="zmdi zmdi-search"></i>
+               
+                
+            </a>
+            <div class="mini-cart-brief text-left">
+    <div class="cart-items">
+        <form action="{% url 'search' %}">
+									<input type="text" placeholder="Search here..." / name="keyword">
+									<button type="submit">
+										<i class="zmdi zmdi-search"></i>
+									</button>
+								</form>
+    </div>
+        </li>
+            
+        <li>
+            <a class="cart-icon" href="#">
+                <i class="zmdi zmdi-shopping-cart"></i>
+
+            </a>
+            <div class="mini-cart-brief text-left">
+    <div class="cart-items">
+       
+    </div>
+
+    
+    <div class="all-cart-product clearfix">
+    {% include 'includes/mini_cart_items.html' %}
+</div>
+    <div class="cart-totals">
+        <h5 class="mb-0">Total : <span class="floatright">{{ grand_total }} ₾</span></h5>
+    </div>
+    <div class="cart-bottom clearfix">
+        <a href="{% url 'cart' %}" class="button-one floatleft text-uppercase" data-text="View cart">View cart</a>
+        <a href="{% url 'cart' %}" class="button-test floatright text-uppercase" data-text="Check out">Check out</a>
+    </div>
+</div>
+
+        </li>
+        <li>
+            <a class="cart-icon" href="{% url 'dashboard' %}">
+                <i class="zmdi zmdi-account-circle"></i>
+            </a>
+        </li>
+											
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				</div>
+				<!-- MAIN-MENU START -->
+				<div class="menu-toggle menu-toggle-2 hamburger hamburger--emphatic d-none d-md-block">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+				<div class="main-menu  d-none d-md-block">
+<nav>
+						<ul> 
+						    
+					
+						     		     
+						    {% for cat in banners %}
+						    
+						   	<li><a href="{% url 'products_on_sale_shop' %}" style="color:#a70505;">{{cat.Banner_name}}</a></li>
+						   	
+						   	{% endfor %}
+						   	
+						
+						    {% for cat in cats %}
+						    
+						   	<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+						   	
+						   	{% endfor %}
+						   		<li><a href="{% url 'login'%}">Login</a></li>
+							<li><a href="{% url 'contact'%}">Contact</a></li>
+								{% for cat in About_Us_dict %}
+											
+												<li><a href="{{cat.get_url}}">{{cat.name}}</a></li>
+                                                        {% endfor %}
+						   	
+						  
+						</ul>
+					</nav>   
+				</div>
+			</header>
+				<!-- MAIN-MENU START -->
+				<div class="menu-toggle menu-toggle-2 hamburger hamburger--emphatic d-none d-md-block">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+				<div class="main-menu  d-none d-md-block">
+<nav>
+						<ul> 
+						    
+						    
+						    
+						   
+						
+						
+						
+						    {% for cat in cats %}
+						    
+						   	<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+						   	
+						   	{% endfor %}
+						   	
+						   	 {% for cat in banners %}
+						    
+						   	<li><a href="{% url 'products_on_sale_shop' %}" style="color:#a70505; line-height:25px;">{{cat.Banner_name}}</a></li>
+						   	
+						   	{% endfor %}
+						   		<li><a href="{% url 'login'%}">{{SiteInfo.register}}</a></li>
+							<li><a href="{% url 'contact'%}">{{SiteInfo.contact_us}}</a></li>
+								{% for cat in About_Us_dict %}
+											
+												<li><a href="{{cat.get_url}}">{{cat.name}}</a></li>
+                                                        {% endfor %}
+						   	
+						</ul>
+					</nav>   
+				</div>
+				<!-- MAIN-MENU END -->
+			</header>
+			<!-- HEADER-AREA END -->
+			<!-- Mobile-menu start -->
+			<div class="mobile-menu-area">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 d-block d-md-none">
+							<div class="mobile-menu">
+								<nav id="dropdown">
+									<ul>
+									    
+								    	
+							
+									        
+									
+									{% for cat in cats %}
+        							<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+        							{% endfor %}
+									        
+									        
+									  		{% for cat in banners %}
+        							<li><a href="{% url 'products_on_sale_shop' %}" style="color:#a70505;">{{cat.Banner_name}}</a></li>
+        							{% endfor %}      
+									        
+									        
+									        
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="product-area pt-80 pb-80 product-style-2">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 order-2 order-lg-1">
+							<!-- Widget-Search start -->
+						
+							<!-- Widget-search end -->
+							<!-- Widget-Categories start -->
+							<aside class="widget widget-categories  mb-30">
+								<div class="widget-title">
+									<h1>{{SiteInfo.MainButton}}</h1>
+								</div>
+								<div id="cat-treeview"  class="widget-info product-cat boxscrol2">
+									<ul>
+									  
+						   
+							             
+							                    
+							                    
+							                    {% for cat in banners %}
+												<li><a href="{% url 'products_on_sale_shop' %}" style="color:#a70505;"><span>{{cat.Banner_name}}</a></li></span>
+												{% endfor %}
+							
+							                         {% for cat in cats %}
+												<li><a class="active" href="{{cat.get_url_cat}}"><span>{{cat.category_name}}</a></li></span>
+												{% endfor %}
+									</ul>
+								</div>
+							</aside>
+							<!-- Widget-categories end -->
+							<!-- Shop-Filter start -->
+					
+					<aside class="widget shop-filter mb-30">
+    <div class="widget-title">
+        <h4>{{SiteInfo.price}}</h4>
+    </div>
+    <div class="widget-info">
+        <div class="price_filter">
+            <form method="GET" action="" id="filter-form">
+                <div class="price_slider_amount">
+                    <input type="text" id="amount" name="price" readonly placeholder="Add Your Price" 
+                           value="{{ price_min }} - {{ price_max }}" />
+                </div>
+                <div id="slider-range"></div>
+
+                <!-- Hidden inputs to persist selected filters -->
+                <input type="hidden" name="price_min" id="price_min" value="{{ price_min }}">
+                <input type="hidden" name="price_max" id="price_max" value="{{ price_max }}">
+                <input type="hidden" name="keyword" value="{{ keyword }}">
+                <br>
+                <button type="submit" class="btn btn-apply">{{SiteInfo.filters}}</button>
+                <br>
+                <br>
+                <button type="button" class="btn btn-reset" id="reset-filters">{{SiteInfo.reset_filters}}</button>
+            </form>
+        </div>
+    </div>
+</aside>
+<!-- Color Filter -->
+<aside class="widget widget-color mb-30">
+    <div class="widget-title">
+        <h4>{{SiteInfo.colors}}</h4>
+    </div>
+    <div class="widget-info color-filter clearfix">
+        <ul>
+            {% for color in colors %}
+                <li>
+                    <a href="?{% if request.GET.keyword %}keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}{% if request.GET.size %}&size={{ request.GET.size }}{% endif %}&color={{ color.title }}"
+                       {% if color.title == color_filter %}class="active"{% endif %}>
+                        <span class="color" style="background-color: {{ color.color_code }};"></span>
+                        {{ color.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>
+
+<!-- Size Filter -->
+<aside class="widget widget-size mb-30">
+    <div class="widget-title">
+        <h4>{{SiteInfo.sizes}}</h4>
+    </div>
+    <div class="widget-info size-filter clearfix">
+        <ul>
+            {% for size in sizes %}
+                <li>
+                    <a href="?{% if request.GET.keyword %}keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}{% if request.GET.color %}&color={{ request.GET.color }}{% endif %}&size={{ size.title }}"
+                       {% if size.title == size_filter %}class="active"{% endif %}>
+                        {{ size.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>
+
+
+
+						</div>
+						<div class="col-lg-9 order-1 order-lg-2">
+							<!-- Shop-Content End -->
+							<div class="shop-content mt-tab-30 mb-30 mb-lg-0">
+							
+								<div class="tab-content">
+									<div class="tab-pane active" id="grid-view">
+										<div class="row">
+											{% for p in products %}
+<div class="col-lg-4 col-md-6 col-sm-6 col-6 px-0">
+<div class="single-product">
+
+    <div class="product-img">
+
+        {% if p.is_on_sale %}
+            <span class="pro-label new-label">
+                -{{ p.difference }} ₾
+            </span>
+        {% endif %}
+
+        {% if p.category.promotion %}
+<div class="gift-badge" aria-label="Buy one get one free">
+  <svg class="gift-badge__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="3" y="8" width="18" height="13" rx="1" fill="#fff"/>
+    <rect x="3" y="8" width="18" height="3" fill="#ffd9c4"/>
+    <rect x="11" y="8" width="2" height="13" fill="#E25822"/>
+    <path d="M8 8c0-2 1.5-3 3-3 .8 0 1 .5 1 1.5V8M16 8c0-2-1.5-3-3-3-.8 0-1 .5-1 1.5V8"
+          stroke="#fff" stroke-width="1.5" fill="none"/>
+  </svg>
+  <span>1+1</span>
+</div> 
+
+    {% elif p.is_new %}
+    <div class="gift-badge" aria-label="Buy one get one free">
+  <!--<svg class="gift-badge__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">-->
+  <!--  <rect x="3" y="8" width="18" height="13" rx="1" fill="#fff"/>-->
+  <!--  <rect x="3" y="8" width="18" height="3" fill="#ffd9c4"/>-->
+  <!--  <rect x="11" y="8" width="2" height="13" fill="#E25822"/>-->
+  <!--  <path d="M8 8c0-2 1.5-3 3-3 .8 0 1 .5 1 1.5V8M16 8c0-2-1.5-3-3-3-.8 0-1 .5-1 1.5V8"-->
+  <!--        stroke="#fff" stroke-width="1.5" fill="none"/>-->
+  <!--</svg>-->
+  <span>New</span>
+</div>
+
+        {% endif %}
+
+        <a href="{{p.get_url}}">
+            <img src="{{p.images.url}}" alt="{{p.Product_name}}" />
+        </a>
+
+    </div>
+
+    <div class="product-info clearfix text-center">
+
+        <h5 class="type-name text-secondary has-line-before hover:text-black capitalize">
+            <a href="{{p.get_url}}">
+                {{p.Product_name}}
+            </a>
+        </h5>
+
+        {% if p.is_on_sale %}
+
+            <del>
+                {{ p.price_display }} .
+            </del>
+
+            <br>
+
+            <span class="text-danger">
+
+                {% if p.min_discount and p.max_discount %}
+
+                    {% if p.min_discount == p.max_discount %}
+                        {{ p.min_discount }} ₾
+                    {% else %}
+                        {{ p.min_discount }} ₾ - {{ p.max_discount }} ₾
+                    {% endif %}
+
+                {% else %}
+
+                    {{ p.discount_price }} ₾
+
+                {% endif %}
+
+            </span>
+
+        {% else %}
+
+            {{ p.price_display }}
+
+        {% endif %}
+
+        <div class="product-action clearfix">
+
+            <a href="#"
+               data-bs-toggle="modal"
+               data-bs-target="#productModal-{{ p.id }}"
+               title="Quick View">
+
+                <i class="zmdi zmdi-zoom-in"></i>
+
+            </a>
+
+            <a href="{% url 'add_cart_new' p.id %}"
+               data-bs-toggle="tooltip"
+               data-placement="top"
+               title="Add To Cart">
+
+                <i class="zmdi zmdi-shopping-basket"></i>
+
+            </a>
+
+            <a href="{% url 'add_cart' p.id %}"
+               class="add-to-cart-cart"
+               data-bs-toggle="tooltip"
+               data-placement="top"
+               title="Add To Cart">
+
+                <i class="zmdi zmdi-shopping-cart-plus"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- Quickview Modal for this product -->
+    <div id="quickview-wrapper">
+        <div class="modal fade" id="productModal-{{p.id}}" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-product">
+                            <div class="product-images">
+                                <div class="main-image images">
+                                    <img alt="{{p.Product_name}}" src="{{p.images.url}}"/>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h5>{{p.Product_name}}</h5>
+                                <div class="price-box-3">
+                                    <hr />
+                                    <div class="s-price-box">
+                                        <span class="new-price">₾ {{p.get_price}}</span>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <a href="{{p.get_url}}" class="see-all">ნახე სრულად</a>
+                                <div class="quick-add-to-cart">
+                                    <form method="post" class="cart">
+                                        <div class="numbers-row">
+                                            <input type="number" id="french-hens" value="1" min="1">
+                                            <a href="{% url 'add_cart_new' p.id %}" type="submit" class="btn btn-primary">ყიდვა</a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="quick-desc">
+                                    Description
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+{% endfor %}
+											<!-- Single-product end -->
+
+											<!-- Single-product end -->
+										</div>
+									</div>
+						
+								</div>
+							<!-- Pagination start -->
+								<div class="shop-pagination text-center">
+									<div class="pagination">
+											{% if products.has_other_pages %}
+                                      <ul class="page-numbers">
+                                    		{% if products.has_previous %}
+                                        <li class="page-item"><a class="page-numbers" href="?page={{ products.previous_page_number }}">{% trans "Previous" %}</a></li>
+                                    		{% else %}
+                                    		<li class="page-item disabled"><a class="page-numbers" href="#">{% trans "Previous" %}</a></li>
+                                    		{% endif %}
+
+                                    		{% for i in products.paginator.page_range %}
+                                    		  {% if products.number == i %}
+                                        <li class="page-item active"><a class="page-numbers current" href="#">{{i}}</a></li>
+                                    		  {% else %}
+                                    		<li class="page-item"><a class="page-numbers" href="?page={{i}}">{{i}}</a></li>
+                                          {% endif %}
+                                    		{% endfor %}
+
+                                    		{% if products.has_next %}
+                                        <li class="page-item"><a class="page-numbers" href="?page={{ products.next_page_number }}">{% trans "Next" %}</a></li>
+                                    		{% else %}
+                                      <li class="page-item"><a class="page-numbers" href="#">{% trans "Next" %}</a></li>
+                                    		{% endif %}
+                                      </ul>
+                                    	{% endif %}
+								</div>
+								<!-- Pagination end -->
+							</div>
+									<div class="row">
+												<div class="col-md-12">
+													<div class="customer-login mt-30">
+														<h4 class="title-1 title-border text-uppercase"></h4>
+														<h4>{{categories.text_block}}</h4>
+														
+													</div>											
+												</div>
+											</div>
+							
+								<!-- Pagination end -->
+							</div>
+							<!-- Shop-Content End -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- PRODUCT-AREA END -->
+	{% include 'includes/hurstfooter.html' %}
+		
+	
+		<!-- all js here -->
+		<!-- jquery latest version -->
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<script>
+$(document).ready(function() {
+    $(".add-to-cart-cart").on("click", function(e) {
+        e.preventDefault();
+        
+        var product = $(this).closest('.single-product'); // Get the product container
+        var image = product.find("img"); // Get the product image
+        var cart = $(".cart-icon"); // Get the cart icon
+
+        // Clone the product image for animation
+        var imageClone = image.clone().addClass("product-to-cart");
+        $("body").append(imageClone);
+
+        // Get the cart icon position
+        var cartOffset = cart.offset();
+        
+        // Animate the cloned image to the cart icon position
+        imageClone.css({
+            top: image.offset().top,
+            left: image.offset().left,
+        }).animate({
+            top: cartOffset.top,
+            left: cartOffset.left,
+            width: 0,
+            height: 0
+        }, 1000, function() {
+            // After animation ends, remove the clone and update the cart count
+            imageClone.remove();
+            var currentCount = parseInt(cart.find('span').text());
+            cart.find('span').text(currentCount + 1);  // Increase cart count
+        });
+
+        // Now send the AJAX request to add the item to the cart
+        var url = $(this).attr("href");
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(response) {
+                // Update cart item count dynamically
+                $(".cart-icon span").text(response.cart_item_count);
+
+                // Update cart items HTML dynamically
+                $(".all-cart-product").html(response.cart_items_html);
+
+                // Update the grand total dynamically
+                // $(".cart-totals .floatright").text(response.grand_total + " ₾");
+            }
+        });
+    });
+});
+</script>
+
+
+
+<script>
+    $(function() {
+    var minPrice = {{ min_price }};
+    var maxPrice = {{ max_price }};
+
+    // Initialize the slider
+    $("#slider-range").slider({
+        range: true,
+        min: minPrice,
+        max: maxPrice,
+        values: [{{ price_min|default:min_price }}, {{ price_max|default:max_price }}],
+        slide: function(event, ui) {
+            $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+            $("#price_min").val(ui.values[0]);
+            $("#price_max").val(ui.values[1]);
+        }
+    });
+
+    $("#amount").val($("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1));
+
+    // Reset filter functionality
+    $("#reset-filters").click(function() {
+        // Reset slider
+        $("#slider-range").slider("values", [minPrice, maxPrice]);
+        $("#amount").val(minPrice + " - " + maxPrice);
+        $("#price_min").val("");
+        $("#price_max").val("");
+
+        // Clear other filters
+        $("input[name='keyword']").val("");
+        $("a.active").removeClass("active");
+
+        // Submit the form to reset filters
+        $("#filter-form")[0].reset();
+        window.location.href = window.location.pathname;  // Reload the page without filters
+    });
+});
+
+</script>
+<script>
+    // JavaScript to handle size filter selection
+    document.querySelectorAll('.size-item').forEach(item => {
+        item.addEventListener('click', function() {
+            let selectedSize = this.getAttribute('data-item');
+            let url = new URL(window.location.href);
+            url.searchParams.set('size', selectedSize);  // Add size to URL
+            window.location.href = url;  // Redirect to the updated URL
+        });
+    });
+</script>
+<script>
+$(document).ready(function () {
+
+    $(document).on("click", ".remove-cart-item", function (e) {
+
+        e.preventDefault();
+
+        let url = $(this).attr("href");
+
+        $.ajax({
+            url: url,
+            type: "GET",
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    // Update mini cart HTML
+                    $(".all-cart-product").html(response.cart_items_html);
+
+                    // Update cart total
+                    $(".cart-totals .floatright").text(
+                        response.grand_total + " ₾"
+                    );
+
+                    // Update cart count
+                    $(".cart-icon span").text(response.cart_count);
+                }
+            }
+        });
+    });
+
+});
+</script>
+
+
+<script>
+    const countdownElement = document.getElementById("countdown");
+
+const STORAGE_KEY = "maintenance_end_time";
+
+let endTime = localStorage.getItem(STORAGE_KEY);
+
+if (!endTime) {
+    endTime = Date.now() + (12 * 60 * 60 * 1000);
+    localStorage.setItem(STORAGE_KEY, endTime);
+}
+
+function updateCountdown() {
+    const distance = endTime - Date.now();
+
+    if (distance <= 0) {
+        countdownElement.textContent = "00:00:00";
+        localStorage.removeItem(STORAGE_KEY);
+        clearInterval(timer);
+        return;
+    }
+
+    const hours = Math.floor(distance / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownElement.textContent =
+        `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+updateCountdown();
+const timer = setInterval(updateCountdown, 1000);
+</script>
+
+
+    
+        <!--    <script src="{% static 'main.js' %}"></script>-->
+        <!--<script src="{% static 'shop.js' %}"></script>   -->
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		    <script src="{% static 'js/vendor/gsap.min.js' %}"></script> <!-- GSAP JS (https://greensock.com/gsap/) -->
+			<script src="{% static 'js/vendor/ScrollToPlugin.min.js' %}"></script> <!-- GSAP ScrollToPlugin JS (https://greensock.com/scrolltoplugin/) -->
+			<script src="{% static 'js/vendor/ScrollTrigger.min.js' %}"></script> <!-- GSAP ScrollTrigger JS (https://greensock.com/scrolltrigger/) -->
+			<script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
+			<script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
+			<!-- bootstrap js -->
+			<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+			<!-- jquery.meanmenu js -->
+			<script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+			<!-- slick.min js -->
+			<script src="{% static 'js/slick.min.js' %}"></script>
+			<!-- jquery.treeview js -->
+			<script src="{% static 'js/jquery.treeview.js' %}"></script>
+			<!-- lightbox.min js -->
+			<script src="{% static 'js/lightbox.min.js' %}"></script>
+			<!-- jquery-ui js -->
+			<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+			<!-- jquery.nivo.slider js -->
+			<script src="{% static 'lib/js/jquery.nivo.slider.js' %}"></script>
+			<script src="{% static 'lib/home.js' %}"></script>
+			<!-- jquery.nicescroll.min js -->
+			<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+			<!-- countdon.min js -->
+			<script src="{% static 'js/countdon.min.js' %}"></script>
+			<!-- wow js -->
+			<script src="{% static 'js/wow.min.js' %}"></script>
+			<!-- plugins js -->
+			<script src="{% static 'js/plugins.js' %}"></script>
+			<!-- main js -->
+			<script src="{% static 'js/main.min.js' %}"></script>
+			<script src="{% static 'js/new.js' %}"></script>
+		
+
+	</body>
+</html>

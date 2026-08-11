@@ -1,0 +1,73 @@
+{% load static %}
+{% load i18n %}
+
+<!-- FOOTER START -->
+			<footer>
+				<!-- Footer-area start -->
+				<div class="footer-area footer-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">{{SiteInfo.contact_us}}</h3>
+                                    <ul class="footer-contact">
+                                        <li><span>{{SiteInfo.addresstext}} </span>Nutsubidze Street #139,<br>Tbilisi Georgia</li>
+                                        <li><span>{{SiteInfo.user_phone}} </span>599377282</li>
+                                        <li><span>{{SiteInfo.emailtext}} </span>contact@oldsupra.ge</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">{{SiteInfo.pages}}</h3>
+                                    <ul class="footer-menu">
+                                         {% for p in About_Us_dict %}
+                                        <li><a href="{{p.get_url}}"><i class="zmdi zmdi-dot-circle"></i>{{p.name}}</a></li>
+                                        {% endfor %}
+                                        {% for p in page_links %}
+                                        <li><a href="{{p.get_url}}"><i class="zmdi zmdi-dot-circle"></i>{{p.page_name}}</a></li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">{{SiteInfo.MainButton}}</h3>
+                                    <ul class="footer-menu">
+                                        {% for cat in cats %}
+                                        <li><a href="{{cat.get_url_cat}}"><i class="zmdi zmdi-dot-circle"></i>{{cat.category_name}}</a></li>
+                                        {% endfor%}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<!-- Footer-area end -->
+				<!-- Copyright-area start -->
+				<div class="copyright-area copyright-2">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="copyright">
+									<p class="mb-0">&copy; <a href="#" target="_blank"></a> 2025. All Rights Reserved.</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="payment  text-md-end">
+									<!--<a href="#"><img src="img/payment/1.png" alt="" /></a>-->
+									<!--<a href="#"><img src="img/payment/2.png" alt="" /></a>-->
+									<!--<a href="#"><img src="img/payment/3.png" alt="" /></a>-->
+									<!--<a href="#"><img src="img/payment/4.png" alt="" /></a>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Copyright-area start -->
+			</footer>
+			<!-- FOOTER END -->

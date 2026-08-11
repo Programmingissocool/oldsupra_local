@@ -1,0 +1,39 @@
+{% extends "admin/edit_inline/tabular.html" %}
+
+{% block inline_field_sets %}
+  {% for inline_admin_formset in inline_admin_formsets %}
+    <fieldset class="module{% if inline_admin_formset.formset.model != OrderProduct %} collapsed{% endif %}">
+      <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
+      {% if inline_admin_formset.formset.model == OrderProduct %}
+        <table>
+          <thead>
+            <tr>
+              {% for fieldset in inline_admin_formset %}
+                {% for line in fieldset %}
+                  <th>
+                    {% if not line.formset.form.instance._state.adding %}
+                      {{ line.label_tag }}
+                    {% endif %}
+                  </th>
+                {% endfor %}
+              {% endfor %}
+              <th>Product Image</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for inline_admin_form in inline_admin_formset %}
+              <tr class="{% cycle 'row1' 'row2' %} form-row{% if inline_admin_form.original %}has_original{% endif %}{% if inline_admin_form.show_url %} has_original{% endif %}">
+                {% for line in inline_admin_form %}
+                  <td>{{ line }}</td>
+                {% endfor %}
+                <td>{{ inline_admin_form.original.product_image }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        {{ inline_admin_formset }}
+      {% endif %}
+    </fieldset>
+  {% endfor %}
+{% endblock %}

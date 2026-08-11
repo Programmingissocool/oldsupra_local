@@ -1,0 +1,43 @@
+{% for cart_item in cart_items_cart %}
+<div class="single-cart clearfix">
+
+    <div class="cart-photo">
+        <a href="{{cart_item.product.get_url}}">
+            <img src="{{ cart_item.product.images.url }}" alt="" />
+        </a>
+    </div>
+
+    <div class="cart-info">
+
+        <h5>
+            <a href="{{cart_item.product.get_url}}">
+                {{ cart_item.product.Product_name }}
+            </a>
+        </h5>
+
+        {% if cart_item.variations.exists %}
+            <p class="mb-0">
+                Price : {{ cart_item.variations.first.get_price }}
+            </p>
+        {% else %}
+            <p class="mb-0">
+                Price : {{ cart_item.product.get_price }}
+            </p>
+        {% endif %}
+
+        <p class="mb-0">
+            Qty : {{ cart_item.quantity }}
+        </p>
+
+        <span class="cart-delete">
+            <a href="{% url 'remove_cart_item_cart' cart_item.product.id cart_item.id %}"
+               class="remove-cart-item">
+
+                <i class="zmdi zmdi-close"></i>
+
+            </a>
+        </span>
+
+    </div>
+</div>
+{% endfor %}

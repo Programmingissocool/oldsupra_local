@@ -1,0 +1,53 @@
+# Production secrets and environment files
+.env
+.env.*
+!.env.example
+.secret_key
+*.pem
+*.key
+
+# Production data and runtime output
+*.sqlite3
+*.sqlite3-*
+*.log
+*.pid
+/media/
+/static/
+/staticfiles/
+/.gunicorn/
+
+# Production-only account and maintenance files
+.bash_logout
+.bashrc
+.profile
+.ftpquota
+.cloud-locale-test.skip
+rotate_admin_passwords.py
+
+# Separate application copied from the server, but not part of the Django site
+/oldsuprabot/
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated/export archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Local tooling and operating-system files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo

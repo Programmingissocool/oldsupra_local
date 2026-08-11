@@ -1,0 +1,29 @@
+{% extends 'hurstbase.html' %}
+
+
+{% block content %}
+
+
+
+	<div class="about-us-area  pt-80 pb-80">
+				<div class="container">	
+					<div class="about-us bg-white">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="about-photo">
+									<img src="{{About_Usfull.images.url}}" alt="" />
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="about-brief bg-dark-white">
+									<h4 class="title-1 title-border text-uppercase mb-30">{{About_Usfull.page_name}}</h4>
+									<p>{{About_Usfull.description|safe}}</p>
+								
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}

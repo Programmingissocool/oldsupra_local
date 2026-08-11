@@ -1,0 +1,17 @@
+{% for p in products %}
+<div class="col-lg-4 col-md-6 col-sm-6 col-6 px-0">
+    <div class="single-product">
+        <div class="product-img">
+            <a href="{{ p.get_url }}"><img src="{{ p.images.url }}" alt="" /></a>
+        </div>
+        <div class="product-info clearfix text-center">
+            <h5 class="type-name text-secondary"><a href="{{ p.get_url }}">{{ p.Product_name }}</a></h5>
+            {% if p.is_on_sale %}
+                <del>{{ p.price_display }}</del> <span class="text-danger">{{ p.discount_price }} ₾</span>
+            {% else %}
+                {{ p.price_display }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}

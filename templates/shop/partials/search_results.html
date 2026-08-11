@@ -1,0 +1,23 @@
+<ul class="search-results-list">
+  {% if products %}
+    {% for product in products %}
+      <li>
+        <a href="{{ product.get_url }}">
+          {{ product.Product_name }} — {{ product.get_price }}₾
+        </a>
+      </li>
+    {% endfor %}
+  {% else %}
+    <li class="no-results">პროდუქტი ვერ მოიძებნaა.</li>
+    {% if suggestions %}
+      <li class="suggestions-header">მსგავსი:</li>
+      {% for s in suggestions %}
+        <li class="suggestion-item">
+          <a href="{{ s.get_url }}">
+            {{ s.Product_name }} — {{ s.get_price }}₾
+          </a>
+        </li>
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+</ul>

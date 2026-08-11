@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load i18n %}
+
+
+<html lang="en">
+	<head>
+
+
+
+		<!-- Meta -->
+		<meta charset="utf-8">
+        <title>ქართული სუფრა | შეიძინე ონლაინ | Old Supra"></title>
+		<meta name="description" content="ქართული კულტურით შთაგონებული სახლის დეკორი და პირადი აქსესუარები">
+		<meta name="author" content="oldsupra.ge">
+
+		<!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-TDFFC3Z');</script>
+            <!-- End Google Tag Manager -->
+
+
+
+		<!-- Mobile Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Favicon (http://www.favicon-generator.org/) -->
+		<link rel="shortcut icon" href="{% static 'Logosupra.png' %}" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+		<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+		<!-- Your Google Analytics code goes here -->
+
+		<!-- Google fonts (https://www.google.com/fonts) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"> <!-- Body font -->
+		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"> <!-- Secondary/Alter font -->
+
+		<!-- Libs and Plugins CSS -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/normalize/normalize.min.css'%}"> <!-- Normalize CSS (https://necolas.github.io/normalize.css/) -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/fontawesome/css/fontawesome-all.min.css'%}"> <!-- Font Icons CSS (https://fontawesome.com) Free version! -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/swiper/css/swiper-bundle.min.css'%}"> <!-- Swiper CSS (https://swiperjs.com/) -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/lightgallery/css/lightgallery.min.css'%}"> <!-- lightGallery CSS (http://sachinchoolur.github.io/lightGallery) -->
+		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font@2.2.0/dist/css/material-design-iconic-font.min.css">
+
+
+		<!-- Template master CSS -->
+		<link rel="stylesheet" href="{% static 'assets/css/helper.css'%}">
+		<link id="tt-themecss" rel="stylesheet" href="{% static 'assets/css/theme.css'%}">
+		<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1424236331274463');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+/* Search container */
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Search icon */
+.search-icon {
+    font-size: 22px;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 6px;
+}
+
+.search-icon:hover {
+    color: #bbbbbb;
+}
+
+/* Hidden input field initially */
+.search-input-wrapper {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+    transition: width 0.4s ease, opacity 0.3s ease;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.search-container.active .search-input-wrapper {
+    opacity: 1;
+    width: 200px;
+}
+
+.search-input-wrapper input {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.search-input-wrapper input:focus {
+    outline: none;
+    background-color: rgba(255,255,255,0.3);
+}
+
+.search-results-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    max-width: 280px;
+    max-height: 300px;
+    color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow-y: auto;
+    z-index: 9999;
+}
+
+.search-results-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.search-results-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+.search-results-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.search-results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.search-results-list li {
+    border-bottom: 1px solid #f0f0f0;
+}
+.search-results-list li:last-child {
+    border-bottom: none;
+}
+.search-results-list li a {
+    display: block;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.search-results-list li a:hover {
+    background: #f8f8f8;
+    color: #bbbbbb;
+}
+.search-results-list li.no-results {
+    padding: 10px 12px;
+    color: #888888;
+    cursor: default;
+    border-bottom: none;
+}
+.search-results-list .suggestions-header {
+    padding: 8px 12px;
+    font-style: italic;
+    color: #555;
+}
+.search-results-list .suggestion-item a {
+    padding-left: 16px;
+    display: block;
+    color: #007bff;
+    transition: background 0.2s;
+}
+.search-results-list .suggestion-item a:hover {
+    background: #f0f8ff;
+    text-decoration: none;
+}
+
+
+
+@media (max-width: 767px) {
+
+.ph-caption-title {
+	position: relative;
+	margin: 0;
+	font-size: clamp(38px, 5vw, 82px);
+	font-weight: bold;
+	font-weight: 600;
+	color: #FFF;
+	line-height: 1.2;
+	z-index: 9;
+	width: 170px;
+	word-wrap: break-word;
+}
+}
+</style>
+</head>
+
+	
+
+	<body id="body" class="tt-transition tt-boxed tt-smooth-scroll tt-magic-cursor">
+	    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TDFFC3Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+		<!-- *************************************
+		*********** Begin body inner ************* 
+		************************************** -->
+		<main id="body-inner">
+
+			<!-- Begin page transition (do not remove!!!) 
+			=========================== -->
+			<div id="page-transition">
+				<div class="ptr-overlay"></div>
+				<div class="ptr-preloader">
+					<div class="ptr-prel-content">
+						<!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+						<img src="{% static 'assets/img/suprawhite.svg' %}" class="ptr-prel-image tt-logo-light" fetchpriority="high" alt="OldSupra">
+						
+					</div> <!-- /.ptr-prel-content -->
+				</div> <!-- /.ptr-preloader -->
+			</div>
+			<!-- End page transition -->
+
+			<!-- Begin magic cursor 
+			======================== -->
+			
+			<div id="magic-cursor">
+				<div id="ball"></div>
+			</div>
+	
+	
+
+
+			<!-- *****************************************
+			*********** Begin scroll container *********** 
+			****************************************** -->
+			<div id="scroll-container"> 
+				
+				<!-- ===================
+				///// Begin header /////
+				========================
+				* Use class "tt-header-fixed" to set header to fixed position.
+				-->
+				<header id="tt-header" class="tt-header-fixed">
+					<div class="tt-header-inner"> 
+
+						<div class="tt-header-col">
+
+							<!-- Begin logo 
+							================ -->
+							<div class="tt-logo"> 
+								<a href="{% url 'home' %}">
+									<!-- Hint: You may need to change the img height to match your logo type. You can do this from the "theme.css" file (find: ".tt-logo img"). -->
+									<img src="{% static 'assets/img/suprawhite.svg' %}" class="tt-logo-light magnetic-item" alt="Logo"> <!-- logo light -->
+									<img src="{% static 'assets/img/suprawhite.svg' %}" class="tt-logo-dark magnetic-item" alt="Logo"> <!-- logo dark -->
+								</a>
+							</div>
+							<!-- End logo -->
+
+						</div> <!-- /.tt-header-col -->
+
+						<div class="tt-header-col">
+                            							<div id="tt-ol-menu-toggle-btn-wrap">
+					           
+							       <div id="searchContainer" class="search-container">
+  <a class="cart-icon" href="#">
+    <i class="zmdi zmdi-search search-icon" id="searchIcon"></i>
+  </a>
+
+  <div class="search-input-wrapper" style:"color:#fff">
+    <form action="{% url 'search' %}" class="search" autocomplete="off">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="ძებნა.."
+        name="keyword"
+      >
+      <div id="search-results" class="search-results-dropdown"></div>
+    </form>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const searchContainer = document.getElementById('searchContainer');
+  const searchIcon = document.getElementById('searchIcon');
+  const searchInput = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  let timer;
+
+  // Toggle input visibility on icon click
+  searchIcon.addEventListener('click', function () {
+    searchContainer.classList.toggle('active');
+    if (searchContainer.classList.contains('active')) {
+      setTimeout(() => searchInput.focus(), 100);
+    } else {
+      results.innerHTML = '';
+    }
+  });
+
+  // AJAX search
+  searchInput.addEventListener('input', function () {
+    const q = this.value.trim();
+    clearTimeout(timer);
+
+    if (q.length < 2) {
+      results.innerHTML = '';
+      return;
+    }
+
+    timer = setTimeout(() => {
+      fetch(`{% url 'ajax_search' %}?keyword=${encodeURIComponent(q)}`)
+        .then(resp => resp.json())
+        .then(data => {
+          results.innerHTML = data.html;
+        })
+        .catch(err => {
+          console.error('AJAX search error:', err);
+        });
+    }, 300);
+  });
+
+  // Hide dropdown on outside click
+  document.addEventListener('click', function (e) {
+    if (!searchContainer.contains(e.target)) {
+      searchContainer.classList.remove('active');
+      results.innerHTML = '';
+    }
+  });
+});
+</script>
+
+					 
+							
+							<div id="tt-ol-menu-toggle-btn-wrap">
+								<div class="tt-ol-menu-toggle-btn-text-wrap hide-cursor">
+									<div class="tt-ol-menu-toggle-btn-text">
+										
+									</div> <!-- /.tt-ol-menu-toggle-btn-text -->
+								</div> <!-- /.tt-ol-menu-toggle-btn-text-wrap -->
+								<div class="tt-ol-menu-toggle-btn-holder">
+								    
+									<a href="#" class="tt-ol-menu-toggle-btn magnetic-item"><span></span></a>
+								</div>
+							<!-- /.tt-ol-menu-toggle-btn-holder -->
+							</div>
+							<div id="tt-ol-menu-toggle-btn-wrap">
+								<div class="tt-ol-menu-toggle-btn-text-wrap hide-cursor">
+									<div class="tt-ol-menu-toggle-btn-text">
+										
+									</div> <!-- /.tt-ol-menu-toggle-btn-text -->
+								</div> <!-- /.tt-ol-menu-toggle-btn-text-wrap -->
+							{% load i18n %}
+<div class="tt-ol-menu-toggle-btn-holder">
+    
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == "en" %}
+        <a href="{% url 'set_language' 'ka' %}" class="tt-ol-menu-toggle-btn magnetic-item">GEO</a>
+    {% else %}
+        <a href="{% url 'set_language' 'en' %}" class="tt-ol-menu-toggle-btn magnetic-item">ENG</a>
+    {% endif %}
+
+</div>
+<div class="tt-ol-menu-toggle-btn-holder account-icon">
+    <a href="{% url 'login' %}" class="tt-ol-menu-toggle-btn magnetic-item" title="Login">
+        <i class="zmdi zmdi-account"></i>
+    </a>
+</div>
+
+       
+							</div>
+							
+
+
+							<nav class="tt-overlay-menu tt-ol-menu-count">
+								<div class="tt-ol-menu-ghost"></div>
+								<div class="tt-ol-menu-holder">
+									<div class="tt-ol-menu-inner tt-wrap">
+										<div class="tt-ol-menu-content">
+
+											<!-- Begin menu list -->
+											<ul class="tt-ol-menu-list">
+											    
+											        	{% for cat in banners2 %}
+												<li class="tt-ol-submenu-wrap"><a href="https://oldsupra.ge/shop/sale/">{{cat.Banner_name}}</a></li>
+                                                        {% endfor %}
+											    
+											    
+                                                    	{% for cat in categories %}
+												<li class="tt-ol-submenu-wrap"><a href="{{cat.get_url}}">{{cat.category_name}}</a></li>
+                                                        {% endfor %}
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+												
+												<!-- End submenu (sub-master) -->
+
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+												
+												<!-- End submenu (sub-master) -->
+
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+													<li class="tt-ol-submenu-wrap">
+													<div class="tt-ol-submenu-trigger">
+														<a href="{% url 'login' %}">Login</a>
+													
+													</div> <!-- /.tt-ol-submenu-trigger -->
+													<div class="tt-ol-submenu">
+														<ul class="tt-ol-submenu-list">
+
+														
+
+														</ul> <!-- /.tt-ol-submenu-list -->
+													</div> <!-- /.tt-ol-submenu -->
+												</li>
+												
+												
+										
+												<!-- End submenu (sub-master) -->
+
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+												<li class="tt-ol-submenu-wrap">
+													<div class="tt-ol-submenu-trigger">
+														<a href="{% url 'contact' %}">Contact</a>
+													
+													</div> <!-- /.tt-ol-submenu-trigger -->
+													<div class="tt-ol-submenu">
+														<ul class="tt-ol-submenu-list">
+
+														
+
+														</ul> <!-- /.tt-ol-submenu-list -->
+													</div> <!-- /.tt-ol-submenu -->
+												</li>
+												
+                                                    	{% for cat in About_Us_dict %}
+												<li class="tt-ol-submenu-wrap"><a href="{{cat.get_url}}">{{cat.name}}</a></li>
+                                                        {% endfor %}
+												<!-- End submenu (sub-master) -->
+
+											</ul>
+								
+
+										</div> <!-- /.tt-ol-menu-content -->
+									</div> <!-- /.tt-ol-menu-inner -->
+								</div> <!-- /.tt-ol-menu-holder -->
+							</nav> 
+							<!-- End overlay menu -->
+
+						</div> <!-- /.header-col -->
+					</div> <!-- /.header-inner -->
+				</header>
+
+				<div id="content-wrap">
+		            <div id="page-header" class="ph-full ph-cap-lg ph-ghost-scroll ph-image-cropped ph-image-cover-2 ph-content-parallax" style:"color:#f3f3f3">
+						<div class="page-header-inner tt-wrap">
+
+							<!-- Begin page header image 
+							============================= -->
+							<div class="ph-image">
+								<div class="ph-image-inner">
+									<img src="{{About_Usfull.images.url}}" alt="Image">
+								</div>
+							</div>
+							<!-- End page header image -->
+
+							<!-- Begin page header caption
+							=============================== 
+							Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
+							-->
+			
+                        <div class="ph-caption max-width-1000">
+								
+
+								<h3 class="ph-caption-title">
+									<div class="ph-appear">{{About_Usfull.title}}</div> <!-- You can use <br> to break a text line if needed -->
+								</h3>
+
+							</div>
+	
+							</div>
+							<!-- End page header caption -->
+
+						</div> <!-- /.page-header-inner -->
+
+						<!-- Begin scroll down (you can change "data-offset" to set scroll top offset) 
+						======================= -->
+						<div class="tt-scroll-down">
+							<a href="#page-content" class="tt-sd-inner ph-appear" data-offset="0">
+								<div class="tt-sd-arrow">
+									<div class="tt-sd-arrow-inner"></div>
+								</div>
+								<div class="tt-sd-text">Scroll</div>
+							</a>
+						</div>
+						<!-- End scroll down -->
+
+					</div>
+
+				
+					<!-- *************************************
+					*********** Begin page content *********** 
+					************************************** -->
+					<div id="page-content">
+
+
+						<!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+						<div class="tt-section">
+							<div class="tt-section-inner tt-wrap">
+
+								<div class="tt-row">
+									<div class="tt-col-lg-9">
+
+										<div class="text-xlg anim-fadeinup">
+
+											<!-- Begin tt-Heading 
+											====================== 
+											* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+											* Use class "tt-heading-stroke" to enable stroke style.
+											* Use class "tt-heading-center" to align tt-Heading to center.
+											* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+											-->
+											<div class="tt-heading tt-heading-lg margin-bottom-60">
+												<!-- <h3 class="tt-heading-subtitle">Subtitle</h3> -->
+												<h2 class="tt-heading-title">{{About_Usfull.page_name}}</h2> <!-- You can use <br> to break a text line if needed -->
+											</div>
+											<!-- End tt-Heading -->
+                                            	<div class="anim-fadeinup">
+											<h5>{{About_Usfull.description|safe}}</h5>
+									
+
+									</div> <!-- /.tt-col -->
+
+									<div class="tt-col-lg-3">
+									</div> <!-- /.tt-col -->
+								</div> <!-- /.tt-row -->
+
+							</div> <!-- /.tt-section-inner -->
+						</div>
+						<!-- End tt-section -->
+
+
+
+
+						<!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+
+
+
+
+					</div>
+					<!-- End page content -->
+					
+
+
+                        <!-- Begin portfolio hover carousel counter 
+                        ============================================ 
+                        * IMPORTANT: Make sure the items match the slides (data-slide="*") in the "tt-portfolio-hover-carousel" above!!!
+                        -->
+                        
+                        <!-- End portfolio hover carousel navigation -->
+
+                </div>
+                
+                
+                						<div class="tt-section">
+							<div class="tt-section-inner">
+
+								<!-- =============================
+								///// Begin content carousel /////
+								==================================
+								* Use class "cc-shifted" to enable shifted style (no effect on small screens!).
+								* Use class "cursor-drag" to enable cursor drag on carousel hover ("data-simulate-touch" attribute must be enabled!).
+								* Use class "cc-scale-down" to enable scale down animation on carousel click.
+								* Use class "cc-pagination-outside" to bring pagination outside.
+								* Use class "cc-hide-pagination" to hide pagination (for desktop only!).
+								* Use class "cc-hide-navigation" to hide navigation arrows.
+								* Available data attributes:
+										data-speed="900"......................(milliseconds)
+										data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+										data-simulate-touch="true"............(true/false)
+										data-loop="true"......................(true/false)
+										data-pagination-type="bullets"........(bullets/fraction/progressbar)
+								-->
+								<div class="tt-content-carousel cursor-drag cc-scale-down cc-hide-pagination cc-pagination-outside cc-hide-navigation" data-loop="true" data-simulate-touch="true" data-speed="900">
+
+									<!-- Begin swiper container -->
+									<div class="swiper">
+
+										<!-- Begin swiper wrapper (required) -->
+										<div class="swiper-wrapper">
+
+											<!-- Begin swiper slide 
+											======================== -->
+										{% for img in gallery_images %}
+<div class="swiper-slide">
+    <div class="tt-content-carousel-item">
+        <figure>
+            <img class="tt-cc-image swiper-lazy"
+                 src="{{ img.image.url }}"
+                 data-src="{{ img.image.url }}"
+                 alt="{{ About_Usfull.name }}">
+        </figure>
+    </div>
+</div>
+{% endfor %}
+											<!-- End swiper slide -->
+
+											<!-- Begin swiper slide 
+											======================== -->
+										
+											<!-- End swiper slide -->
+
+										</div>
+										<!-- End swiper wrapper -->
+
+									</div>
+									<!-- End swiper container -->
+
+
+									<!-- Begin content carousel navigation (arrows) 
+									=================================================== -->
+									<div class="tt-cc-nav-prev">
+										<div class="tt-cc-nav-arrow magnetic-item"><i class="tt-arrow-left"></i></div>
+									</div>
+									<div class="tt-cc-nav-next">
+										<div class="tt-cc-nav-arrow magnetic-item"><i class="tt-arrow-right"></i></div>
+									</div>
+									<!-- End content carousel navigation -->
+
+									<!-- Content carousel pagination -->
+									<div class="tt-cc-pagination hide-cursor"></div>
+
+								</div>
+								<!-- End content carousel -->
+
+							</div> <!-- /.tt-section-inner -->
+						</div>
+
+
+					<!-- *************************************
+					*********** Begin page content *********** 
+					************************************** -->
+					
+
+					<!-- ======================
+					///// Begin tt-footer /////
+					=========================== -->
+				
+					<!-- End tt-footer -->
+
+
+				</div>
+				<!-- End content wrap -->
+
+			</div>
+			<!-- End scroll container -->
+
+		</main>
+		<!-- End body inner -->
+
+
+        
+
+		<!-- ====================
+		///// Scripts below /////
+		===================== -->
+		<!-- Core JS -->
+		<script src="{% static 'assets/vendor/jquery/jquery.min.js'%}"></script> <!-- jquery JS (https://jquery.com) -->
+
+		<!-- Libs and Plugins JS -->
+		<script src="{% static 'assets/vendor/gsap/gsap.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/gsap/ScrollToPlugin.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/gsap/ScrollTrigger.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/smooth-scrollbar.js'%}"></script> 
+		<script src="{% static 'assets/vendor/swiper/js/swiper-bundle.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/isotope/imagesloaded.pkgd.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/isotope/isotope.pkgd.min.js'%}"></script>
+		<script src="{% static 'assets/vendor/isotope/packery-mode.pkgd.min.js'%}"></script> <!-- Isotope Packery Mode JS (https://isotope.metafizzy.co/layout-modes/packery.html) -->
+		<script src="{% static 'assets/vendor/lightgallery/js/lightgallery-all.min.js'%}"></script> <!-- lightGallery Plugins JS (http://sachinchoolur.github.io/lightGallery) -->
+		<script src="{% static 'assets/vendor/jquery.mousewheel.min.js'%}"></script> <!-- A jQuery plugin that adds cross browser mouse wheel support (https://github.com/jquery/jquery-mousewheel) -->
+
+		<!-- Template master JS -->
+		<script src="{% static 'assets/js/theme.js'%}"></script>
+
+
+
+	</body>
+
+</html>

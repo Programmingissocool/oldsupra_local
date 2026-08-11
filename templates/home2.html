@@ -1,0 +1,505 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+{% load i18n %}
+    <!-- slider area start -->
+
+    <div class="slider-area mt-30">
+        <div class="container-fluid">
+            <div class="hero-slider-active slick-dot-style slider-arrow-style">
+							{% for b in banners %}
+                <div class="single-slider slider3 d-flex align-items-center" style="background-image: url({{b.images.url}});">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-8">
+                                <div class="slider-text">
+                                    <h1>{{b.description.html|safe}}</h1>
+                                    <p>black friday mega sale</p>
+                                    <a class="btn-1 home-btn" href="#">shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+									{% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- slider area end -->
+
+    <!-- home banner statics area -->
+    <!-- <div class="banner-statics pt-30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img1-top-sinrato3.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img2-top-sinrato3.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img3-top-sinrato3.jpg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- home banner statics end -->
+
+    <!-- product wrapper area start -->
+
+
+    <!-- home banner statics area -->
+
+    <!-- home banner statics end -->
+
+    <!-- product wrapper area start -->
+
+    <!-- feature area start -->
+    <div class="feature-style-one pt-40 pb-55">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="feature-inner fix">
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper1.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>free shipping</h4>
+                                    <p>free shipping on all us order</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper2.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Support 24/7</h4>
+                                    <p>Contact us 24 hours a day</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper3.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>100% Money Back</h4>
+                                    <p>You have 30 days to Return</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper4.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>90 Days Return</h4>
+                                    <p>If goods have problems</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper5.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Payment Secure</h4>
+                                    <p>We ensure secure payment</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- feature area end -->
+
+		<!-- home3 product module six start -->
+    <div class="home-module-six pb-40">
+        <div class="container-fluid">
+            <div class="section-title flash-title">
+                <h3><span>Fire Alarm</span> System</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-6 offset-3 offset-md-0">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img-module3.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-9">
+                    <div class="pro-module-four-active4 owl-carousel owl-arrow-style">
+											{% for p in product %}
+                        <div class="single-module-home4">
+
+                            <div class="product-module-four-item mb-30">
+                                <div class="product-module-caption">
+                                    <div class="manufacture-com">
+                                        <p><a href="{{p.get_url}}">{{p.Product_name}}</a></p>
+                                    </div>
+                                    <div class="product-module-name">
+                                        <h4><a href="{{p.get_url}}">{{p.test | safe}}</a></h4>
+                                    </div>
+                                    <div class="ratings">
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                    </div>
+                                    <div class="price-box-module">
+                                        <span class="regular-price"><span class="special-price">£30.00</span></span>
+                                        <span class="old-price"><del>£450.00</del></span>
+                                    </div>
+                                </div>
+                                <div class="product-module-thumb thumb4">
+                                    <a href="{{p.get_url}}">
+                                        <img src="{{p.images.url}}" alt="">
+                                    </a>
+                                    <div class="box-label">
+                                        <div class="label-product label_sale">
+                                            <span>-10%</span>
+                                        </div>
+                                    </div>
+                                    <div class="action-links">
+                                        <a href="#" title="Wishlist"><i class="lnr lnr-heart"></i></a>
+                                        <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>
+                                        <a href="#" title="Quick view" data-bs-target="#quickk_view" data-bs-toggle="modal"><i class="lnr lnr-magnifier"></i></a>
+                                    </div>
+                                </div>
+                            </div> <!-- end single item -->
+
+
+                        </div>
+												{% endfor %}
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- home3 product module six end -->
+
+    <!-- home3 product module six start -->
+    <div class="home-module-six pb-40">
+        <div class="container-fluid">
+            <div class="section-title flash-title">
+                <h3><span>Audio </span>Systems</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-6 offset-3 offset-md-0">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img-module3.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-9">
+                    <div class="pro-module-four-active4 owl-carousel owl-arrow-style">
+											{% for p in product %}
+                        <div class="single-module-home4">
+
+                            <div class="product-module-four-item mb-30">
+                                <div class="product-module-caption">
+                                    <div class="manufacture-com">
+                                        <p><a href="{{p.get_url}}">{{p.Product_name}}</a></p>
+                                    </div>
+                                    <div class="product-module-name">
+                                        <h4><a href="{{p.get_url}}">Beats EP Wired Headphone-Black</a></h4>
+                                        <a href="#" title="Quick view" data-bs-target="#quickk_view" data-bs-toggle="modal"><i class="lnr lnr-magnifier"></i></a>
+                                    </div>
+
+
+
+                                    <div class="ratings">
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                    </div>
+                                    <div class="action-links">
+                                        <a href="#" title="Wishlist"><i class="lnr lnr-heart"></i></a>
+                                        <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>
+                                        <a href="#" title="Quick view" data-bs-target="#quickk_view" data-bs-toggle="modal"><i class="lnr lnr-magnifier"></i></a>
+                                    </div>
+                                    <div class="price-box-module">
+                                        <span class="regular-price"><span class="special-price">£30.00</span></span>
+                                        <span class="old-price"><del>£450.00</del></span>
+                                    </div>
+                                </div>
+                                <div class="product-module-thumb thumb4">
+                                    <a href="{{p.get_url}}">
+                                        <img src="{{p.images.url}}" alt="">
+                                    </a>
+                                    <div class="box-label">
+                                        <div class="label-product label_sale">
+                                            <span>-10%</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> <!-- end single item -->
+
+
+                        </div>
+												{% endfor %}
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- home3 product module six end -->
+
+    <!-- home banner statics area -->
+    <div class="banner-statics">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="{% static 'assets/img/banner/img1-middle-sinrato1.jpg' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="{% static 'assets/img/banner/img2-middle-sinrato1.jpg' %}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- home banner statics end -->
+
+		    <div class="latest-blogg-area mb-40">
+		        <div class="container-fluid">
+		            <div class="section-title">
+		                <h3><span>All </span> Projects</h3>
+										<h5><a href="{% url 'All_Projects' %}">Click here </span>for full Catalog</a></h5>
+		            </div>
+		            <div class="latest-blog-active4 owl-carousel owl-arrow-style">
+									{% for project in all_projects %}
+		                <div class="single-blogg-item">
+		                    <div class="blogg-thumb">
+		                        <a href="blog-details.html">
+		                            <img src="{{project.images.url}}" alt="">
+		                        </a>
+		                    </div>
+		                    <div class="blogg-content">
+		                        <span class="post-date">25 mar 2019</span>
+		                        <h5><a href="{{project.get_url}}">{{project.Project_name}}</a></h5>
+		                        <p>{{project.Description | safe}}</p>
+		                    </div>
+		                </div> <!--  end blog single item -->
+		                {% endfor %}
+		            </div>
+		        </div>
+		    </div> <!--  end latest blog -->
+
+
+    <!-- brand sale area start -->
+		<!-- brand area start -->
+    <div class="brand-area-home2 pt-30 pb-70">
+        <div class="container-fluid">
+					<div class="section-title">
+							<h3><span>Our </span> Brands</h3>
+					</div>
+            <div class="brand2-slider-wrapper">
+                <div class="brand2-slider-active">
+									{% for brand in brands %}
+                    <div class="single-brand-logo">
+                        <a href="{{brand.url}}" target="_blank"><img src="{{brand.images.url}}" alt=""></a>
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- brand area end -->
+
+    <!-- scroll to top -->
+    <div class="scroll-top not-visible">
+        <i class="fa fa-angle-up"></i>
+    </div> <!-- /End Scroll to Top -->
+
+
+
+    <!-- Quick view modal start -->
+    <div class="modal fade" id="quickk_view">
+        <div class="container">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="product-large-slider mb-20">
+                                    <div class="pro-large-img">
+                                        <img src="assets/img/product/product-4.jpg" alt=""/>
+                                    </div>
+                                    <div class="pro-large-img">
+                                        <img src="assets/img/product/product-5.jpg" alt=""/>
+                                    </div>
+                                    <div class="pro-large-img">
+                                        <img src="assets/img/product/product-6.jpg" alt=""/>
+                                    </div>
+                                    <div class="pro-large-img">
+                                        <img src="assets/img/product/product-7.jpg" alt=""/>
+                                    </div>
+                                    <div class="pro-large-img">
+                                        <img src="assets/img/product/product-8.jpg" alt=""/>
+                                    </div>
+                                    <div class="pro-large-img">
+                                        <img src="assets/img/product/product-9.jpg" alt=""/>
+                                    </div>
+                                </div>
+                                <div class="pro-nav">
+                                    <div class="pro-nav-thumb"><img src="assets/img/product/product-4.jpg" alt="" /></div>
+                                    <div class="pro-nav-thumb"><img src="assets/img/product/product-5.jpg" alt="" /></div>
+                                    <div class="pro-nav-thumb"><img src="assets/img/product/product-6.jpg" alt="" /></div>
+                                    <div class="pro-nav-thumb"><img src="assets/img/product/product-7.jpg" alt="" /></div>
+                                    <div class="pro-nav-thumb"><img src="assets/img/product/product-8.jpg" alt="" /></div>
+                                    <div class="pro-nav-thumb"><img src="assets/img/product/product-9.jpg" alt="" /></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="product-details-inner">
+                                    <div class="product-details-contentt">
+                                        <div class="pro-details-name mb-10">
+                                            <h3>Bose SoundLink Bluetooth Speaker</h3>
+                                        </div>
+                                        <div class="pro-details-review mb-20">
+                                            <ul>
+                                                <li>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                </li>
+                                                <li><a href="#">1 Reviews</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box mb-15">
+                                            <span class="regular-price"><span class="special-price">£50.00</span></span>
+                                            <span class="old-price"><del>£60.00</del></span>
+                                        </div>
+                                        <div class="product-detail-sort-des pb-20">
+                                            <p>Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while we're not typically too concerned</p>
+                                        </div>
+                                        <div class="pro-details-list pt-20">
+                                            <ul>
+                                                <li><span>Availability :</span>In Stock</li>
+                                            </ul>
+                                        </div>
+                                        <div class="product-availabily-option mt-15 mb-15">
+                                            <h3>Available Options</h3>
+                                            <div class="color-optionn">
+                                                <h4><sup>*</sup>color</h4>
+                                                <ul>
+                                                    <li>
+                                                        <a class="c-black" href="#" title="Black"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="c-blue" href="#" title="Blue"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="c-brown" href="#" title="Brown"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="c-gray" href="#" title="Gray"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="c-red" href="#" title="Red"></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="pro-quantity-box mb-30">
+                                            <div class="qty-boxx">
+                                                <label>qty :</label>
+                                                <input type="text" placeholder="0">
+                                                <button class="btn-cart lg-btn">add to cart</button>
+                                            </div>
+                                        </div>
+                                        <div class="pro-social-sharing">
+                                            <label>share :</label>
+                                            <ul>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="bg-facebook" title="Facebook">
+                                                        <i class="fa fa-facebook"></i>
+                                                        <span>like 0</span>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="bg-twitter" title="Twitter">
+                                                        <i class="fa fa-twitter"></i>
+                                                        <span>tweet</span>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="bg-google" title="Google Plus">
+                                                        <i class="fa fa-google-plus"></i>
+                                                        <span>google +</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quick view modal end -->
+
+    <script>
+      $(document).ready(function() {
+          $('.quick-view-btn').click(function() {
+              var productId = $(this).data('product-id');
+              var modalId = '#quick-view-modal-' + productId;
+
+              // Fetch the product details using AJAX or populate from existing data
+              // Update the content of the modal based on the product details
+
+              // For example, using AJAX:
+              $.ajax({
+                  url: '/get_product_details/' + productId + '/', // URL to fetch product details
+                  method: 'GET',
+                  success: function(data) {
+                      $(modalId + ' .modal-content').html(data); // Update modal content
+                  }
+              });
+          });
+      });
+  </script>
+</body>
+</html>
+
+{% endblock %}

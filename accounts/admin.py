@@ -1,0 +1,32 @@
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from .models import Account, UserProfile
+from django.utils.html import format_html
+
+# Register your models here.
+
+class AccountAdmin(UserAdmin):
+    list_display = ('email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active','is_staff','is_superadmin','is_admin',)
+    list_display_links = ('email', 'first_name', 'last_name')
+    list_editable = ('is_active', 'is_admin', 'is_superadmin',)
+    readonly_fields = ('last_login', 'date_joined')
+    ordering = ('-date_joined',)
+
+    filter_horizontal = ()
+    list_filter = ('email', 'first_name', 'last_name',)
+    fieldsets = ()
+
+
+
+
+class UserProfileAdmin(admin.ModelAdmin):
+    def thumbnail(self, object):
+        try:
+            return format_html('<img src="{}" width="30" style="border-radius:50%;">'.format(object.profile_picture.url))
+        except:
+            pass # just ignore
+    thumbnail.short_description = 'Profile Picture'
+    list_display = ('thumbnail', 'user', 'city', 'state', 'country')
+
+admin.site.register(Account, AccountAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

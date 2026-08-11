@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- Change the value of lang="en" attribute if your website's language is not English.
+You can find the code of your language here - https://www.w3schools.com/tags/ref_language_codes.asp -->
+
+
+{% extends 'base.html' %}
+
+
+
+
+{% load static %}
+
+
+{% block content %}
+
+
+<!-- breadcrumb area start -->
+    <div class="breadcrumb-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-wrap">
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb area end -->
+
+    <!-- Start of wishlist Wrapper -->
+    <div class="wishlist-wrapper mb-55">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <main id="primary" class="site-main">
+                        <div class="wishlist">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="section-title">
+                                        <h3>Wishlist</h3>
+                                    </div>
+                                    <form action="#">
+                                        <div class="table-responsive text-center wishlist-style">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Image</td>
+                                                        <td>Product Name</td>
+                                                        <td>Model</td>
+                                                        <td>Stock</td>
+                                                        <td>Unit Price</td>
+                                                        <td>Action</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {% for wishlist in wishlist_items %}
+                                                    <tr>
+                                                      <td>
+                                                          <a href="{{ wishlist.product.get_url }}"><img src="{{ wishlist.product.images.url }}" alt="Cart Product Image" title="{{ wishlist.product.images.url }}" class="beta-img"  max-height: 150px;></a>
+                                                      </td>
+                                                        <td>
+                                                            <a href="product-details.html">Compete Track Tote</a>
+                                                        </td>
+                                                        <td>3</td>
+                                                        <td>In Stock</td>
+                                                        <td>
+                                                            <div class="price"><small><del>$430.00</del></small> <strong>$100.00</strong></div>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></button>
+                                                            <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div> <!-- end of wishlist -->
+                    </main> <!-- end of #primary -->
+                </div>
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div>
+    <!-- End of wishlist Wrapper -->
+
+   <!-- scroll to top -->
+    <div class="scroll-top not-visible">
+        <i class="fa fa-angle-up"></i>
+    </div> <!-- /End Scroll to Top -->
+
+{% endblock %}

@@ -1,0 +1,184 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="breadcrumb-area mb-30">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                          
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+
+<!-- blog wrapper start -->
+<div class="blog-area-wrapper pt-30 pb-70">
+   <div class="container-fluid">
+       <div class="row">
+            <div class="col-lg-3">
+                <div class="shop-sidebar-inner mb-30">
+                    <!-- categories filter start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>{{single_project.Project_name}}</h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="filter-attribute-container">
+                                  <p>{{single_project.short}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- categories filter end -->
+                    <!-- categories filter start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>Installed & Configured Brands </h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="filter-attribute-container">
+
+                                <ul>
+                                    {% for brand in brands %}
+                                    <li><a class="active" href="{{brand.get_url}}">{{brand.Brand_name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- categories filter end -->
+                    <!-- categories filter start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>Completed Works</h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="filter-attribute-container">
+                                <ul>
+                                  {% for cat in project_cat %}
+                                    <li><a class="active" href="#">{{cat.name}}</a></li>
+                                  {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- categories filter end -->
+                    <!-- categories filter start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>Tag</h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="blog-tag-line">
+                                <a href="#">fashion</a>
+                                <a href="#">cloath</a>
+                                <a href="#">camera</a>
+                                <a href="#">laptop</a>
+                                <a href="#">bag</a>
+                                <a href="#">watch</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- categories filter end -->
+                </div>
+                <!-- sidebar promote picture start -->
+                <div class="single-sidebar mb-30">
+                    <div class="sidebar-thumb">
+                        <a href="#"><img src="#" alt=""></a>
+                    </div>
+                </div>
+                <!-- sidebar promote picture end -->
+            </div>
+           <div class="col-lg-9 order-first order-lg-last">
+               <div class="blog-wrapper-inner">
+                    <div class="single-blogg-item mb-30">
+                        <div class="blog-thumb-active owl-carousel">
+                          <div class="blog-thumb blog--hover">
+                               <a href="#"><img src="{{single_project.images.url}}" alt=""></a>
+                          </div>
+                          {% for pic in project_gallery %}
+                            <div class="blog-thumb blog--hover">
+                                 <a href=""><img src="{{pic.image.url}}" alt=""></a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="blogg-content">
+                            <span class="post-date">20 oct 2019</span>
+                            <h2>{{single_project.Project_name}}</h2>
+                            <p class="blog-desc">{{single_project.Description | safe}}</p>
+
+                            <div class="blogg-meta mb-30 mt-30">
+
+                            </div>
+                            <div class="blog-social-sharing mb-40">
+                                <h3>Share this post</h3>
+                                <ul class="mt-10">
+                                    <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#" title="Facebook"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" title="Facebook"><i class="fa fa-pinterest"></i></a></li>
+                                    <li><a href="#" title="Facebook"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#" title="Facebook"><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="blogg-author-info">
+                                <div class="author-thum">
+                                    <img src="{% static 'assets/img/blog/author.jpg' %}" alt="">
+                                </div>
+                                <div class="author-info">
+                                    <h3>about the author:<a href="#">Admin</a> </h3>
+                                    <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim vitae lorem non mollis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="blog-comment-wrapper">
+                        <h3>leave a reply</h3>
+                        <p>Your email address will not be published. Required fields are marked *</p>
+                        <form action="#">
+                            <div class="comment-post-box">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label>comment</label>
+                                        <textarea name="commnet" placeholder="Write a comment"></textarea>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <label>Name</label>
+                                        <input type="text" class="coment-field" placeholder="Name">
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <label>Email</label>
+                                        <input type="text" class="coment-field" placeholder="Email">
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <label>Website</label>
+                                        <input type="text" class="coment-field" placeholder="Website">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="coment-btn mt-20">
+                                            <input class="btn btn-secondary" type="submit" name="submit" value="post comment">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div> -->
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+<!-- blog wrapper end -->
+
+<!-- scroll to top -->
+<div class="scroll-top not-visible">
+    <i class="fa fa-angle-up"></i>
+</div> <!-- /End Scroll to Top -->
+{% endblock %}

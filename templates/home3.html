@@ -1,0 +1,461 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+{% load i18n %}
+
+
+    <!-- slider area start -->
+
+    <div class="slider-area mt-30">
+        <div class="container-fluid">
+            <div class="hero-slider-active slick-dot-style slider-arrow-style">
+							{% for b in banners %}
+                <div class="single-slider slider3 d-flex align-items-center" style="background-image: url({{b.images.url}});">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-8">
+                                <div class="slider-text">
+                                    <h1>{{b.description.html|safe}}</h1>
+
+                                    <a class="btn-1 home-btn" href="#">shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+									{% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- slider area end -->
+
+    <!-- home banner statics area -->
+    <!-- <div class="banner-statics pt-30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img1-top-sinrato3.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img2-top-sinrato3.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-banner-statics">
+                        <a href="shop-grid-left-sidebar.html"><img src="assets/img/banner/img3-top-sinrato3.jpg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- home banner statics end -->
+
+    <!-- product wrapper area start -->
+
+
+    <!-- home banner statics area -->
+
+    <!-- home banner statics end -->
+
+    <!-- product wrapper area start -->
+
+    <!-- feature area start -->
+    <div class="feature-style-one pt-40 pb-55">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="feature-inner fix">
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper1.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>{% trans 'free shipping'%}</h4>
+                                    <p>{% trans 'in Georgia'%}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper2.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>{% trans 'Support 24/7'%}</h4>
+                                    <p>{% trans 'Contact us 24 hours a day'%}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper3.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>{% trans '100% Money Back'%}</h4>
+                                    <p>{% trans 'You have 30 days to Return'%}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper4.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>{% trans '90 Days Return'%}</h4>
+                                    <p>{% trans 'If goods have problems'%}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="{% static 'assets/img/icon/wrapper5.png' %}" alt="">
+                                </div>
+                                <div class="feature-content">
+                                    <h4>{% trans 'Payment Secure'%}</h4>
+                                    <p>{% trans 'We ensure secure payment'%}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- feature area end -->
+
+		<!-- home3 product module six start -->
+    <div class="home-module-six pb-40">
+        <div class="container-fluid">
+            <div class="section-title flash-title">
+                <h3><span>{% trans 'Fire Alarm'%}</span>{% trans ' System'%}</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-6 offset-3 offset-md-0">
+                  {% for banner in fire_alarm_banner %}
+                    <div class="single-banner-statics">
+                        <a href="#"><img src="{% static 'assets/img/banner/giphy.gif' %}" alt=""></a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-10 col-md-9">
+                    <div class="pro-module-four-active4 owl-carousel owl-arrow-style">
+											{% for p in PProduct %}
+                        <div class="single-module-home4">
+
+                            <div class="product-module-four-item mb-30">
+                                <div class="product-module-caption">
+                                    <div class="manufacture-com">
+                                        <p><a href="{{p.get_url}}">{{p.Product_name}}</a></p>
+                                    </div>
+                                    <div class="product-module-name">
+                                        <h4><a href="{{p.get_url}}">{{p.SKU}}</a></h4>
+                                    </div>
+                                    <div class="ratings">
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                        <span><i class="lnr lnr-star"></i></span>
+                                    </div>
+                                    <div class="price-box-module">
+                                        <span class="regular-price"><span class="special-price">{{p.discount_price}}</span></span>
+                                        <span class="old-price"><del>{{p.price}}</del></span>
+                                    </div>
+                                </div>
+                                <div class="product-module-thumb thumb4">
+                                <a href="#" title="Quick view" data-bs-target="#quick_view-{{p.id}}" data-bs-toggle="modal">
+
+                                    <img src="{{p.images.url}}" class="pri-img" alt=""></a>
+                                    <div class="box-label">
+                                        <div class="label-product label_sale">
+                                            <span>{{p.difference}}%</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> <!-- end single item -->
+
+
+                        </div>
+												{% endfor %}
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- home3 product module six end -->
+
+    <!-- home3 product module six start -->
+    <div class="home-module-six pb-40">
+        <div class="container-fluid">
+            <div class="section-title flash-title">
+                <h3><span>{% trans 'Audio'%} </span>{% trans 'Systems'%}</h3>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-2 col-md-3 col-6 offset-3 offset-md-0">
+                      {% for audio in audio_banner %}
+                    <div class="single-banner-statics">
+                        <a href="#"><img src="{{audio.images.url}}" alt=""></a>
+                    </div>
+                      {% endfor %}
+                </div>
+
+                <div class="col-lg-10 col-md-9">
+                    <div class="pro-module-four-active4 owl-carousel owl-arrow-style">
+											{% for p in PProduct %}
+                      <div class="product-item mb-30">
+                          <div class="product-thumb">
+                              <a href="#" title="Quick view" data-bs-target="#quick_view-{{p.id}}" data-bs-toggle="modal">
+
+                                  <img src="{{p.images.url}}" class="pri-img" alt=""></a>
+
+                                  <img src="#" class="sec-img" alt="">
+                              </a>
+                              <div class="box-label">
+                                  <div class="label-product label_new">
+                                      <span>{% trans 'new' %}</span>
+                                  </div>
+                              </div>
+                              <div class="action-links">
+                                  <a href="{% url 'add_wishlist' p.id %}" title="Wishlist"><i class="lnr lnr-heart"></i></a>
+                                  <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>
+
+                                  <a href="#" title="Quick view" data-bs-target="#quick_view-{{p.id}}" data-bs-toggle="modal"><i class="lnr lnr-magnifier"></i></a>
+
+                              </div>
+                          </div>
+                          <div class="product-caption">
+                              <div class="manufacture-product">
+                                  <p><a href="{{p.get_url}}">{{p.Product_name}}</a></p>
+                              </div>
+                              <div class="product-name">
+                                  <h4><a href="{{p.get_url}}">{{p.SKU}}</a></h4>
+                              </div>
+                              <div class="ratings">
+                                  <span class="yellow"><i class="lnr lnr-star"></i></span>
+                                  <span class="yellow"><i class="lnr lnr-star"></i></span>
+                                  <span class="yellow"><i class="lnr lnr-star"></i></span>
+                                  <span class="yellow"><i class="lnr lnr-star"></i></span>
+                                  <span><i class="lnr lnr-star"></i></span>
+                              </div>
+                              <div class="price-box">
+                                  <span class="regular-price">{{p.get_price}}</span>
+                              </div>
+                              <a href="{% url 'add_cart_main' p.id %}">
+                              <button class="btn-cart" type="button">{% trans 'add to cart'%}</button>
+                              </a>
+
+                          </div>
+                      </div>
+												{% endfor %}
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- home3 product module six end -->
+
+    <!-- home banner statics area -->
+    <div class="banner-statics">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                  {% for banner in middle_banner_1 %}
+                    <div class="single-banner-statics">
+                        <a href="{{banner.url}}"><img src="{{banner.images.url}}" alt=""></a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-6 col-md-6">
+                  {% for banner in middle_banner_2 %}
+                    <div class="single-banner-statics">
+                        <a href="{{banner.url}}"><img src="{{banner.images.url}}" alt=""></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- home banner statics end -->
+
+		    <div class="latest-blogg-area mb-40">
+		        <div class="container-fluid">
+		            <div class="section-title">
+		                <h3><span>{% trans 'All'%} </span>{% trans 'Projects'%} </h3>
+										<h5><a href="{% url 'All_Projects' %}">{% trans 'Click here for full Catalog'%}</a></h5>
+		            </div>
+		            <div class="latest-blog-active4 owl-carousel owl-arrow-style">
+									{% for project in all_projects %}
+		                <div class="single-blogg-item">
+		                    <div class="blogg-thumb">
+		                        <a href="blog-details.html">
+		                            <img src="{{project.images.url}}" alt="">
+		                        </a>
+		                    </div>
+		                    <div class="blogg-content">
+		                        <span class="post-date"></span>
+		                        <h5><a href="{{project.get_url}}">{{project.Project_name}}</a></h5>
+		                        <p>{{project.short}}</p>
+		                    </div>
+		                </div> <!--  end blog single item -->
+		                {% endfor %}
+		            </div>
+		        </div>
+		    </div> <!--  end latest blog -->
+
+
+    <!-- brand sale area start -->
+		<!-- brand area start -->
+    <div class="brand-area-home2 pt-30 pb-70">
+        <div class="container-fluid">
+					<div class="section-title">
+							<h3><span>{% trans 'Our'%} </span>{% trans 'Brands'%} </h3>
+					</div>
+            <div class="brand2-slider-wrapper">
+                <div class="brand2-slider-active">
+									{% for brand in brands %}
+                    <div class="single-brand-logo">
+                        <a href="{{brand.url}}" target="_blank"><img src="{{brand.images.url}}" alt=""></a>
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- brand area end -->
+
+    <!-- scroll to top -->
+    <div class="scroll-top not-visible">
+        <i class="fa fa-angle-up"></i>
+    </div> <!-- /End Scroll to Top -->
+
+
+
+    <!-- Quick view modal start -->
+    {% for p in PProduct %}
+    <div class="modal fade" id="quick_view-{{p.id}}">
+        <div class="container">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <!-- <div class="product-large-slider mb-20"> -->
+
+
+                                        <img  loading="lazy" src="{{p.images.url}}" alt="{{p.images.url}}"/>
+
+
+                                <!-- </div> -->
+                                <div class="pro-nav">
+                                    <div class="pro-nav-thumb"><img src="{{p.images.url}}" alt="#" loading="lazy" /></div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="product-details-inner">
+                                    <div class="product-details-contentt">
+                                        <div class="pro-details-name mb-10">
+                                              <h3><a href="{{p.get_url}}">{{p.Product_name}}</a></h3>
+                                        </div>
+                                        <div class="pro-details-review mb-20">
+                                            <ul>
+                                                <li>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                    <span><i class="fa fa-star"></i></span>
+                                                </li>
+                                                <li><a href="#">1 Reviews</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box mb-15">
+                                            <span class="regular-price"><span class="special-price">{{p.get_price}}</span></span>
+                                            <span class="old-price"><del>{{p.price}}</del></span>
+                                        </div>
+                                        <div class="product-detail-sort-des pb-20">
+                                            <p>{{p.SKU}}</p>
+                                        </div>
+                                        <div class="pro-details-list pt-20">
+                                            <ul>
+                                                <li><span>{% trans 'Availability :'%}</span>{% trans 'In Stock'%}</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="pro-quantity-box mb-30">
+                                            <div class="qty-boxx">
+                                                <form method="post" action="{% url 'add_cart' p.id %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ p.id }}">
+                                                    <label>Qty:</label>
+                                                    <input type="number" name="quantity" class="form-control-search" min="1" value="1" placeholder="0">
+                                            </div>
+                                            <div class="add-to-cart">
+                                                    <button type="submit" class="btn-cart lg-btn">{% trans 'Add to Cart'%}</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="pro-social-sharing">
+                                            <label>share :</label>
+                                            <ul>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="bg-facebook" title="Facebook">
+                                                        <i class="fa fa-facebook"></i>
+                                                        <span>like 0</span>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="bg-twitter" title="Twitter">
+                                                        <i class="fa fa-twitter"></i>
+                                                        <span>tweet</span>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="bg-google" title="Google Plus">
+                                                        <i class="fa fa-google-plus"></i>
+                                                        <span>test</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      {% endfor %}
+
+    <!-- Quick view modal end -->
+
+
+
+
+{% endblock %}

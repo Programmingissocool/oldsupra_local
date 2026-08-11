@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main id="main">
+
+    <!-- Head Section -->
+    <section class="small-section bg-dark-alfa-30 parallax-2" data-background="{% static 'images/ongoing.jpg' %}">
+        <div class="relative container align-left">
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <h1 class="hs-line-11 font-alt mb-20 mb-xs-0"></h1>
+                    <div class="hs-line-4 font-alt">
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-30">
+                    <div class="mod-breadcrumbs font-alt align-right">
+                        <a href="#"><a href="#"></a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- End Head Section -->
+
+
+    <!-- Portfolio Section -->
+    <section class="page-section pb-0">
+        <div class="relative">
+
+            <!-- Works Filter -->
+            <div class="works-filter font-alt align-center">
+                <a href="#" class="filter active" data-filter="*">All works</a>
+
+            </div>
+            <!-- End Works Filter -->
+
+            <!-- Works Grid -->
+            <ul class="works-grid clearfix font-alt hover-white" id="work-grid">
+                {% for project in ongoing_projects %}
+                <!-- Work Item (Lightbox) -->
+                <li class="work-item mix photography">
+                    <a href="{{project.get_url}}">
+                        <div class="work-img">
+                            <img src="{{project.images.url}}" alt="Work" width="650" height="420">
+                        </div>
+                        <div class="work-intro">
+                            <h3 class="work-title">{{project.Project_name}}</h3>
+                            <div class="work-descr">
+                                Lightbox
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+                <!-- End Work Item -->
+
+
+
+
+                <!-- End Work Item -->
+
+            </ul>
+            <!-- End Works Grid -->
+
+        </div>
+    </section>
+    <!-- End Portfolio Section -->
+
+
+    <!-- Call Action Section -->
+    <section class="small-section bg-dark">
+        <div class="container relative">
+
+            <div class="align-center">
+                <h3 class="banner-heading font-alt">Like Our Creative Works?</h3>
+                <div>
+                    <a href="#" class="btn btn-mod btn-w btn-medium btn-round">Start Project</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- End Call Action Section -->
+
+</main>
+{% endblock %}

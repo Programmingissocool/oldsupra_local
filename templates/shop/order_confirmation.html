@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Order Notification - {{ order.order_number }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        h2 {
+            color: #555;
+        }
+        .footer {
+            margin-top: 20px;
+            color: #999;
+            text-align: center;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>New Order Received</h2>
+        <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+        <p><strong>Customer Name:</strong> {{ order.first_name }}</p>
+        <p><strong>Email:</strong> {{ order.email }}</p>
+        <p><strong>Phone:</strong> {{ order.phone }}</p>
+        <p><strong>Shipping Address:</strong> {{ order.address_line_1 }}, {{ order.city }}</p>
+
+        <h3>Order Items:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in ordered_products %}
+                <tr>
+                    <td>{{ item.product.Product_name_ka }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.price }} </td>
+                    <td>{{ item.get_total }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><strong>Subtotal:</strong> {{ total }} ₾ </p>
+        <p><strong>Shipping:</strong> {{ shipping }} ₾ </p>
+        <p><strong>Total Amount:</strong> {{ grand_total }} ₾ </p>
+
+        <div class="footer">
+            {{ current_year }}. Oldsupra.ge
+        </div>
+    </div>
+</body>
+</html>

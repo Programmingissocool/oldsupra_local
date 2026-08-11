@@ -1,0 +1,1301 @@
+<!doctype html>
+{% load static %}
+
+
+{% load custom_tags %}
+
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<title>{{ single_product.Meta_title|escape }}</title>
+
+<meta name="description" content="{{ single_product.test|striptags|escape }} | OldSupra">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="{{ request.build_absolute_uri|escape }}">
+<meta property="og:url" content="{{ request.build_absolute_uri|escape }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ single_product.Meta_title }}">
+<meta property="og:description" content="{{ single_product.test|striptags|escape }}">
+<meta property="og:image" content="https://oldsupra.ge{{ single_product.images.url }}">
+<meta property="og:price" content="{{ single_product.get_price }}">
+<meta property="og:catalog_id" content="{{ single_product.id }}">
+<meta property="product:retailer_item_id" content="{{ single_product.id }}">
+<meta property="product:price:amount" content="{{ single_product.get_price }}">
+<meta property="product:price:currency" content="GEL">
+<meta property="product:availability" content="{% if single_product.is_availiable %}in stock{% else %}out of stock{% endif %}">
+
+
+	
+		<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TDFFC3Z');</script>
+<!-- End Google Tag Manager -->
+
+	<link rel="shortcut icon" href="{% static 'Logosupra.png' %}" type="image/x-icon">
+		<!-- Place favicon.ico in the root directory -->
+
+		<!-- Google Font -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+
+		<!-- all css here -->
+		<!-- bootstrap v3.3.6 css -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}"> 
+		<!-- animate css -->
+		<link rel="stylesheet" href="{% static 'css/animate.min.css' %}"> <!-- jquery-ui.min css -->
+<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"> <!-- meanmenu css -->
+<link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}"> <!-- nivo-slider css -->
+<link rel="stylesheet" href="{% static 'lib/css/nivo-slider.css' %}">
+<link rel="stylesheet" href="{% static 'lib/css/preview.css' %}"> <!-- slick css -->
+<link rel="stylesheet" href="{% static 'css/slick.min.css' %}"> <!-- lightbox css -->
+<link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}"> <!-- material-design-iconic-font css -->
+<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.css' %}"> <!-- All common css of theme -->
+<link rel="stylesheet" href="{% static 'css/default.css' %}"> <!-- style css -->
+<link rel="stylesheet" href="{% static 'css/style.min.css' %}"> <!-- shortcode css -->
+<link rel="stylesheet" href="{% static 'css/shortcode.css' %}"> <!-- responsive css -->
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<link rel="stylesheet" href="{% static 'css/test.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+
+<!-- Meta Pixel Code -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1424236331274463');
+fbq('track', 'PageView');
+</script>
+
+<!-- End Meta Pixel Code -->
+
+
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+<!-- End Meta Pixel Code -->
+<style>
+
+
+
+.product-info clearfix text-center {
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.all-cart-product {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+/* Optional scrollbar styling */
+.all-cart-product::-webkit-scrollbar {
+    width: 6px;
+}
+
+.all-cart-product::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.all-cart-product::-webkit-scrollbar-thumb {
+    background: #294062;
+    border-radius: 10px;
+}
+
+.all-cart-product::-webkit-scrollbar-thumb:hover {
+    background: #1d2f49;
+}
+
+.mini-cart .mini-cart-brief {
+    overflow: hidden !important;
+}
+
+.mini-cart .all-cart-product {
+    max-height: 320px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+
+
+    .selected-color {
+    outline: 3px solid #000;
+}
+
+.selected-size {
+    
+    color: #000 !important;
+}
+    .product-to-cart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffcc00;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+    
+    .highlight {
+    box-shadow: 0px 0px 10px 3px rgba(255, 165, 0, 0.8); /* Orange glow */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    .selected {
+        border: 2px solid #ff6600 !important; /* Orange border for selected size */
+        background-color: #fff3e0;
+    }
+
+    
+    .lb-loader, .lb-overlay {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+}
+
+.choose-color {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.choose-color:hover {
+    transform: scale(1.1); /* Slightly enlarges button */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Adds shadow effect */
+    border-color: #fff !important; /* Optional: highlight border in white */
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body > div:last-child {
+    margin-bottom: 0 !important;
+}
+
+#lightboxOverlay, #lightbox {
+    height: 100% !important;
+    width: 100% !important;
+    display: none;
+}
+
+.choose-color.selected-color {
+    box-shadow: 0 0 0 3px #ffffff inset, 0 0 8px rgba(0, 0, 0, 0.5); /* inner glow + outer */
+    transform: scale(1.05);
+    border-color: #fff !important;
+}
+
+
+@media (min-width: 1000px) and (max-width: 1470px) {
+    .single-pro-tab {
+        margin-left: 6rem;
+    }
+    .footer-2 {
+       margin-left: 8rem;
+    }
+    
+  .container{
+    --bs-gutter-x: 15px;
+    width: 1000px;
+  }    
+  .col-lg-12 {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-left: 6rem;
+    }
+    .main-menu>nav>ul>li>a {
+    background: transparent none repeat scroll 0 0;
+    color: #666;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 22px;
+    padding: 0 0 0 40px;
+    position: relative;
+    z-index: 1
+}
+}
+
+@media (max-width: 767px) {
+  .mobile-menu-area {
+    display: none;
+  }
+}
+
+/*body {*/
+/*    padding-top: 35px; */
+/*}*/
+
+.top-bar {
+    width: 100%;
+    height: 60px;
+    background: #f6e7e4;
+    border-top: 1px solid #e6d6d2;
+    border-bottom: 1px solid #e6d6d2;
+    position: fixed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* ტექსტები ვერტიკალურად */
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 450;
+    color: #ef5b3a;
+    letter-spacing: .2px;
+    z-index: 9999;
+}
+
+.top-bar #countdown {
+    font-weight: 700;
+    margin: 0 4px;
+}
+
+header {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    z-index: 9998;
+}
+
+
+.line-1 {
+    font-size: 13px;
+    font-weight: 900;
+}
+
+
+.line-2 {
+    font-size: 13px;
+}
+
+#line-1 #countdown,
+#countdown {
+    font-weight: 700;
+}
+
+
+</style>
+
+
+
+	</head>
+	<body>	
+	<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TDFFC3Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+          {% include 'includes/top_bar.html' %}
+		<!-- WRAPPER START -->
+		<div class="wrapper bg-dark-white">
+
+
+			<header id="sticky-menu" class="header header-2">
+				<div class="header-area">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-4 offset-md-4 col-7">
+								<div class="logo text-md-center">
+									<a href="{% url 'home' %}"><img src="{% static 'newlogo.png' %}" alt="oldsupra" /></a>
+								</div>
+							</div>
+							<div class="col-md-4 col-5">
+								<div class="mini-cart text-end">
+									<ul>
+									     <li>
+            <a class="cart-icon" href="#">
+                <i class="zmdi zmdi-search"></i>
+               
+                
+            </a>
+            <div class="mini-cart-brief text-left">
+    <div class="cart-items">
+        <form action="{% url 'search' %}">
+									<input type="text" placeholder="Search here..." / name="keyword">
+									<button type="submit">
+										<i class="zmdi zmdi-search"></i>
+									</button>
+								</form>
+    </div>
+        </li>
+										<li>
+											<a class="cart-icon" href="#">
+												<i class="zmdi zmdi-shopping-cart"></i>
+
+											</a>
+											<div class="mini-cart-brief text-left">
+												<div class="cart-items">	
+												</div>
+									    
+    <div class="all-cart-product clearfix">
+    {% include 'includes/mini_cart_items.html' %}
+</div>
+												<div class="cart-totals">
+													<h5 class="mb-0">Total <span class="floatright">{{ grand_total }} ₾</span></h5>
+												</div>
+												<div class="cart-bottom  clearfix">
+													<a href="{% url 'cart' %}" class="button-one floatleft text-uppercase" data-text="View cart">View cart</a>
+													<a href="{% url 'cart' %}" class="button-test floatright text-uppercase" data-text="Check out">Check out</a>
+												</div>
+											</div>
+										</li>
+										 <li>
+            <a class="cart-icon" href="{% url 'dashboard' %}">
+                <i class="zmdi zmdi-account-circle"></i>
+            </a>
+        </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- MAIN-MENU START -->
+				<div class="menu-toggle menu-toggle-2 hamburger hamburger--emphatic d-none d-md-block active">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+				<div class="main-menu  d-none d-md-block" style="left: 0px;">
+					<nav>
+						<ul>
+						    
+						     {% for cat in banners %}
+							<li><a href="{% url 'products_on_sale_shop' %}" style="line-height:25px;">{{cat.Banner_name}}</a></li>
+							{% endfor %}
+						    
+						    {% for cat in categories %}
+							<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+							{% endfor %}
+							<li><a href="{% url 'login'%}">Login</a></li>
+							<li><a href="{% url 'contact'%}">Contact</a></li>
+								{% for cat in About_Us_dict %}
+											
+												<li><a href="{{cat.get_url}}">{{cat.name}}</a></li>
+                                                        {% endfor %}
+												<!-- End submenu (sub-master) -->
+						</ul>
+					</nav>
+				</div>
+				<!-- MAIN-MENU END -->
+			</header>
+			<!-- HEADER-AREA END -->
+			<!-- Mobile-menu start -->
+			<div class="mobile-menu-area">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 d-block d-md-none">
+							<div class="mobile-menu">
+								<nav id="dropdown">
+									<ul>
+									    
+									    {% for cat in banners  %}
+            							<li><a href="{% url 'products_on_sale_shop' %}">{{cat.Banner_name}}</a></li>
+            							{% endfor %}
+									    
+										{% for cat in cats %}
+            							<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+            							{% endfor %}
+            								<li><a href="{% url 'login'%}">Login</a></li>
+            								
+						            
+            							
+            							
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Mobile-menu end -->
+			<!-- HEADING-BANNER START -->
+			<!--<div class="heading-banner-area overlay-bg">-->
+			<!--	<div class="container">-->
+			<!--		<div class="row">-->
+			<!--			<div class="col-md-12">-->
+			<!--				<div class="heading-banner">-->
+			<!--					<div class="heading-banner-title">-->
+			<!--						<h2>{{single_product.Product_name}}</h2>-->
+			<!--					</div>-->
+			<!--					<div class="breadcumbs pb-15">-->
+			<!--						<ul>-->
+									
+										
+			<!--						</ul>-->
+			<!--					</div>-->
+			<!--				</div>-->
+			<!--			</div>-->
+			<!--		</div>-->
+			<!--	</div>-->
+			<!--</div>-->
+			<!-- HEADING-BANNER END -->
+			
+
+			<!-- PRODUCT-AREA START -->
+			<div class="product-area single-pro-area pt-80 pb-80 product-style-2">
+				<div class="container">	
+					<div class="row shop-list single-pro-info no-sidebar">
+						<!-- Single-product start -->
+						<div class="col-lg-12">
+							<div class="single-product clearfix">
+								<!-- Single-pro-slider Big-photo start -->
+										
+								
+			<!-- Big slider -->
+<div class="single-pro-slider single-big-photo view-lightbox slider-for">
+  {% for image in combined_images %}
+    <div class="slide">
+      <img src="{{ image.url }}" data-color-id="{{ image.color_id }}" alt="Variation Image" />
+      <a class="view-full-screen" href="{{ image.url }}" data-lightbox="product-gallery">
+        <i class="zmdi zmdi-zoom-in"></i>
+      </a>
+    </div>
+  {% endfor %}
+</div>
+      
+								<!-- Single-pro-slider Big-photo end -->								
+								<div class="product-info">
+									<div class="fix">
+										<h4 class="post-title floatleft">{{single_product.Product_name}}</h4>
+										<span class="pro-rating floatright">
+											
+										</span>
+									</div>
+									<div class="fix mb-20">
+									
+									</div>
+									<div class="product-description">
+										<p>{{single_product.short|safe}} </p>
+									</div>
+									<!-- color start -->	
+									
+		<table class="table table-bordered">
+
+    <!-- FABRIC -->
+    <tr>
+        <th>ᲛᲐᲡᲐᲚᲐ</th>
+        <td>
+            {% for fabric in fabrics %}
+                <button class="btn btn-outline-primary choose-fabric"
+                        data-fabric-id="{{ fabric.id }}">
+                    {{ fabric.title }}
+                </button>
+            {% endfor %}
+        </td>
+    </tr>
+
+    <!-- COLOR -->
+    <tr>
+        <th>ფერი</th>
+        <td id="color-buttons">
+            {% for group in colors_prepared %}
+                <div class="color-group"
+                     data-fabric-id="{{ group.fabric_id }}"
+                     style="display:none;">
+
+                    {% for color in group.colors %}
+                        <button class="btn btn-lg choose-color"
+                                style="background-color: {{ color.color_code }};
+                                       border:1px solid black;"
+                                data-color-id="{{ color.id }}">
+                        </button>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </td>
+    </tr>
+
+    <!-- SIZE -->
+    <tr>
+        <th>ზომა</th>
+        <td id="size-buttons">
+            {% for group in sizes_prepared %}
+                <div class="size-group"
+                     data-fabric-id="{{ group.fabric_id }}"
+                     data-color-id="{{ group.color_id }}"
+                     style="display:none;">
+
+                    {% for size in group.sizes %}
+                        <button class="btn btn-outline-secondary btn-sm choose-size"
+                                data-size-id="{{ size.size_id }}">
+                            {{ size.size_title }}
+                        </button>
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+        </td>
+    </tr>
+
+    <!-- PRICE -->
+    <tr>
+        <th>ფასი</th>
+        <td>
+            <span id="product-old-price" class="text-muted"
+                  style="font-size:14px; text-decoration:line-through;"></span><br>
+
+            <span id="product-price" class="text-danger"></span>
+        </td>
+    </tr>
+
+</table>
+
+
+
+
+<div class="clearfix product-bar">
+    <div class="cart-plus-minus">
+        <input type="text" value="1" id="qty-input" class="cart-plus-minus-box">
+    </div>
+
+    <div class="product-buttons">
+        {% if single_product.is_availiable %}
+
+            <!-- Add to Cart Form -->
+            <form method="POST" action="{% url 'add_cart_main' single_product.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="color_id" id="selected-color-id" value="">
+                <input type="hidden" name="size_id" id="selected-size-id" value="">
+                <input type="hidden" name="quantity" id="cart-quantity" value="1">
+
+                <button type="submit" class="btn btn-primary">
+                    ᲙᲐᲚᲐᲗᲐᲨᲘ ᲓᲐᲛᲐᲢᲔᲑᲐ
+                </button>
+            </form>
+
+            <!-- Buy Now Form -->
+            <form method="POST" action="{% url 'add_cart_main_cart' single_product.id %}" id="buy-form">
+                {% csrf_token %}
+                <input type="hidden" name="color_id_new" id="buy-selected-color-id" value="">
+                <input type="hidden" name="size_id_new" id="buy-selected-size-id" value="">
+                <input type="hidden" name="quantity" id="buy-quantity" value="1">
+
+                <button type="submit" class="btn btn-primary" style="background-color:#FF5721;">
+                    ᲧᲘᲓᲕᲐ
+                </button>
+            </form>
+
+        {% else %}
+            <button class="btn btn-secondary" disabled>ᲛᲐᲠᲐᲒᲘ ᲐᲛᲝᲘᲬᲣᲠᲐ</button>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const qtyInput = document.getElementById("qty-input");
+    const cartQty = document.getElementById("cart-quantity");
+    const buyQty = document.getElementById("buy-quantity");
+
+    function syncQty(){
+        let val = parseInt(qtyInput.value) || 1;
+        cartQty.value = val;
+        buyQty.value = val;
+    }
+
+    qtyInput.addEventListener("input", syncQty);
+
+    document.querySelectorAll("form").forEach(form => {
+        form.addEventListener("submit", syncQty);
+    });
+
+});
+</script>
+
+
+
+<!-- Small slider -->
+<div class="single-pro-slider single-sml-photo slider-nav">
+  {% for image in combined_images %}
+    <div class="thumb">
+      <img src="{{ image.url }}" class="variation-image"
+           data-color-id="{{ image.color_id }}"
+           data-size-id="{{ image.size_id }}"
+           alt="Product Image">
+    </div>
+  {% endfor %}
+</div>
+									<!-- Single-pro-slider Small-photo end -->
+
+									<!-- Single-pro-slider Small-photo end -->
+								</div>
+							</div>
+						</div>
+						<!-- Single-product end -->
+					</div>
+					
+					
+					                  <div class="tab-content row">
+                            <div class="tab-pane active" id="elements-preview-3">
+                                <!-- Section-title start -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="section-title text-center">
+                                            <h2 class="title-border">ᲛᲡᲒᲐᲕᲡᲘ ᲞᲠᲝᲓᲣᲥᲢᲔᲑᲘ</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Section-title end -->
+                                <div class="row">
+                                    <div class="product-slider style-1 arrow-left-right">
+                                        {% for r in rel %}
+                                        <!-- Single-product start -->
+                                        <div class="single-product col-lg-12">
+                                            <div class="product-img">
+         
+                                                <a href="{{r.get_url}}"><img src="{{r.images.url}}" alt="" /></a> 
+                                                
+                                            </div>
+                                            <div class="product-info clearfix text-center">
+                                               <h5 class="type-name text-secondary has-line-before hover:text-black capitalize">
+            <a href="{{p.get_url}}">
+                {{r.Product_name}}
+            </a>
+        </h5>
+                                                <div class="fix">
+                                                            {% if r.is_on_sale %}
+
+            <del>
+                {{ r.price_display }} .
+            </del>
+
+            <br>
+
+            <span class="text-danger">
+
+                {% if r.min_discount and r.max_discount %}
+
+                    {% if r.min_discount == r.max_discount %}
+                        {{ r.min_discount }} ₾
+                    {% else %}
+                        {{ r.min_discount }} ₾ - {{ r.max_discount }} ₾
+                    {% endif %}
+
+                {% else %}
+
+                    {{ r.discount_price }} ₾
+
+                {% endif %}
+
+            </span>
+
+        {% else %}
+
+            {{ r.price_display }}
+
+        {% endif %}
+                                                    <span class="pro-rating floatright">
+                                     
+                                                    </span>
+                                                </div>
+                                                        <div class="product-action clearfix">
+
+            <a href="#"
+               data-bs-toggle="modal"
+               data-bs-target="#productModal-{{ r.id }}"
+               title="Quick View">
+
+                <i class="zmdi zmdi-zoom-in"></i>
+
+            </a>
+
+            <a href="{% url 'add_cart_new' r.id %}"
+               data-bs-toggle="tooltip"
+               data-placement="top"
+               title="Add To Cart">
+
+                <i class="zmdi zmdi-shopping-basket"></i>
+
+            </a>
+
+            <a href="{% url 'add_cart' r.id %}"
+               class="add-to-cart-cart"
+               data-bs-toggle="tooltip"
+               data-placement="top"
+               title="Add To Cart">
+
+                <i class="zmdi zmdi-shopping-cart-plus"></i>
+
+            </a>
+
+        </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+
+                                        <!-- Single-product end -->
+                                    </div>
+                                </div>                            
+                            </div>
+					<!-- single-product-tab start -->
+					<div class="single-pro-tab">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="single-pro-tab-menu">
+									<ul class="nav d-block">
+										<li><a class="active" href="#description" data-bs-toggle="tab">ᲞᲠᲝᲓᲣᲥᲢᲘᲡ ᲐᲦᲬᲔᲠᲐ</a></li>
+										<li><a href="#reviews"  data-bs-toggle="tab">ᲨᲔᲤᲐᲡᲔᲑᲔᲑᲘ</a></li>
+									
+										
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-9">
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div class="tab-pane active" id="description">
+										<div class="pro-tab-info pro-description">
+											<h3 class="tab-title title-border mb-30">{{single_product.test|safe}}</h3>
+											
+										</div>
+									</div>
+									<div class="tab-pane" id="reviews">
+										<div class="pro-tab-info pro-reviews">
+											
+											<div class="leave-review">
+												<h3 class="tab-title title-border mb-30">Leave your reviw</h3>
+												<div class="your-rating mb-30">
+													<p class="mb-10"><strong>Your Rating</strong></p>
+													<span>
+														<a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+														<a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+														<a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+														<a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+														<a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+													</span>
+												
+												
+													</span>
+												</div>
+												<div class="reply-box">
+													<form action="#">
+														<div class="row">
+															<div class="col-md-6">
+																<input type="text" placeholder="Your name here..." name="name" />
+															</div>
+															<div class="col-md-6">
+																<input type="text" placeholder="Subject..." name="name" />
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<textarea class="custom-textarea" name="message" placeholder="Your review here..." ></textarea>
+																<button type="submit" data-text="submit review" class="button-one submit-button mt-20">submit review</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>		
+									</div>
+									<div class="tab-pane" id="information">
+										<div class="pro-tab-info pro-information">
+											<h3 class="tab-title title-border mb-30">{{single_product.material|safe}}</h3>
+											
+										</div>											
+									</div>
+							
+								</div>									
+							</div>
+						</div>
+					</div>
+					<!-- single-product-tab end -->
+				</div>
+			</div>
+			
+			
+			<!-- PRODUCT-AREA END -->
+			<!-- FOOTER START -->
+			<footer>
+			<div class="footer-area footer-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">Contact Us</h3>
+                                    <ul class="footer-contact">
+                                        <li><span>Address :</span>Nutsubidze Street #139,<br>Tbilisi Georgia</li>
+                                        <li><span>Cell-Phone :</span>599377282</li>
+                                        <li><span>Email :</span>contact@oldsupra.ge</li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">Pages</h3>
+                                    <ul class="footer-menu">
+                                        	{% for cat in About_Us_dict %}
+											
+                 <li><a href="{{cat.get_url}}"><i class="zmdi zmdi-dot-circle"></i>{{cat.name}}</a></li>
+                                                        {% endfor %}
+                                                        
+                                        {% for p in page_links %}
+                                        <li><a href="{{p.get_url}}"><i class="zmdi zmdi-dot-circle"></i>{{p.page_name}}</a></li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">categories</h3>
+                                    <ul class="footer-menu">
+                                        {% for cat in cats %}
+                                        <li><a href="{{cat.get_url_cat}}"><i class="zmdi zmdi-dot-circle"></i>{{cat.category_name}}</a></li>
+                                        {% endfor%}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<!-- Footer-area end -->
+				<!-- Copyright-area start -->
+				<div class="copyright-area copyright-2">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="copyright">
+									<p class="mb-0">&copy; <a href="#" target="_blank"></a> 2025 OldSupra.ge.</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="payment  text-md-end">
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Copyright-area start -->
+			</footer>
+			<!-- FOOTER END -->
+			<!-- QUICKVIEW PRODUCT -->
+			
+		
+			
+			
+		</div>
+			</div>
+			
+			<div style="display:none;">
+    {% for image in combined_images %}
+        <a href="{{ image.url }}" data-lightbox="product-gallery"></a>
+    {% endfor %}
+</div>
+
+
+
+
+		<!-- all js here -->
+		<!-- jquery latest version -->
+			<script src="{% static 'js/vendor/gsap.min.js' %}"></script> <!-- GSAP JS (https://greensock.com/gsap/) -->
+		
+			<script src="{% static 'js/vendor/ScrollTrigger.min.js' %}"></script> <!-- GSAP ScrollTrigger JS (https://greensock.com/scrolltrigger/) -->
+			<script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
+			<script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
+			<!-- bootstrap js -->
+			<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+			<!-- jquery.meanmenu js -->
+			<script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+			<!-- slick.min js -->
+			<script src="{% static 'js/slick.min.js' %}"></script>
+			<!-- jquery.treeview js -->
+			<script src="{% static 'js/jquery.treeview.js' %}"></script>
+			<!-- lightbox.min js -->
+			<script src="{% static 'js/lightbox.min.js' %}"></script>
+			<!-- jquery-ui js -->
+			<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+			<!-- jquery.nivo.slider js -->
+			<script src="{% static 'lib/js/jquery.nivo.slider.js' %}"></script>
+			<script src="{% static 'lib/home.js' %}"></script>
+			<!-- jquery.nicescroll.min js -->
+			<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+			<!-- countdon.min js -->
+			<script src="{% static 'js/countdon.min.js' %}"></script>
+			<!-- wow js -->
+			<script src="{% static 'js/wow.min.js' %}"></script>
+			<!-- plugins js -->
+			<script src="{% static 'js/plugins.js' %}"></script>
+			<!-- main js -->
+			<script src="{% static 'js/main.min.js' %}"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.js"></script>
+			<!--<script src="{% static 'js/new.js' %}"></script>-->
+			<script src="{% static 'js/vendor/modernizr-3.11.2.min.js' %}"></script>
+			
+<script>
+$(document).ready(function() {
+    $(".add-to-cart-cart").on("click", function(e) {
+        e.preventDefault();
+        
+        var product = $(this).closest('.single-product'); // Get the product container
+        var image = product.find("img"); // Get the product image
+        var cart = $(".cart-icon"); // Get the cart icon
+
+        // Clone the product image for animation
+        var imageClone = image.clone().addClass("product-to-cart");
+        $("body").append(imageClone);
+
+        // Get the cart icon position
+        var cartOffset = cart.offset();
+        
+        // Animate the cloned image to the cart icon position
+        imageClone.css({
+            top: image.offset().top,
+            left: image.offset().left,
+        }).animate({
+            top: cartOffset.top,
+            left: cartOffset.left,
+            width: 0,
+            height: 0
+        }, 1000, function() {
+            // After animation ends, remove the clone and update the cart count
+            imageClone.remove();
+            var currentCount = parseInt(cart.find('span').text());
+            cart.find('span').text(currentCount + 1);  // Increase cart count
+        });
+
+        // Now send the AJAX request to add the item to the cart
+        var url = $(this).attr("href");
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(response) {
+                // Update cart item count dynamically
+                $(".cart-icon span").text(response.cart_item_count);
+
+                // Update cart items HTML dynamically
+                $(".all-cart-product").html(response.cart_items_html);
+
+                // Update the grand total dynamically
+                // $(".cart-totals .floatright").text(response.grand_total + " ₾");
+            }
+        });
+    });
+});
+</script>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    let selectedFabricId = null;
+    let selectedColorId = null;
+    let selectedSizeId = null;
+
+    const fabricButtons = document.querySelectorAll('.choose-fabric');
+    const colorGroups = document.querySelectorAll('.color-group');
+    const sizeGroups = document.querySelectorAll('.size-group');
+
+    const priceSpan = document.querySelector('#product-price');
+    const oldPriceSpan = document.querySelector('#product-old-price');
+    const bigPhotoContainer = document.querySelector('.single-pro-slider.single-big-photo');
+
+    const variationDetails = JSON.parse('{{ variation_details|escapejs }}');
+    const defaultImage = '{{ single_product.images.url }}';
+
+    const mainColorInput = document.getElementById('selected-color-id');
+    const mainSizeInput = document.getElementById('selected-size-id');
+    const buyColorInput = document.getElementById('buy-selected-color-id');
+    const buySizeInput = document.getElementById('buy-selected-size-id');
+
+  function normalizeUrl(u) {
+  try { return new URL(u, window.location.href).href; }
+  catch { return u; }
+}
+
+function setMainImage(url) {
+  const target = normalizeUrl(url);
+
+  // Try to use Slick if it's present
+  if (window.jQuery && jQuery(bigPhotoContainer).hasClass('slick-initialized')) {
+    const $big = jQuery(bigPhotoContainer);
+    const imgs = $big.find('img').toArray();
+
+    const idx = imgs.findIndex(img => normalizeUrl(img.getAttribute('src')) === target);
+
+    if (idx >= 0) {
+      $big.slick('slickGoTo', idx);
+      return;
+    }
+  }
+
+  // Fallback: update current/first slide without destroying the slider DOM
+  const activeImg =
+    bigPhotoContainer.querySelector('.slick-current img') ||
+    bigPhotoContainer.querySelector('img');
+
+  if (activeImg) activeImg.src = url;
+
+  const activeLink =
+    bigPhotoContainer.querySelector('.slick-current a.view-full-screen') ||
+    bigPhotoContainer.querySelector('a.view-full-screen');
+
+  if (activeLink) activeLink.href = url;
+}
+
+
+
+    function updateVariation() {
+        const key = `${selectedFabricId || "None"}-${selectedColorId}-${selectedSizeId}`;
+        const data = variationDetails[key];
+
+        if (!data) return;
+
+        setMainImage(data.image_url || defaultImage);
+
+        if (data.old_price) {
+            oldPriceSpan.textContent = `${data.old_price} ₾`;
+            priceSpan.textContent = `${data.price} ₾`;
+        } else {
+            oldPriceSpan.textContent = "";
+            priceSpan.textContent = `${data.price} ₾`;
+        }
+    }
+
+    function autoSelectDefaults() {
+        if (fabricButtons.length > 0) {
+            // Click first fabric
+            fabricButtons[0].click();
+        } else if (colorGroups.length > 0) {
+            // No fabrics, select first color group
+            const firstColorGroup = colorGroups[0];
+            firstColorGroup.style.display = "block";
+            const firstColor = firstColorGroup.querySelector('.choose-color');
+            if (firstColor) firstColor.click();
+        }
+    }
+
+    /* --------------------------- FABRIC CLICK --------------------------- */
+    fabricButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+
+            selectedFabricId = this.dataset.fabricId;
+            selectedColorId = null;
+            selectedSizeId = null;
+
+            fabricButtons.forEach(b => b.classList.remove('selected-fabric'));
+            this.classList.add('selected-fabric');
+
+            // Show colors for this fabric
+            colorGroups.forEach(g => {
+                g.style.display = (g.dataset.fabricId === selectedFabricId) ? "block" : "none";
+            });
+
+            // Hide all sizes
+            sizeGroups.forEach(g => g.style.display = "none");
+
+            setMainImage(defaultImage);
+            priceSpan.textContent = "";
+            oldPriceSpan.textContent = "";
+
+            // Auto-select first color under this fabric
+            const visibleColorGroup = [...colorGroups].find(
+                g => g.dataset.fabricId === selectedFabricId && g.style.display === "block"
+            );
+            if (visibleColorGroup) {
+                const firstColorBtn = visibleColorGroup.querySelector(".choose-color");
+                if (firstColorBtn) firstColorBtn.click();
+            }
+        });
+    });
+    
+    
+    document.addEventListener('click', function (e) {
+      if (!e.target.classList.contains('variation-image')) return;
+      setMainImage(e.target.getAttribute('src'));
+    });
+
+    /* --------------------------- COLOR CLICK --------------------------- */
+    document.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('choose-color')) return;
+
+        selectedColorId = e.target.dataset.colorId;
+
+        document.querySelectorAll('.choose-color')
+            .forEach(b => b.classList.remove('selected-color'));
+        e.target.classList.add('selected-color');
+
+        // Update hidden inputs
+        if (mainColorInput) mainColorInput.value = selectedColorId;
+        if (buyColorInput) buyColorInput.value = selectedColorId;
+
+        // Show sizes for this color and fabric
+        sizeGroups.forEach(g => {
+            const matchFabric = g.dataset.fabricId === (selectedFabricId || "None");
+            const matchColor = g.dataset.colorId === selectedColorId;
+
+            if (matchFabric && matchColor) {
+                g.style.display = "block";
+
+                // Auto-select first size
+                const firstSize = g.querySelector('.choose-size');
+                if (firstSize) firstSize.click();
+            } else {
+                g.style.display = "none";
+            }
+        });
+    });
+
+    /* --------------------------- SIZE CLICK --------------------------- */
+    document.addEventListener('click', function (e) {
+        if (!e.target.classList.contains('choose-size')) return;
+
+        selectedSizeId = e.target.dataset.sizeId;
+
+        document.querySelectorAll('.choose-size')
+            .forEach(b => b.classList.remove('selected-size'));
+        e.target.classList.add('selected-size');
+
+        // Update hidden inputs
+        if (mainSizeInput) mainSizeInput.value = selectedSizeId;
+        if (buySizeInput) buySizeInput.value = selectedSizeId;
+
+        updateVariation();
+    });
+
+    // Initialize
+    autoSelectDefaults();
+
+});
+</script>
+
+
+
+
+
+<script>
+$(document).ready(function () {
+
+    $(document).on("click", ".remove-cart-item", function (e) {
+
+        e.preventDefault();
+
+        let url = $(this).attr("href");
+
+        $.ajax({
+            url: url,
+            type: "GET",
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    // Update mini cart HTML
+                    $(".all-cart-product").html(response.cart_items_html);
+
+                    // Update cart total
+                    $(".cart-totals .floatright").text(
+                        response.grand_total + " ₾"
+                    );
+
+                    // Update cart count
+                    $(".cart-icon span").text(response.cart_count);
+                }
+            }
+        });
+    });
+
+});
+</script>
+
+						
+<script>
+    jQuery(document).ready(function () {
+         jQuery('.mobile-menu-area').css('display', 'block');
+});
+</script>
+<script>
+  fbq('track', 'ViewContent', {
+    content_ids: ['{{ single_product.id }}'],
+    content_name: '{{ single_product.name|escapejs }}',
+    content_type: 'product',
+    value: {{ single_product.price|floatformat:2 }},
+    currency: 'USD'
+  });
+  console.log('FB Pixel ViewContent fired for product ID:', '{{ single_product.id }}');
+</script>
+
+{% if request.GET.item_added and request.GET.pid %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    fbq('track', 'AddToCart', {
+      content_ids: ['{{ request.GET.pid }}'],
+      content_name: '{{ single_product.name|escapejs }}',
+      content_type: 'product',
+      value: {{ single_product.price|floatformat:2 }},
+      currency: 'USD'
+    });
+    console.log('FB Pixel AddToCart fired for product ID:', '{{ request.GET.pid }}');
+  });
+</script>
+{% endif %}
+
+<script>
+    const countdownElement = document.getElementById("countdown");
+
+const STORAGE_KEY = "maintenance_end_time";
+
+let endTime = localStorage.getItem(STORAGE_KEY);
+
+if (!endTime) {
+    endTime = Date.now() + (12 * 60 * 60 * 1000);
+    localStorage.setItem(STORAGE_KEY, endTime);
+}
+
+function updateCountdown() {
+    const distance = endTime - Date.now();
+
+    if (distance <= 0) {
+        countdownElement.textContent = "00:00:00";
+        localStorage.removeItem(STORAGE_KEY);
+        clearInterval(timer);
+        return;
+    }
+
+    const hours = Math.floor(distance / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownElement.textContent =
+        `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+updateCountdown();
+const timer = setInterval(updateCountdown, 1000);
+</script>
+
+
+	</body>
+</html>

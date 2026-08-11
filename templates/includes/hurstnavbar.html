@@ -1,0 +1,100 @@
+
+{% load static %}
+
+
+			<header id="sticky-menu" class="header header-2">
+				<div class="header-area">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-4 offset-md-4 col-7 d-flex justify-content-center align-items-center">
+								<div class="logo text-md-center">
+									<a href="{% url 'home' %}"><img src="{% static 'newlogo.png' %}" alt="" /></a>
+								</div>
+							</div>
+							<div class="col-md-4 col-5">
+								<div class="mini-cart text-end">
+									<ul>
+										<li>
+											<a class="cart-icon" href="#">
+												<i class="zmdi zmdi-shopping-cart"></i>
+											
+											</a>
+											<div class="mini-cart-brief text-left">
+												
+												<div class="all-cart-product clearfix">
+												    {% for cart_item in cart_items_cart %}
+													<div class="single-cart clearfix">
+														<div class="cart-photo">
+															<a href="{{cart_item.product.get_url}}"><img src="{{ cart_item.product.images.url }}" alt="" /></a>
+														</div>
+														<div class="cart-info">
+															<h5><a href="#">{{ cart_item.product.Product_name }}</a></h5>
+															<p class="mb-0">Price : {{ cart_item.variations.get_price }}</p>
+															<p class="mb-0">Qty :{{ cart_item.product.quantity }} </p>
+															<span class="cart-delete"><a href="#"><i class="zmdi zmdi-close"></i></a></span>
+														</div>
+													</div>
+													{% endfor %}
+												
+												</div>
+												<div class="cart-totals">
+													<h5 class="mb-0">Total <span class="floatright"></span></h5>
+												</div>
+												<div class="cart-bottom  clearfix">
+													<a href="{% url 'cart' %}" class="button-one floatleft text-uppercase" data-text="View cart">View cart</a>
+													<a href="{% url 'cart' %}" class="button-one floatright text-uppercase" data-text="Check out">Check out</a>
+												</div>
+											</div>
+										</li>
+										<li>
+                                            <a class="cart-icon" href="{% url 'dashboard' %}">
+                                                <i class="zmdi zmdi-account-circle"></i>
+                                            </a>
+                                        </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- MAIN-MENU START -->
+				<div class="menu-toggle menu-toggle-2 hamburger hamburger--emphatic d-none d-md-block">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+				<div class="main-menu  d-none d-md-block">
+<nav>
+						<ul> 
+						    {% for cat in cats %}
+						    
+						   	<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+						   	
+						   	{% endfor %}
+						</ul>
+					</nav>   
+				</div>
+				<!-- MAIN-MENU END -->
+			</header>
+			<!-- HEADER-AREA END -->
+			<!-- Mobile-menu start -->
+			<div class="mobile-menu-area">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 d-block d-md-none">
+							<div class="mobile-menu">
+								<nav id="dropdown">
+									<ul>
+										 {% for cat in cats %}
+						    
+						   	<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+						   	
+						   	{% endfor %}
+										
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>

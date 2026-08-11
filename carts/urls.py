@@ -1,0 +1,30 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.cart, name='cart'),
+    path('cartcheck/', views.cartcheck, name='cartcheck'),
+    path('add-gift/<int:cart_item_id>/<int:product_id>/',views.add_gift_product,name='add_gift_product'),
+    path('recalculate/', views.cart_recalculate, name='cart_recalculate'),
+    path('add_cart/<int:product_id>/', views.add_cart, name='add_cart'),
+    path('add_cart_new/<int:product_id>/', views.add_cart_new, name='add_cart_new'),
+    path('add_cart_main/<int:product_id>/', views.add_cart_main, name='add_cart_main'),
+    path('add_cart_main_cart/<int:product_id>/', views.add_cart_main_cart, name='add_cart_main_cart'),
+    path('add_cart_main_cartcheck/<int:product_id>/', views.add_cart_main_cartcheck, name='add_cart_main_cartcheck'),
+    path('remove_cart/<int:product_id>/<int:cart_item_id>/', views.remove_cart, name='remove_cart'),
+    path('remove_cart_item/<int:product_id>/<int:cart_item_id>/', views.remove_cart_item, name='remove_cart_item'),
+    path('remove_cart_item_cart/<int:product_id>/<int:cart_item_id>/', views.remove_cart_item_cart, name='remove_cart_item_cart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('submit_order/', views.submit_order, name='submit_order'),
+    path('update_cart_quantity/<int:cart_item_id>/', views.update_cart_quantity, name='update_cart_quantity'),
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('wishlist/<int:product_id>/', views.add_wishlist, name='add_wishlist'),
+    path('payment_generate/', views.checkout_generate, name='payment_generate'),
+    path('payment_check/', views.payment_check, name='payment_check'),
+    path('check_flitt/', views.check_flitt, name='check_flitt'),
+    path('check_flitt_webhook/', views.check_flitt_webhook, name='check_flitt_webhook'),
+    path('check_liberty_callback/', views.check_liberty_callback, name='check_liberty_callback'),
+    path('check_liberty/', views.check_liberty, name='check_liberty'),
+    path('check_bog_callback/', views.check_bog_callback, name='check_bog_callback'),
+    # path('webhooks/tbc/', views.tbc_webhook, name='tbc_webhook'),
+]

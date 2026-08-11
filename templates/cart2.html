@@ -1,0 +1,582 @@
+<!doctype html>
+{% load static %}
+
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>Oldsupra.ge</title>
+		<meta name="description" content="Hurst – Furniture Store eCommerce HTML Template is a clean and elegant design – suitable for selling flower, cookery, accessories, fashion, high fashion, accessories, digital, kids, watches, jewelries, shoes, kids, furniture, sports….. It has a fully responsive width adjusts automatically to any screen size or resolution.">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+		<!-- Place favicon.ico in the root directory -->
+
+		<!-- Google Font -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+
+		<!-- all css here -->
+		<!-- bootstrap v3.3.6 css -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}"> 
+		<!-- animate css -->
+		<link rel="stylesheet" href="{% static 'css/animate.min.css' %}"> <!-- jquery-ui.min css -->
+<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"> <!-- meanmenu css -->
+<link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}"> <!-- nivo-slider css -->
+<link rel="stylesheet" href="{% static 'lib/css/nivo-slider.css' %}">
+<link rel="stylesheet" href="{% static 'lib/css/preview.css' %}"> <!-- slick css -->
+<link rel="stylesheet" href="{% static 'css/slick.min.css' %}"> <!-- lightbox css -->
+<link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}"> <!-- material-design-iconic-font css -->
+<link rel="stylesheet" href="{% static 'css/material-design-iconic-font.css' %}"> <!-- All common css of theme -->
+<link rel="stylesheet" href="{% static 'css/default.css' %}"> <!-- style css -->
+<link rel="stylesheet" href="{% static 'css/style.min.css' %}"> <!-- shortcode css -->
+<link rel="stylesheet" href="{% static 'css/shortcode.css' %}"> <!-- responsive css -->
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<link rel="stylesheet" href="{% static 'css/test.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<script src="{% static 'js/vendor/modernizr-3.11.2.min.js' %}"></script>
+<style>
+
+.title{
+    margin-bottom: 5vh;
+}
+.card{
+    margin: auto;
+    max-width: 767px;
+    width: 90%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+@media(max-width:767px){
+    .card{
+        margin: 3vh auto;
+    }
+}
+.cart{
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+@media(max-width:767px){
+    .cart{
+        padding: 4vh;
+        border-bottom-left-radius: unset;
+        border-top-right-radius: 1rem;
+    }
+}
+.summary{
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    color: rgb(65, 65, 65);
+}
+@media(max-width:767px){
+    .summary{
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+    }
+}
+
+.close{
+    margin-left: auto;
+    font-size: 0.7rem;
+}
+img{
+    width: 3.5rem;
+}
+.back-to-shop{
+    margin-top: 4.5rem;
+}
+h5{
+    margin-top: 4vh;
+}
+hr{
+    margin-top: 1.25rem;
+}
+form{
+    padding: 2vh 0;
+}
+select{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+input{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+input:focus::-webkit-input-placeholder
+{
+      color:transparent;
+}
+.btn{
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    font-size: 0.7rem;
+    margin-top: 4vh;
+    padding: 1vh;
+    border-radius: 0;
+}
+.btn:focus{
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none; 
+}
+.btn:hover{
+    color: white;
+}
+a{
+    color: black; 
+}
+a:hover{
+    color: black;
+    text-decoration: none;
+}
+
+
+</style>
+	</head>
+	<body>
+		<!-- WRAPPER START -->
+		<div class="wrapper bg-dark-white">
+
+			<!-- HEADER-AREA START -->
+			<header id="sticky-menu" class="header header-2">
+				<div class="header-area">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-4 offset-md-4 col-7">
+								<div class="logo text-md-center">
+									<a href="{% url 'home' %}"><img src="https://oldsupra.ge/wp-content/uploads/2024/10/LOGO-new-up.png" alt="" /></a>
+								</div>
+							</div>
+							<div class="col-md-4 col-5">
+								<div class="mini-cart text-end">
+									<ul>
+										<li>
+											<a class="cart-icon" href="#">
+												<i class="zmdi zmdi-shopping-cart"></i>
+												<span>3</span>
+											</a>
+											<div class="mini-cart-brief text-left">
+												<div class="cart-items">
+										
+												</div>
+												<div class="all-cart-product clearfix">
+												    {% for cart_item in cart_items_cart %}
+													<div class="single-cart clearfix">
+														<div class="cart-photo">
+															<a href="#"><img src="{{ cart_item.product.images.url }}" alt="" /></a>
+														</div>
+														<div class="cart-info">
+															<h5><a href="#">{{ cart_item.product.Product_name }}</a></h5>
+															   {% if cart_item.variations.exists %}
+                                                                  	<p class="mb-0">Price : {{ cart_item.variations.first.price  }}</p>
+                                                                {% else %}
+                                                                   	<p class="mb-0">Price : {{ cart_item.product.price}}</p>
+                                                                {% endif %}
+															
+															<p class="mb-0">Qty :{{ cart_item.quantity }} </p>
+															<span class="cart-delete"><a href="#"><i class="zmdi zmdi-close"></i></a></span>
+														</div>
+													</div>
+													{% endfor %}
+												
+												</div>
+												<div class="cart-totals">
+													<h5 class="mb-0">Total : <span class="floatright"> {{ grand_total }} ₾</span></h5>
+												</div>
+												<div class="cart-bottom  clearfix">
+													<a href="{% url 'cart' %}" class="button-one floatleft text-uppercase" data-text="View cart">View cart</a>
+													<a href="{% url 'cartcheck' %}" class="button-one floatright text-uppercase" data-text="Check out">Check out</a>
+												</div>
+											</div>
+										</li>
+										        <li>
+            <a class="cart-icon" href="{% url 'dashboard' %}">
+                <i class="zmdi zmdi-account-circle"></i>
+            </a>
+        </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- MAIN-MENU START -->
+				<div class="menu-toggle menu-toggle-2 hamburger hamburger--emphatic d-none d-md-block">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+				<div class="main-menu  d-none d-md-block">
+<nav>
+						<ul> 
+						    {% for cat in cats %}
+						    
+						   	<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+						   	
+						   	{% endfor %}
+						</ul>
+					</nav>   
+				</div>
+				<!-- MAIN-MENU END -->
+			</header>
+			<!-- HEADER-AREA END -->
+			<!-- Mobile-menu start -->
+			<div class="mobile-menu-area">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 d-block d-md-none">
+							<div class="mobile-menu">
+								<nav id="dropdown">
+									<ul>
+										<li><a href="#">Cats</a>
+										
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Mobile-menu end -->
+			<!-- HEADING-BANNER START -->
+			<div class="heading-banner-area overlay-bg">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="heading-banner">
+								<div class="heading-banner-title">
+									<h2>Shopping Cart</h2>
+								</div>
+								<div class="breadcumbs pb-15">
+									<ul>
+										<li><a href="https://termmodels.com/ka/shop/gory/5/">Continue Shopping</a></li>
+										<li>Shopping Cart</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- HEADING-BANNER END -->
+			<!-- SHOPPING-CART-AREA START -->
+<div class="card">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                    <div class="col align-self-center text-right text-muted">{{ cart_items.count }} items</div>
+                </div>
+            </div>
+            {% for cart_item in cart_items %}
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2">
+                         <img 
+                        src="{% if cart_item.variations.exists %}{{ cart_item.variations.first.image.url }}{% else %}{{ cart_item.product.images.url }}{% endif %}" 
+                         class="image-fluid" alt="" />
+                    </div>
+                    <div class="col">
+                        <div class="row text-muted">{{ cart_item.product.category }}</div>
+                        <div class="row">{{ cart_item.product.Product_name }}</div>
+                        {% if cart_item.variations.exists %}
+                            <p class="mb-0">Color: {{ cart_item.variations.first.color.title }}</p>
+                            <p class="mb-0">Size: {{ cart_item.variations.first.size.title }}</p>
+                        {% else %}
+                            <p class="mb-0">Color: Default</p>
+                            <p class="mb-0">Size: Default</p>
+                        {% endif %}
+                    </div>
+                  
+                        <div class="cart-plus-minus-box">
+                            <button class="qty-minus">-</button>
+                            <input
+                                type="text"
+                                name="quantity"
+                                value="{{ cart_item.quantity }}"
+                                class="cart-plus-minus-box"
+                                min="1"
+                                max="{{ cart_item.product.stock }}"
+                                data-cart-item-id="{{ cart_item.id }}"
+                            >
+                            <button class="qty-plus">+</button>
+                        </div>
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                  
+                    <div class="col product-price">
+                        {% if cart_item.variations.exists %}
+                            {{ cart_item.variations.first.price }}
+                        {% else %}
+                            {{ cart_item.product.price }}
+                        {% endif %}
+                    </div>
+                    <div class="col product-subtotal" id="subtotal-{{ cart_item.id }}">
+                        {{ cart_item.sub_total }}
+                    </div>
+                    <div class="col">
+                        <span class="close remove-item" data-cart-item-id="{{ cart_item.id }}">&times;</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div><h5><b>Summary</b></h5></div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0;">ITEMS {{ cart_items.count }}</div>
+                <div class="col text-right" id="cart-total">{{ sub_total }}</div>
+            </div>
+            <form>
+                <p>SHIPPING</p>
+                <select><option class="text-muted">Standard-Delivery- &euro;5.00</option></select>
+                <p>GIVE CODE</p>
+                <input id="code" placeholder="Enter your code">
+            </form>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="col">TOTAL PRICE</div>
+                <div class="col text-right" id="cart-total-tot-tot">GEL: {{ grand_total }}</div>
+            </div>
+            	<a href="{% url 'cartcheck' %}" class="btn" data-text="Check out">Check out</a>
+        </div>
+    </div>
+</div>
+
+			<footer>
+				<!-- Footer-area start -->
+				<div class="footer-area footer-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">Contact Us</h3>
+                                    <ul class="footer-contact">
+                                        <li><span>Address :</span>28 Green Tower, Street Name,<br>Tbilisi Georgia</li>
+                                        <li><span>Cell-Phone :</span>012345 - 123456789</li>
+                                        <li><span>Email :</span>your-email@gmail.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">accounts</h3>
+                                    <ul class="footer-menu">
+                                        <li><a href="{% url 'dashboard' %}"><i class="zmdi zmdi-dot-circle"></i>My Account</a></li>
+                                        <li><a href="wishlist.html"><i class="zmdi zmdi-dot-circle"></i>My Wishlist</a></li>
+                                        <li><a href="{% url 'cart' %}"><i class="zmdi zmdi-dot-circle"></i>My Cart</a></li>
+  
+                                        <li><a href="checkout.html"><i class="zmdi zmdi-dot-circle"></i>Check out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="single-footer">
+                                    <h3 class="footer-title  title-border">categories</h3>
+                                    <ul class="footer-menu">
+                                        {% for cat in cats %}
+                                        <li><a href="{{cat.get_url_cat}}"><i class="zmdi zmdi-dot-circle"></i>{{cat.category_name}}</a></li>
+                                        {% endfor%}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-footer newsletter-item">
+                                    <h3 class="footer-title  title-border">Email Newsletters</h3>
+                                    <div class="footer-subscribe">
+                                        <form action="#">
+                                            <input type="text" name="email" placeholder="Email Address..." />
+                                            <button class="button-one submit-btn-4" type="submit" data-text="Subscribe">Subscribe</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<!-- Footer-area end -->
+				<!-- Copyright-area start -->
+				<div class="copyright-area copyright-2">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="copyright">
+									<p class="mb-0">&copy; <a href="https://themeforest.net/user/codecarnival/portfolio" target="_blank">CodeCarnival </a> 2022. All Rights Reserved.</p>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="payment  text-md-end">
+									<a href="#"><img src="img/payment/1.png" alt="" /></a>
+									<a href="#"><img src="img/payment/2.png" alt="" /></a>
+									<a href="#"><img src="img/payment/3.png" alt="" /></a>
+									<a href="#"><img src="img/payment/4.png" alt="" /></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Copyright-area start -->
+			</footer>
+			<!-- FOOTER END -->
+			<!-- FOOTER END -->
+		
+
+		</div>
+		<!-- WRAPPER END -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    let isProgrammaticChange = false;
+
+    $('.cart-plus-minus-box input').on('change', function (event) {
+        if (isProgrammaticChange) return;
+        event.preventDefault();
+        updateCartQuantity($(this));
+    });
+
+    $('.qty-plus').on('click', function (event) {
+        event.preventDefault();
+        let inputField = $(this).closest('.cart-plus-minus-box').find('input');
+        let currentQuantity = parseInt(inputField.val());
+        let newQuantity = currentQuantity + 1;
+
+        if (newQuantity <= inputField.attr('max')) {
+            isProgrammaticChange = true;
+            inputField.val(newQuantity);
+            updateCartQuantity(inputField);
+            isProgrammaticChange = false;
+        }
+    });
+
+    $('.qty-minus').on('click', function (event) {
+        event.preventDefault();
+        let inputField = $(this).closest('.cart-plus-minus-box').find('input');
+        let currentQuantity = parseInt(inputField.val());
+        let newQuantity = currentQuantity - 1;
+
+        if (newQuantity >= inputField.attr('min')) {
+            isProgrammaticChange = true;
+            inputField.val(newQuantity);
+            updateCartQuantity(inputField);
+            isProgrammaticChange = false;
+        }
+    });
+
+    $('.remove-item').on('click', function () {
+        let cartItemId = $(this).data('cart-item-id');
+        let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+        $.ajax({
+            url: `/carts/remove_item/${cartItemId}/`,
+            type: 'POST',
+            data: { csrfmiddlewaretoken: csrfToken },
+            success: function (response) {
+                if (response.success) {
+                    location.reload();
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', xhr.responseText || error);
+                alert('An error occurred while updating the cart. Please try again.');
+            }
+        });
+    });
+
+    function updateCartQuantity(inputField) {
+        let cartItemId = inputField.data('cart-item-id');
+        let quantity = inputField.val();
+        let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+        $.ajax({
+            url: `/carts/update_cart_quantity/${cartItemId}/`,
+            type: 'POST',
+            data: {
+                quantity: quantity,
+                csrfmiddlewaretoken: csrfToken
+            },
+            success: function (response) {
+                if (response.success) {
+                    $(`#subtotal-${cartItemId}`).text(response.sub_total);
+                    $('#cart-total').text(response.cart_total);
+                    $('#cart-total-tot-tot').text(`GEL: ${response.grand_total}`);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX Error:', xhr.responseText || error);
+                alert('An error occurred while updating the cart. Please try again.');
+            }
+        });
+    }
+});
+</script>
+
+<script>
+    document.getElementById('go-to-checkout').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent default link behavior
+    var checkOutTab = new bootstrap.Tab(document.querySelector('a[href="#check-out"]')); // For Bootstrap 5
+    checkOutTab.show();
+});
+
+</script>
+
+			<script src="{% static 'js/vendor/gsap.min.js' %}"></script> <!-- GSAP JS (https://greensock.com/gsap/) -->
+			<script src="{% static 'js/vendor/ScrollToPlugin.min.js' %}"></script> <!-- GSAP ScrollToPlugin JS (https://greensock.com/scrolltoplugin/) -->
+			<script src="{% static 'js/vendor/ScrollTrigger.min.js' %}"></script> <!-- GSAP ScrollTrigger JS (https://greensock.com/scrolltrigger/) -->
+			<script src="{% static 'js/vendor/jquery-3.6.0.min.js' %}"></script>
+			<script src="{% static 'js/vendor/jquery-migrate-3.3.2.min.js' %}"></script>
+			<!-- bootstrap js -->
+			<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+			<!-- jquery.meanmenu js -->
+			<script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+			<!-- slick.min js -->
+			<script src="{% static 'js/slick.min.js' %}"></script>
+			<!-- jquery.treeview js -->
+			<script src="{% static 'js/jquery.treeview.js' %}"></script>
+			<!-- lightbox.min js -->
+			<script src="{% static 'js/lightbox.min.js' %}"></script>
+			<!-- jquery-ui js -->
+			<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+			<!-- jquery.nivo.slider js -->
+			<script src="{% static 'lib/js/jquery.nivo.slider.js' %}"></script>
+			<script src="{% static 'lib/home.js' %}"></script>
+			<!-- jquery.nicescroll.min js -->
+			<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+			<!-- countdon.min js -->
+			<script src="{% static 'js/countdon.min.js' %}"></script>
+			<!-- wow js -->
+			<script src="{% static 'js/wow.min.js' %}"></script>
+			<!-- plugins js -->
+			<script src="{% static 'js/plugins.js' %}"></script>
+			<!-- main js -->
+			<script src="{% static 'js/main.min.js' %}"></script>
+			<script src="{% static 'js/new.js' %}"></script>
+
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+{% load static %}
+{% load i18n %}
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="FSS.GE">
+    <meta name="author" content="Andro Besalashvili">
+    <meta name="keywords" content="Fire Alarm">
+    <!-- Page Title -->
+	<title>Welcome @ Fss.ge</title>
+	<!--Fevicon-->
+  <link rel="icon" href="{% static 'assets/img/logo/logo-sinrato.png' %}" type="image/x-icon" />
+  <!-- Bootstrap css -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- linear-icon -->
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/linear-icon.css' %}">
+    <!-- all css plugins css -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.css' %}">
+    <!-- default style -->
+    <link rel="stylesheet" href="{% static 'assets/css/default.css' %}">
+    <!-- Main Style css -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+
+
+
+    <!-- Modernizer JS -->
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+
+</head>
+
+
+<body>
+
+
+
+
+
+          {% include 'includes/navbar.html' %}
+
+          {% block content %}
+
+          {% endblock %}
+
+          {% include 'includes/footer.html' %}
+
+
+
+              <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+              <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+              <script src="{% static 'assets/js/plugins.js' %}"></script>
+              <script src="{% static 'assets/js/ajax-mail.js' %}"></script>
+              <script src="{% static 'assets/js/main.js' %}"></script>
+							<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+							<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>

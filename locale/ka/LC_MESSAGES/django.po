@@ -1,0 +1,283 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-19 16:27+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: .\templates\home3.html:81
+msgid "free shipping"
+msgstr "უფასო მიწოდება"
+
+#: .\templates\home3.html:82
+msgid "in Georgia"
+msgstr "საქართველოს ტერიტორიაზე"
+
+#: .\templates\home3.html:92
+msgid "Support 24/7"
+msgstr "ტექნიკური მხარდაჭერა"
+
+#: .\templates\home3.html:93
+msgid "Contact us 24 hours a day"
+msgstr "დაგვიკავშირდით !"
+
+#: .\templates\home3.html:103
+#, python-format
+msgid "100%% Money Back"
+msgstr "თანხის დაბრუნება"
+
+#: .\templates\home3.html:104
+msgid "You have 30 days to Return"
+msgstr "30 დღის განმავლობაში"
+
+#: .\templates\home3.html:114
+msgid "90 Days Return"
+msgstr "თანხის დაბრუნება"
+
+#: .\templates\home3.html:115
+msgid "If goods have problems"
+msgstr "ტექნიკური ხარვეზის შემთხვევაში"
+
+#: .\templates\home3.html:125
+msgid "Payment Secure"
+msgstr "უსაფრთხო გადახდის სისტემები"
+
+#: .\templates\home3.html:126
+msgid "We ensure secure payment"
+msgstr "FSS.GE"
+
+#: .\templates\home3.html:141
+msgid "Fire Alarm"
+msgstr "სახანძრო უსაფრთხოების"
+
+#: .\templates\home3.html:141
+msgid " System"
+msgstr "სისტემები"
+
+#: .\templates\home3.html:207
+msgid "Audio"
+msgstr "გახმოვანების"
+
+#: .\templates\home3.html:207
+msgid "Systems"
+msgstr "სისტემები"
+
+#: .\templates\home3.html:232 .\templates\shop\shop-extended.html:143
+#: .\templates\shop\single_item.html:261
+msgid "new"
+msgstr "ახალი"
+
+#: .\templates\home3.html:261 .\templates\shop\shop-extended.html:169
+#: .\templates\shop\shop-extended.html:327
+#: .\templates\shop\single_item.html:287 .\templates\shop\single_item.html:380
+msgid "add to cart"
+msgstr "კალათაში დამატება"
+
+#: .\templates\home3.html:304
+msgid "All"
+msgstr "ყველა"
+
+#: .\templates\home3.html:304
+msgid "Projects"
+msgstr "პროექტი"
+
+#: .\templates\home3.html:305
+msgid "Click here for full Catalog"
+msgstr "სრული კატალოგი"
+
+#: .\templates\home3.html:332
+msgid "Our"
+msgstr "ჩვენი"
+
+#: .\templates\home3.html:332 .\templates\includes\footer.html:127
+#: .\templates\shop\shop-extended.html:80
+msgid "Brands"
+msgstr "ბრენდები"
+
+#: .\templates\home3.html:405 .\templates\shop\shop-extended.html:319
+#: .\templates\shop\single_item.html:350
+msgid "Availability :"
+msgstr "რაოდენობა : "
+
+#: .\templates\home3.html:405 .\templates\shop\shop-extended.html:319
+#: .\templates\shop\single_item.html:350
+msgid "In Stock"
+msgstr "საწყობშია"
+
+#: .\templates\home3.html:418
+msgid "Add to Cart"
+msgstr "კალათაში დამატება"
+
+#: .\templates\includes\footer.html:13
+msgid "Be the First to Know. Sign up for newsletter today"
+msgstr "სიახლებიის გამოწერა"
+
+#: .\templates\includes\footer.html:17
+msgid "enter your Email"
+msgstr "შეიყვანეთ ელ-ფოსტა"
+
+#: .\templates\includes\footer.html:18
+msgid "subscribe !"
+msgstr "გამოწერა!"
+
+#: .\templates\includes\footer.html:56
+msgid "payment"
+msgstr "გადახდის სისტემები"
+
+#: .\templates\includes\footer.html:65
+msgid "Information"
+msgstr "საიტის შესახებ"
+
+#: .\templates\includes\footer.html:70
+msgid "about us"
+msgstr "ჩვენს შესახებ"
+
+#: .\templates\includes\footer.html:71
+msgid "Delivery Information"
+msgstr "მიტანა"
+
+#: .\templates\includes\footer.html:72
+msgid "Privacy Policy"
+msgstr "უსაფრთხოების პოლიტიკა"
+
+#: .\templates\includes\footer.html:73
+msgid "Terms & Conditions"
+msgstr "წესები და პირობები"
+
+#: .\templates\includes\footer.html:74
+msgid "Contact Us"
+msgstr "დაგვიკავშირდით"
+
+#: .\templates\includes\footer.html:75
+msgid "Returns"
+msgstr "დაბრუნება"
+
+#: .\templates\includes\footer.html:76
+msgid "Site Map"
+msgstr "საიტის რუკა"
+
+#: .\templates\includes\footer.html:85
+msgid "contact us"
+msgstr "დაგვიკავშირდით"
+
+#: .\templates\includes\footer.html:90
+msgid "Address:"
+msgstr "მისამართი"
+
+#: .\templates\includes\footer.html:90
+msgid "Ketevan Tsamebuli Ave, N50/18"
+msgstr "ქეთევან წამებულის N50/18"
+
+#: .\templates\includes\footer.html:92
+msgid "Call us:"
+msgstr "დაგვირეკეთ"
+
+#: .\templates\includes\footer.html:101
+msgid "Social Activity"
+msgstr "სოც ქსელები"
+
+#: .\templates\includes\footer.html:128
+msgid "Specials"
+msgstr ""
+
+#: .\templates\includes\navbar.html:11
+msgid "Email:"
+msgstr "ელ ფოსტა"
+
+#: .\templates\includes\navbar.html:12
+msgid "Free Shipping for all Order of $99"
+msgstr "უფასო მიწოდება 100₾ შემდეგ"
+
+#: .\templates\includes\navbar.html:21
+msgid "My Account"
+msgstr "ჩემი ანგარიში"
+
+#: .\templates\includes\navbar.html:23
+msgid "Register"
+msgstr "რეგისტრაცია"
+
+#: .\templates\includes\navbar.html:24
+msgid "Login"
+msgstr "შესვლა"
+
+#: .\templates\includes\navbar.html:31
+msgid "Dashboard"
+msgstr "მართვის პანელი"
+
+#: .\templates\includes\navbar.html:32
+msgid "Logout"
+msgstr "გასვლა"
+
+#: .\templates\includes\navbar.html:37
+msgid "Language "
+msgstr "აირჩიეთ ენა"
+
+#: .\templates\includes\navbar.html:39
+msgid "English"
+msgstr "ინგლისური"
+
+#: .\templates\includes\navbar.html:40
+msgid "Georgian"
+msgstr "ქართული"
+
+#: .\templates\includes\navbar.html:44
+msgid "Currency"
+msgstr "ვალუტა"
+
+#: .\templates\includes\navbar.html:83
+msgid "Product compare"
+msgstr "შედარება"
+
+#: .\templates\includes\navbar.html:86 .\templates\includes\navbar.html:115
+msgid "my cart"
+msgstr "ჩემი კალათა"
+
+#: .\templates\includes\navbar.html:107 .\templates\includes\navbar.html:135
+msgid "view cart"
+msgstr "კალათის ნახვა"
+
+#: .\templates\includes\navbar.html:110 .\templates\includes\navbar.html:138
+msgid "checkout"
+msgstr "გადახდა"
+
+#: .\templates\projects\all_projects.html:17
+#: .\templates\projects\all_projects.html:18
+#: .\templates\shop\shop-extended.html:20
+msgid "Home"
+msgstr "მთავარი"
+
+#: .\templates\shop\shop-extended.html:64
+msgid "Categories"
+msgstr "კატეგორიები"
+
+#: .\templates\shop\shop-extended.html:325
+#: .\templates\shop\single_item.html:378
+msgid "qty :"
+msgstr "რ-დ"
+
+#: .\templates\shop\single_item.html:249
+msgid "Related "
+msgstr "მსგავსი"
+
+#: .\templates\shop\single_item.html:249
+msgid "product"
+msgstr "პროდუქტები"
+
+#: .\templates\shop\single_item.html:276
+#, fuzzy
+#| msgid "Brands"
+msgid "Brand : "
+msgstr "ბრენდები"

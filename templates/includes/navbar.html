@@ -1,0 +1,188 @@
+{% load static %}
+{% load i18n %}
+<header>
+  <header class="header-pos">
+      <div class="header-top black-bg">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-lg-8 col-12">
+                      <div class="header-top-left">
+                          <ul>
+                              <li><span>{% trans 'Email:'%} </span>contact@fss.ge</li>
+                              <li>{% trans 'Free Shipping for all Order of $99'%}</li>
+                          </ul>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-12">
+                      <div class="box box-right">
+                          <ul>
+                            {% if user.id is None%}
+                            <li class="settings">
+                                <button type="button" class="ha-toggle">{% trans 'My Account'%}<span class="lnr lnr-chevron-down"></span></button>
+                                <ul class="box-dropdown ha-dropdown">
+                                    <li><a href="{% url 'register' %}">{% trans 'Register'%}</a></li>
+                                    <li><a href="{% url 'login' %}">{% trans 'Login'%}</a></li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li class="settings">
+                                <button type="button" class="ha-toggle">Hi {{user.first_name}}<span class="lnr lnr-chevron-down"></span></button>
+                                <ul class="box-dropdown ha-dropdown">
+                                    <li><a href="{% url 'dashboard' %}">{% trans 'Dashboard'%}</a></li>
+                                    <li><a href="{% url 'logout' %}">{% trans 'Logout'%}</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            <li class="settings">
+                                <button type="button" class="ha-toggle">{% trans 'Language '%}<span class="lnr lnr-chevron-down"></span></button>
+                                <ul class="box-dropdown ha-dropdown">
+                                    <li><a href="{% url 'set_language' 'en' %}"><img src="{% static 'assets/img/icon/en.png'%}" alt="">{% trans 'English'%}</a></li>
+                                    <li><a href="{% url 'set_language' 'ka' %}"><img src="{% static 'assets/img/icon/ka.png'%}" alt="">{% trans 'Georgian'%}</a></li>
+                                </ul>
+                            </li>
+                            <li class="currency">
+                                <button type="button" class="ha-toggle">{% trans 'Currency'%}<span class="lnr lnr-chevron-down"></span></button>
+                                <ul class="box-dropdown ha-dropdown">
+                                    <li><a href="{% url 'home' %}">GEL</a></li>
+                                    <li><a href="{% url 'home' %}">$ US Doller</a></li>
+                                </ul>
+                            </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+<div class="header-middle">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-12">
+                <div class="logo">
+                    <a href="{% url 'home' %}"><img src="{% static 'assets/img/logo/logo-sinrato.png' %}" alt="brand-logo"></a>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 col-12 order-sm-last">
+                <div class="header-middle-inner hstyle3-spacing">
+                    <form action="#" class="search" method=>
+
+                        <input type="text" class="top-cat-field" placeholder="Search entire store here" name="keyword">
+                        <!-- <button type="submit" class="top-search-btn" value="Search"></button> -->
+                        <div class="input-group-append">
+                          <button class="top-search-btn" type="submit">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 col-12 col-sm-8 order-lg-last">
+                <div class="mini-cart-option">
+                    <ul>
+                        <li class="compare">
+                            <a class="ha-toggle" href="#"><span class="lnr lnr-sync"></span>{% trans 'Product compare'%}</a>
+                        </li>
+                        <li class="wishlist">
+                            <button type="button" class="ha-toggle"><span class="lnr lnr-heart""></span><span class="count">{{cart_count}}</span>{% trans 'my cart'%}</button>
+
+                            <ul class="mini-cart-drop-down ha-dropdown">
+                                {% for cart_item in cart_items_cart %}
+                                <li class="mb-30">
+                                    <div class="cart-img">
+                                        <a href="{{ cart_item.product.get_url }}"><img alt="" src="{{ cart_item.product.images.url }}"></a>
+                                    </div>
+                                    <div class="cart-info">
+                                        <h4><a href="{{ cart_item.product.get_url }}">{{ cart_item.product.Product_name }}</a></h4>
+                                        <span><span>{{ cart_item.quantity }} x </span>₾ {{ cart_item.product.get_price }}</span>
+                                    </div>
+                                    <div class="del-icon">
+                                          <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}">
+                                              <i class="fa fa-times-circle"></i>
+                                          </a>
+                                      </div>
+                                </li>
+                                {% endfor%}
+
+                                <li class="mt-30">
+                                    <a class="cart-button" href="#">{% trans 'view cart'%}</a>
+                                </li>
+                                <li>
+                                    <a class="cart-button" href="#">{% trans 'checkout'%}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="my-cart">
+    <button type="button" class="ha-toggle"><span class="lnr lnr-cart"></span><span class="count">{{cart_count}}</span>{% trans 'my cart'%}</button>
+    <ul class="mini-cart-drop-down ha-dropdown">
+        {% for cart_item in cart_items_cart %}
+        <li class="mb-30">
+            <div class="cart-img">
+                <a href="{{ cart_item.product.get_url }}"><img alt="" src="{{ cart_item.product.images.url }}"></a>
+            </div>
+            <div class="cart-info">
+                <h4><a href="product-details.html">{{ cart_item.product.Product_name }}</a></h4>
+                <span><span>{{ cart_item.quantity }} x </span>₾ {{ cart_item.product.get_price }}</span>
+            </div>
+            <div class="del-icon">
+                  <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}">
+                      <i class="fa fa-times-circle"></i>
+                  </a>
+              </div>
+        </li>
+        {% endfor%}
+
+        <li class="mt-30">
+            <a class="cart-button" href="{% url 'cart' %}">{% trans 'view cart'%}</a>
+        </li>
+        <li>
+            <a class="cart-button" href="{% url 'cart' %}">{% trans 'checkout'%}</a>
+        </li>
+    </ul>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header-top-menu theme-bg sticker">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="top-main-menu">
+                    <div class="main-menu menu-style3">
+                        <nav id="mobile-menu" data-screen="1199" class="m-style3">
+                            <ul>
+                              {% for category in categories %}
+                                  <!-- existing category display code -->
+                                     {% if category.cat_image %}
+                                     <li><a href="{{category.get_url}}"><img src="{{category.cat_image.url}}" alt=""><span>{{category.category_name}}<i class="lnr lnr-chevron-down"></i></span></a>
+                                       {% else %}
+                                       <li class="static"><a href="{{category.get_url}}"><img src="#" alt=""><span>{{category.category_name}}<i class="lnr lnr-chevron-down"></i></span></a>
+                                     {% endif %}
+
+                                          <ul class="dropdown">
+                                           {% for subcat in category.subcategory_set.all %}
+                                             <li><a href="{{subcat.get_url}}">{{subcat.subcategory_name}}</a>
+
+                                             {% endfor %}
+
+                                         </ul>
+                                     </li>
+                                  {% endfor %}
+
+
+                                <!--<li><a href="{% url 'contact' %}"><img src="{% static 'assets/img/icon/icon7.png' %}" alt=""><span>Contact    &   Support <i class="lnr lnr-chevron-down"></i></span></a>-->
+
+                                <!--</li>-->
+                            </ul>
+                        </nav>
+                    </div> <!-- </div> end main menu -->
+                </div>
+            </div>
+            <div class="col-12 d-block d-xl-none"><div class="mobile-menu m-style3"></div></div>
+        </div>
+    </div>
+</div>
+</header>
+<!-- header area end -->

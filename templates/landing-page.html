@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load i18n %}
+
+
+<html lang="en">
+	<head>
+
+
+
+		<!-- Meta -->
+		<meta charset="utf-8">
+        <title>ქართული სუფრა | შეიძინე ონლაინ | Old Supra></title>
+		<meta name="description" content="ქართული კულტურით შთაგონებული სახლის დეკორი და პირადი აქსესუარები">
+		<meta name="author" content="oldsupra.ge">
+
+		<!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-TDFFC3Z');</script>
+            <!-- End Google Tag Manager -->
+
+
+
+		<!-- Mobile Meta -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Favicon (http://www.favicon-generator.org/) -->
+		<link rel="shortcut icon" href="{% static 'Logosupra.png' %}" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+		<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+		<!-- Your Google Analytics code goes here -->
+
+		<!-- Google fonts (https://www.google.com/fonts) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"> <!-- Body font -->
+		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"> <!-- Secondary/Alter font -->
+
+		<!-- Libs and Plugins CSS -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/normalize/normalize.min.css'%}"> <!-- Normalize CSS (https://necolas.github.io/normalize.css/) -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/fontawesome/css/fontawesome-all.min.css'%}"> <!-- Font Icons CSS (https://fontawesome.com) Free version! -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/swiper/css/swiper-bundle.min.css'%}"> <!-- Swiper CSS (https://swiperjs.com/) -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/lightgallery/css/lightgallery.min.css'%}"> <!-- lightGallery CSS (http://sachinchoolur.github.io/lightGallery) -->
+		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font@2.2.0/dist/css/material-design-iconic-font.min.css">
+
+
+		<!-- Template master CSS -->
+		<link rel="stylesheet" href="{% static 'assets/css/helper.css'%}">
+		<link id="tt-themecss" rel="stylesheet" href="{% static 'assets/css/theme.css'%}">
+		<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1424236331274463');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+/* Search container */
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Search icon */
+.search-icon {
+    font-size: 22px;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 6px;
+}
+
+.search-icon:hover {
+    color: #bbbbbb;
+}
+
+/* Hidden input field initially */
+.search-input-wrapper {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+    transition: width 0.4s ease, opacity 0.3s ease;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.search-container.active .search-input-wrapper {
+    opacity: 1;
+    width: 200px;
+}
+
+.search-input-wrapper input {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.search-input-wrapper input:focus {
+    outline: none;
+    background-color: rgba(255,255,255,0.3);
+}
+
+.search-results-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    max-width: 280px;
+    max-height: 300px;
+    color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow-y: auto;
+    z-index: 9999;
+}
+
+.search-results-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.search-results-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+.search-results-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.search-results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.search-results-list li {
+    border-bottom: 1px solid #f0f0f0;
+}
+.search-results-list li:last-child {
+    border-bottom: none;
+}
+.search-results-list li a {
+    display: block;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.search-results-list li a:hover {
+    background: #f8f8f8;
+    color: #bbbbbb;
+}
+.search-results-list li.no-results {
+    padding: 10px 12px;
+    color: #888888;
+    cursor: default;
+    border-bottom: none;
+}
+.search-results-list .suggestions-header {
+    padding: 8px 12px;
+    font-style: italic;
+    color: #555;
+}
+.search-results-list .suggestion-item a {
+    padding-left: 16px;
+    display: block;
+    color: #007bff;
+    transition: background 0.2s;
+}
+.search-results-list .suggestion-item a:hover {
+    background: #f0f8ff;
+    text-decoration: none;
+}
+</style>
+</head>
+
+	
+
+	<body id="body" class="tt-transition tt-boxed tt-smooth-scroll tt-magic-cursor">
+	    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TDFFC3Z"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+		<!-- *************************************
+		*********** Begin body inner ************* 
+		************************************** -->
+		<main id="body-inner">
+
+			<!-- Begin page transition (do not remove!!!) 
+			=========================== -->
+			<div id="page-transition">
+				<div class="ptr-overlay"></div>
+				<div class="ptr-preloader">
+					<div class="ptr-prel-content">
+						<!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+						<img src="{% static 'assets/img/suprawhite.svg' %}" class="ptr-prel-image tt-logo-light" fetchpriority="high" alt="OldSupra">
+						
+					</div> <!-- /.ptr-prel-content -->
+				</div> <!-- /.ptr-preloader -->
+			</div>
+			<!-- End page transition -->
+
+			<!-- Begin magic cursor 
+			======================== -->
+			
+			<div id="magic-cursor">
+				<div id="ball"></div>
+			</div>
+	
+	
+
+
+			<!-- *****************************************
+			*********** Begin scroll container *********** 
+			****************************************** -->
+			<div id="scroll-container"> 
+				
+				<!-- ===================
+				///// Begin header /////
+				========================
+				* Use class "tt-header-fixed" to set header to fixed position.
+				-->
+				<header id="tt-header" class="tt-header-fixed">
+					<div class="tt-header-inner"> 
+
+						<div class="tt-header-col">
+
+							<!-- Begin logo 
+							================ -->
+							<div class="tt-logo"> 
+								<a href="{% url 'home' %}">
+									<!-- Hint: You may need to change the img height to match your logo type. You can do this from the "theme.css" file (find: ".tt-logo img"). -->
+									<img src="{% static 'assets/img/suprawhite.svg' %}" class="tt-logo-light magnetic-item" alt="Logo"> <!-- logo light -->
+									<img src="{% static 'assets/img/suprawhite.svg' %}" class="tt-logo-dark magnetic-item" alt="Logo"> <!-- logo dark -->
+								</a>
+							</div>
+							<!-- End logo -->
+
+						</div> <!-- /.tt-header-col -->
+
+						<div class="tt-header-col">
+                            							<div id="tt-ol-menu-toggle-btn-wrap">
+					           
+							       <div id="searchContainer" class="search-container">
+  <a class="cart-icon" href="#">
+    <i class="zmdi zmdi-search search-icon" id="searchIcon"></i>
+  </a>
+
+  <div class="search-input-wrapper">
+    <form action="{% url 'search' %}" class="search" autocomplete="off">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="ძებნა.."
+        name="keyword"
+      >
+      <div id="search-results" class="search-results-dropdown"></div>
+    </form>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const searchContainer = document.getElementById('searchContainer');
+  const searchIcon = document.getElementById('searchIcon');
+  const searchInput = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  let timer;
+
+  // Toggle input visibility on icon click
+  searchIcon.addEventListener('click', function () {
+    searchContainer.classList.toggle('active');
+    if (searchContainer.classList.contains('active')) {
+      setTimeout(() => searchInput.focus(), 100);
+    } else {
+      results.innerHTML = '';
+    }
+  });
+
+  // AJAX search
+  searchInput.addEventListener('input', function () {
+    const q = this.value.trim();
+    clearTimeout(timer);
+
+    if (q.length < 2) {
+      results.innerHTML = '';
+      return;
+    }
+
+    timer = setTimeout(() => {
+      fetch(`{% url 'ajax_search' %}?keyword=${encodeURIComponent(q)}`)
+        .then(resp => resp.json())
+        .then(data => {
+          results.innerHTML = data.html;
+        })
+        .catch(err => {
+          console.error('AJAX search error:', err);
+        });
+    }, 300);
+  });
+
+  // Hide dropdown on outside click
+  document.addEventListener('click', function (e) {
+    if (!searchContainer.contains(e.target)) {
+      searchContainer.classList.remove('active');
+      results.innerHTML = '';
+    }
+  });
+});
+</script>
+
+					 
+							
+							<div id="tt-ol-menu-toggle-btn-wrap">
+								<div class="tt-ol-menu-toggle-btn-text-wrap hide-cursor">
+									<div class="tt-ol-menu-toggle-btn-text">
+										
+									</div> <!-- /.tt-ol-menu-toggle-btn-text -->
+								</div> <!-- /.tt-ol-menu-toggle-btn-text-wrap -->
+								<div class="tt-ol-menu-toggle-btn-holder">
+								    
+									<a href="#" class="tt-ol-menu-toggle-btn magnetic-item"><span></span></a>
+								</div>
+							<!-- /.tt-ol-menu-toggle-btn-holder -->
+							</div>
+							<div id="tt-ol-menu-toggle-btn-wrap">
+								<div class="tt-ol-menu-toggle-btn-text-wrap hide-cursor">
+									<div class="tt-ol-menu-toggle-btn-text">
+										
+									</div> <!-- /.tt-ol-menu-toggle-btn-text -->
+								</div> <!-- /.tt-ol-menu-toggle-btn-text-wrap -->
+							{% load i18n %}
+<div class="tt-ol-menu-toggle-btn-holder">
+    
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == "en" %}
+        <a href="{% url 'set_language' 'ka' %}" class="tt-ol-menu-toggle-btn magnetic-item">GEO</a>
+    {% else %}
+        <a href="{% url 'set_language' 'en' %}" class="tt-ol-menu-toggle-btn magnetic-item">ENG</a>
+    {% endif %}
+
+</div>
+<div class="tt-ol-menu-toggle-btn-holder account-icon">
+    <a href="{% url 'login' %}" class="tt-ol-menu-toggle-btn magnetic-item" title="Login">
+        <i class="zmdi zmdi-account"></i>
+    </a>
+</div>
+
+       
+							</div>
+							
+
+
+							<nav class="tt-overlay-menu tt-ol-menu-count">
+								<div class="tt-ol-menu-ghost"></div>
+								<div class="tt-ol-menu-holder">
+									<div class="tt-ol-menu-inner tt-wrap">
+										<div class="tt-ol-menu-content">
+
+											<!-- Begin menu list -->
+											<ul class="tt-ol-menu-list">
+											    
+											        	{% for cat in banners2 %}
+												<li class="tt-ol-submenu-wrap"><a href="{% url 'products_on_sale' %}">{{cat.Banner_name}}</a></li>
+                                                        {% endfor %}
+											    
+											    
+                                                    	{% for cat in categories %}
+												<li class="tt-ol-submenu-wrap"><a href="{{cat.get_url}}">{{cat.category_name}}</a></li>
+                                                        {% endfor %}
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+												
+												<!-- End submenu (sub-master) -->
+
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+												
+												<!-- End submenu (sub-master) -->
+
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+													<li class="tt-ol-submenu-wrap">
+													<div class="tt-ol-submenu-trigger">
+														<a href="{% url 'login' %}">Login</a>
+													
+													</div> <!-- /.tt-ol-submenu-trigger -->
+													<div class="tt-ol-submenu">
+														<ul class="tt-ol-submenu-list">
+
+														
+
+														</ul> <!-- /.tt-ol-submenu-list -->
+													</div> <!-- /.tt-ol-submenu -->
+												</li>
+												
+												
+										
+												<!-- End submenu (sub-master) -->
+
+												<!-- Begin submenu (submenu master)
+												==================================== -->
+												<li class="tt-ol-submenu-wrap">
+													<div class="tt-ol-submenu-trigger">
+														<a href="{% url 'contact' %}">Contact</a>
+													
+													</div> <!-- /.tt-ol-submenu-trigger -->
+													<div class="tt-ol-submenu">
+														<ul class="tt-ol-submenu-list">
+
+														
+
+														</ul> <!-- /.tt-ol-submenu-list -->
+													</div> <!-- /.tt-ol-submenu -->
+												</li>
+												
+                                                    	{% for cat in About_Us_dict %}
+												<li class="tt-ol-submenu-wrap"><a href="{{cat.get_url}}">{{cat.name}}</a></li>
+                                                        {% endfor %}
+												<!-- End submenu (sub-master) -->
+
+											</ul>
+								
+
+										</div> <!-- /.tt-ol-menu-content -->
+									</div> <!-- /.tt-ol-menu-inner -->
+								</div> <!-- /.tt-ol-menu-holder -->
+							</nav> 
+							<!-- End overlay menu -->
+
+						</div> <!-- /.header-col -->
+					</div> <!-- /.header-inner -->
+				</header>
+
+				<div id="content-wrap">
+
+
+				
+				<div id="page-content">
+						
+
+						<!-- ==================================================
+						///// Begin portfolio slider (full screen slider) /////
+						=======================================================
+						* NOTE: The Portfolio slider is a standalone element. Do not add other elements to this page!!!
+						* Use class "cursor-drag-mouse-down" to enable cursor drag style on mouse down ("data-simulate-touch" attribute must be enabled!).
+						* Available data attributes:
+								data-speed="900"......................(milliseconds)
+								data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+								data-mousewheel="true"................(true/false)
+								data-keyboard="true"..................(true/false)
+								data-simulate-touch="true"............(true/false)
+								data-grab-cursor="true"...............(true/false)
+								data-pagination-type="fraction".......(bullets/fraction/progressbar)
+								data-parallax-mouse-move="true".......(true/false)
+						-->
+						<div class="tt-portfolio-slider cursor-drag-mouse-down" data-speed="1000" data-mousewheel="true" data-keyboard="true" data-simulate-touch="true" data-grab-cursor="true" data-pagination-type="progressbar">
+
+							<!-- Begin swiper container -->
+							<div class="swiper">
+
+								<!-- Begin swiper wrapper (required) -->
+								
+								
+								<div class="swiper-wrapper">
+
+									<!-- Begin swiper slide 
+									======================== 
+									* Change data attributes (data-url="...", data-title="...", data-category="...") according to your needs.
+									* Use class "psi-image-is-light" if needed, it makes the elements dark and more visible if you use a very light image.
+									-->
+									
+									
+									    									
+								
+									
+									
+									
+									{% for cat in banners %}
+<div class="swiper-slide" data-url="{% url 'products_on_sale' %}" data-title="{{cat.Banner_name}}" data-slide="{{cat.id}}">
+  <div class="tt-portfolio-slider-item cover-opacity-4" data-swiper-parallax="100%">
+    <img
+      class="tt-psi-image swiper-lazy"
+      {% if forloop.first %}
+        src="{{ cat.images.url }}"
+        fetchpriority="high"
+        loading="eager"
+      {% endif %}
+      data-src="{{ cat.images.url }}"
+      alt="{{ cat.Banner_name|default:'Banner' }}"
+    >
+    <div class="swiper-lazy-preloader"></div>
+  </div>
+</div>
+{% endfor %}
+									
+									
+										{% for cat in categories %}
+									
+									<div class="swiper-slide" data-url="{{cat.get_url}}" data-title="{{cat.category_name}}" data-slide="{{cat.id}}" >
+										<!-- Use class "cover-opacity-*" to set an image overlay if needed. For example "cover-opacity-2". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
+										<div class="tt-portfolio-slider-item cover-opacity-4" data-swiper-parallax="100%">
+											<img class="tt-psi-image swiper-lazy" src="" data-src="{{cat.cat_image.url}}" alt="Image">
+										</div> <!-- /.tt-portfolio-slider-item -->
+										
+									</div> 
+									
+										
+									
+									{% endfor %}
+									
+
+
+								</div>
+							
+							</div>
+							<!-- End swiper container -->
+							
+                            <div class="tt-portfolio-slider-caption">
+            								<div class="tt-ps-caption-inner">
+            									<div class="tt-psc-elem tt-ps-caption-category"></div>
+            									<h2 class="tt-psc-elem tt-ps-caption-title"><a href="" ></a></h2>
+            								</div> <!-- /.tt-ps-caption-inner -->
+            							</div>
+							<!-- Begin portfolio slider caption
+							==================================== 
+							* Use class "psc-center" to align caption.
+							* Use class "psc-stroke" to enable caption title stroke style.
+							* Note: Titles and URLs are loaded from "swiper-slide" data attributes. Do not change them here!!!
+							-->
+						
+							<!-- End portfolio slider caption -->
+
+							<!-- Begin portfolio slider navigation 
+							======================================= -->
+							<div class="tt-portfolio-slider-navigation tt-swiper-nav">
+								<div class="tt-ps-nav-prev">
+									<div class="tt-ps-nav-arrow tt-ps-nav-arrow-prev magnetic-item"><i class="tt-arrow-left"></i></div>
+								</div>
+								<div class="tt-ps-nav-next">
+									<div class="tt-ps-nav-arrow tt-ps-nav-arrow-next magnetic-item"><i class="tt-arrow-right"></i></div>
+								</div>
+								<div class="tt-ps-nav-pagination"></div>
+							</div>
+							<!-- End portfolio slider navigation -->
+
+						</div>
+
+					
+
+							<!-- Begin portfolio slider caption
+							==================================== 
+							* Use class "psc-center" to align caption.
+							* Use class "psc-stroke" to enable caption title stroke style.
+							* Note: Titles and URLs are loaded from "swiper-slide" data attributes. Do not change them here!!!
+							-->
+							
+
+						</div>
+
+
+                        <!-- Begin portfolio hover carousel counter 
+                        ============================================ 
+                        * IMPORTANT: Make sure the items match the slides (data-slide="*") in the "tt-portfolio-hover-carousel" above!!!
+                        -->
+                        
+                        <!-- End portfolio hover carousel navigation -->
+
+                </div>
+
+
+					<!-- *************************************
+					*********** Begin page content *********** 
+					************************************** -->
+					
+
+					<!-- ======================
+					///// Begin tt-footer /////
+					=========================== -->
+				
+					<!-- End tt-footer -->
+
+
+				</div>
+				<!-- End content wrap -->
+
+			</div>
+			<!-- End scroll container -->
+
+		</main>
+		<!-- End body inner -->
+
+
+        
+
+		<!-- ====================
+		///// Scripts below /////
+		===================== -->
+
+		<!-- Core JS -->
+		<script src="{% static 'assets/vendor/jquery/jquery.min.js'%}"></script> <!-- jquery JS (https://jquery.com) -->
+
+		<!-- Libs and Plugins JS -->
+		<script src="{% static 'assets/vendor/gsap/gsap.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/gsap/ScrollToPlugin.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/gsap/ScrollTrigger.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/smooth-scrollbar.js'%}"></script> 
+		<script src="{% static 'assets/vendor/swiper/js/swiper-bundle.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/isotope/imagesloaded.pkgd.min.js'%}"></script> 
+		<script src="{% static 'assets/vendor/isotope/isotope.pkgd.min.js'%}"></script>
+		<script src="{% static 'assets/vendor/isotope/packery-mode.pkgd.min.js'%}"></script> <!-- Isotope Packery Mode JS (https://isotope.metafizzy.co/layout-modes/packery.html) -->
+		<script src="{% static 'assets/vendor/lightgallery/js/lightgallery-all.min.js'%}"></script> <!-- lightGallery Plugins JS (http://sachinchoolur.github.io/lightGallery) -->
+		<script src="{% static 'assets/vendor/jquery.mousewheel.min.js'%}"></script> <!-- A jQuery plugin that adds cross browser mouse wheel support (https://github.com/jquery/jquery-mousewheel) -->
+
+		<!-- Template master JS -->
+		<script src="{% static 'assets/js/theme.js'%}"></script>
+
+
+
+	</body>
+
+</html>

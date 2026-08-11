@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- breadcrumb area start -->
+<div class="breadcrumb-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+
+
+<!-- Start cart Wrapper -->
+<div class="shopping-cart-wrapper pb-70">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <main id="primary" class="site-main">
+                    <div class="shopping-cart">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="section-title">
+                                    <h3>Shopping Cart</h3>
+                                </div>
+                                <form action="#">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                          {% include 'includes/alerts.html' %}
+
+                                            <thead>
+                                                <tr>
+                                                    <td>Image</td>
+                                                    <td>Product Name</td>
+                                                    <td>SKU</td>
+                                                    <td>Quantity</td>
+                                                    <td>Unit Price</td>
+                                                    <td>Total</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                      <form method="post" action="#">
+                                                        </form>
+                                                      </td>
+                                                    </tr>
+                                                {% for cart_item in cart_items %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ cart_item.product.get_url }}"><img src="{{ cart_item.product.images.url }}" alt="Cart Product Image" title="{{ cart_item.product.images.url }}" class="img-thumbnail"></a>
+                                                    </td>
+                                                    <!--<td>-->
+                                                    <!--    <a href="{{ cart_item.product.get_url }}">{{ cart_item.product.Product_name }}</a>-->
+                                                    <!--    <span>{{ cart_item.product.Serial_numb }}</span>-->
+
+                                                    <!--</td>-->
+                                                    <!--<td>{{ cart_item.product.SKU }}</td>-->
+                                                    <td>
+                                                      <form method="post" action="{% url 'update_cart_quantity' cart_item.id %}">
+                                                              {% csrf_token %}
+                                                              <div class="input-group btn-block">
+                                                                  <div class="product-qty me-3">
+                                                                      <input type="number" name="quantity" value="{{ cart_item.quantity }}" >
+                                                                  </div>
+                                                                  <span class="input-group-btn">
+                                                                      <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
+
+                                                                      <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}">
+                                                                        <button type="button" name="button" class="btn btn-danger pull-right">X</button>
+                                                                      </a>
+                                                                  </span>
+                                                              </div>
+                                                            </form>
+
+                                                    </td>
+                                                    <td>{{ cart_item.product.get_price }}</td>
+                                                    <td>{{cart_item.sub_total}}</td>
+                                                </tr>
+                                                {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+
+                                <div class="cart-accordion-wrapper mt-full mt-40">
+                                    <h3>What would you like to do next?</h3>
+                                    <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+                                    <div id="cart_accordion" class="accordion mt-4">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingCoupon">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCoupon" aria-expanded="true" aria-controls="collapseCoupon">
+                                                    Use Coupon Code
+                                                </button>
+                                            </h2>
+                                            <div id="collapseCoupon" class="accordion-collapse collapse show" aria-labelledby="headingCoupon" data-bs-parent="#cart_accordion">
+                                                <div class="accordion-body">
+                                                    <div class="input-group row">
+                                                        <label class="col-12 col-sm-12 col-md-3" for="input-coupon">Enter your coupon here</label>
+                                                        <div class="col-12 col-sm-12 col-md-9">
+                                                            <div class="input-group">
+                                                            <input type="text" name="coupon" value="" placeholder="Enter your coupon here" id="input-coupon" class="form-control">
+                                                            <input type="button" value="Apply Coupon" id="button-coupon" class="btn btn-secondary cart-pg">
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTax">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTax" aria-expanded="false" aria-controls="collapseTax">
+                                                    Estimate Shipping &amp; Taxes<i class="ion ion-ios-arrow-down"></i>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTax" class="accordion-collapse collapse" aria-labelledby="headingTax" data-bs-parent="#cart_accordion">
+                                                <div class="accordion-body cart-select">
+                                                    <p class="pb-20">Enter your destination to get a shipping estimate.</p>
+                                                    <div class="input-group row form-group mb-3">
+                                                        <label class="col-12 col-sm-12 col-md-3" for="input-country"><span class="text-danger">*</span> Country</label>
+                                                        <div class="col-12 col-sm-12 col-md-9">
+                                                            <select name="country_id" id="input-country" class="form-control nice-select">
+                                                                <option value=""> --- Please Select --- </option>
+                                                                <option value="">Argentina</option>
+                                                                <option value="">Bangladesh</option>
+                                                                <option value="">Belgium</option>
+                                                                <option value="">Brazil</option>
+                                                                <option value="">Germany</option>
+                                                                <option value="">India</option>
+                                                                <option value="">United Kingdom</option>
+                                                                <option value="">United States</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group row form-group mb-3">
+                                                        <label class="col-12 col-sm-12 col-md-3" for="input-zone"><span class="text-danger">*</span> Region / State</label>
+                                                        <div class="col-12 col-sm-12 col-md-9">
+                                                            <select name="zone_id" id="input-zone" class="form-control nice-select">
+                                                                <option value=""> --- Please Select --- </option>
+                                                                <option value="">Alabama</option>
+                                                                <option value="">Arizona</option>
+                                                                <option value="">California</option>
+                                                                <option value="">Florida</option>
+                                                                <option value="">Newyork</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group row form-group mb-5">
+                                                        <label class="col-12 col-sm-12 col-md-3" for="input-postcode"><span class="text-danger">*</span> Post Code</label>
+                                                        <div class="col-12 col-sm-12 col-md-9">
+                                                            <input type="text" name="postcode" value="" placeholder="Post Code" id="input-postcode" class="form-control mb-0">
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" id="button-quote" class="btn btn-secondary">Get Quotes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingGift">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGift" aria-expanded="false" aria-controls="collapseGift">
+                                                    Use Gift Certificate<i class="ion ion-ios-arrow-down"></i>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseGift" class="accordion-collapse collapse" aria-labelledby="headingGift" data-bs-parent="#cart_accordion">
+                                                <div class="accordion-body">
+                                                    <div class="input-group">
+                                                        <label class="col-12 col-sm-12 col-md-3" for="input-voucher">Enter your gift certificate code here</label>
+                                                        <div class="col-12 col-sm-12 col-md-9">
+                                                            <div class="input-group">
+                                                                <input type="text" name="voucher" value="" placeholder="Enter your gift certificate code here" id="input-voucher" class="form-control">
+                                                                <input type="button" value="Apply Gift Certificate" id="button-boucher" class="btn btn-secondary cart-pg">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="cart-amount-wrapper">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-4 offset-md-8">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>Sub-Total:</strong></td>
+                                                        <td>{{total}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>shipping</strong></td>
+                                                        <td>{{shipping}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Total:</strong></td>
+                                                        <td><span class="color-primary">{{grand_total}}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="cart-button-wrapper d-flex justify-content-between mt-4">
+                                    <a href="shop-grid-left-sidebar.html" class="btn btn-secondary">Continue Shopping</a>
+                                    <a href="{% url 'checkout' %}" class="btn btn-secondary dark align-self-end">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end of shopping-cart -->
+                </main> <!-- end of #primary -->
+            </div>
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div>
+<!-- End cart Wrapper -->
+
+<!-- scroll to top -->
+<div class="scroll-top not-visible">
+    <i class="fa fa-angle-up"></i>
+</div> <!-- /End Scroll to Top -->
+
+{% endblock %}

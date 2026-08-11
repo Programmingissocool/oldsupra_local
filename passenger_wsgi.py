@@ -1,0 +1,1 @@
+from solutioner.wsgi import application

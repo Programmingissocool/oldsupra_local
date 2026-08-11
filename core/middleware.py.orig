@@ -1,0 +1,39 @@
+from django.http import HttpResponsePermanentRedirect
+
+class ForceCanonicalDomainAndLanguageMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        host = request.get_host()
+        path = request.path
+        scheme = 'https'
+
+        canonical_host = 'oldsupra.ge'
+
+        excluded_prefixes = (
+            '/ka/',
+            '/en/',
+            '/admin/',
+            '/static/',
+            '/media/',
+        )
+
+
+        if host.startswith('www.'):
+            new_host = host.replace('www.', '', 1)
+            return HttpResponsePermanentRedirect(
+                f'{scheme}://{new_host}{path}'
+            )
+
+        if host != canonical_host:
+            return HttpResponsePermanentRedirect(
+                f'{scheme}://{canonical_host}{path}'
+            )
+
+        if not path.startswith(excluded_prefixes):
+            return HttpResponsePermanentRedirect(
+                f'{scheme}://{canonical_host}/ka{path}'
+            )
+
+        return self.get_response(request)
