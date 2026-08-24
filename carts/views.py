@@ -1325,7 +1325,7 @@ def checkout_generate(request):
         }
         headers = {
             "accept": "application/json",
-            "apikey": settings.TBC_API_KEY,
+            "apikey": settings.TBC_ACCESS_TOKEN_API_KEY,
             "content-type": "application/x-www-form-urlencoded"
         }
         response = requests.post(url, data=payload, headers=headers)
@@ -1553,7 +1553,7 @@ def checkout_generate(request):
 
         headers = {
             "accept": "application/json",
-            "apikey": settings.TBC_API_KEY,
+            "apikey": settings.TBC_PAYMENTS_API_KEY,
             "content-type": "application/json",
             "authorization": f"Bearer {token}"
         }
@@ -2798,7 +2798,7 @@ def check_flitt(request):
 #             url = f"https://api.tbcbank.ge/v1/tpay/payments/{paymentl.payment_id}"
 #             headers = {
 #                 "accept": "application/json",
-#                 "apikey": settings.TBC_API_KEY,
+#                 "apikey": settings.TBC_PAYMENTS_API_KEY,
 #                 "authorization": f"Bearer {paymentl.bearer}"
 #             }
 #             response = requests.get(url, headers=headers)
