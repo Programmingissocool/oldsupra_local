@@ -1,3 +1,4 @@
+from django.conf import settings
 import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Product, Variation, Category
@@ -92,14 +93,20 @@ from django.http import HttpResponse
 
 def _wishlist_id(request):
     wishlist = request.session.session_key
-    if not cart:
-        wishlist = request.session.create()
+    if not wishlist:
+        # session.create() returns None; it sets session_key as a side effect.
+        request.session.create()
+        wishlist = request.session.session_key
     return wishlist
 
 def _cart_id(request):
     cart = request.session.session_key
     if not cart:
-        cart = request.session.create()
+        # session.create() returns None; it sets session_key as a side effect.
+        # Returning its result put NULL into carts_cart.cart_id and raised
+        # IntegrityError for every visitor without an existing session.
+        request.session.create()
+        cart = request.session.session_key
     return cart
 
 def add_wishlist(request, product_id):
@@ -1314,7 +1321,7 @@ def checkout_generate(request):
         url = "https://api.tbcbank.ge/v1/tpay/access-token"
         payload = {
             "client_id": settings.TBC_CLIENT_ID,
-            "client_secret": settings.TBC_CLIENT_SECRET
+            "client_secret": settings.TBC_CLIENT_SECRET,
         }
         headers = {
             "accept": "application/json",
@@ -1594,7 +1601,7 @@ def checkout_generate(request):
     elif requested_bank == "flitt":
         from hashlib import sha1
         payment_key = settings.FLITT_PAYMENT_KEY
-        merchant_id = 4054892
+        merchant_id = settings.FLITT_MERCHANT_ID
         order_id = paymentobj.p_number
         amount = int(round(float(payment_amount_str) * 100))  # smallest unit
         currency = "GEL"
@@ -1629,7 +1636,7 @@ def checkout_generate(request):
     
     elif requested_bank == "tbc_installment":
         payment_key = settings.FLITT_PAYMENT_KEY
-        merchant_id = 4054892
+        merchant_id = settings.FLITT_MERCHANT_ID
         order_id = paymentobj.p_number
         amount = int(round(float(payment_amount_str) * 100))
         currency = "GEL"
@@ -1699,8 +1706,9 @@ def checkout_generate(request):
     
     elif requested_bank == "liberty":
         PAY_URL = "https://www.pay.ge/pay"
-        MERCHANT = "OLDSUPHRA"
+        MERCHANT = settings.PAYGE_MERCHANT_ID
         PASSWORD = settings.PAYGE_PASSWORD
+    
         ORDER_CODE = str(paymentobj.p_number)
         # Always store amount in GEL two-decimal format
         payment_amount_gel = Decimal(payment_amount_str).quantize(Decimal("0.01"))
@@ -1771,6 +1779,8 @@ from django.conf import settings
 
 
 MERCHANT_PASSWORD = settings.PAYGE_PASSWORD
+
+
 from django.template.loader import render_to_string
 from django.conf import settings
 import xml.etree.ElementTree as ET
@@ -2810,10 +2820,7 @@ def check_flitt(request):
         
 #         # elif paymentl.bank == 'liberty':
 #         #     PAY_URL = "https://www.pay.ge/payments/v1/transactions/status"
-#         #     MERCHANT = "OLDSUPHRA"
-
-
-
+#         #     MERCHANT = settings.PAYGE_MERCHANT_ID
 #         # ---------------- ORDER CREATION ----------------
 #         ordered_products = []
 #         order = None

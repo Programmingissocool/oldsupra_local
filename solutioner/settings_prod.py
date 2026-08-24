@@ -67,3 +67,48 @@ for _handler in ('flitt_file', 'liberty_file', 'bog_file'):
     LOGGING['handlers'][_handler]['filename'] = str(
         BASE_DIR / LOGGING['handlers'][_handler]['filename']
     )
+
+
+# --- TLS / cookie hardening (added ahead of the DNS cutover) ---
+# Caddy terminates TLS and proxies to gunicorn over plain HTTP, so Django cannot
+# see that the original request was HTTPS unless it trusts the forwarded header.
+# Without this, request.is_secure() is always False behind the proxy and secure
+# cookies would never be sent.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Session/CSRF cookies must carry Secure once the site is served over HTTPS.
+# Pre-cutover the site is reachable over plain HTTP on the raw IP, where Secure
+# cookies would break login testing, so allow an explicit opt-out for staging.
+_insecure_cookies = os.environ.get('OLDSUPRA_INSECURE_COOKIES') == '1'
+SESSION_COOKIE_SECURE = not _insecure_cookies
+CSRF_COOKIE_SECURE = not _insecure_cookies
+SESSION_COOKIE_HTTPONLY = True
+
+
+# --- SEO: robots.txt + sitemap.xml (absent upstream) ---
+# django.contrib.sitemaps is not in the mirrored INSTALLED_APPS, and the routes
+# must live outside i18n_patterns to be reachable at the domain root.
+if 'django.contrib.sitemaps' not in INSTALLED_APPS:
+    INSTALLED_APPS = list(INSTALLED_APPS) + ['django.contrib.sitemaps']
+
+ROOT_URLCONF = 'solutioner.urls_prod'
+
+# django.contrib.sites is required by the sitemap framework to build absolute
+# URLs; SITE_ID must point at a row in django_site.
+SITE_ID = globals().get('SITE_ID', 1)
+
+# robots.txt and sitemap.xml must be reachable at the domain root. Without this
+# the canonical-domain middleware rewrites them to /ka/robots.txt, which is not
+# a path any crawler reads.
+CANONICAL_EXEMPT_PATHS = ('/robots.txt', '/sitemap.xml')
+
+# --- SQLite concurrency ---
+# 3 gunicorn workers share one SQLite file. Default journal_mode=delete takes a
+# whole-file write lock and busy_timeout=0 makes any contending request fail
+# instantly with "database is locked". WAL lets readers proceed during a write,
+# and the timeout makes writers queue instead of erroring.
+DATABASES['default'].setdefault('OPTIONS', {})
+DATABASES['default']['OPTIONS'].update({
+    'init_command': 'PRAGMA journal_mode=WAL; PRAGMA busy_timeout=15000; PRAGMA synchronous=NORMAL;',
+    'transaction_mode': 'IMMEDIATE',
+})

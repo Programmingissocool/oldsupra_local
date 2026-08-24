@@ -36,12 +36,14 @@ CANONICAL_HOST_EXEMPT = ('localhost', '127.0.0.1', 'testserver')
 
 
 PAYGE_PASSWORD = os.environ.get("PAYGE_PASSWORD", "")
+PAYGE_MERCHANT_ID = os.environ.get("PAYGE_MERCHANT_ID", "")
 TBC_CLIENT_ID = os.environ.get("TBC_CLIENT_ID", "")
 TBC_CLIENT_SECRET = os.environ.get("TBC_CLIENT_SECRET", "")
 TBC_API_KEY = os.environ.get("TBC_API_KEY", "")
 BOG_CLIENT_ID = os.environ.get("BOG_CLIENT_ID", "")
 BOG_CLIENT_SECRET = os.environ.get("BOG_CLIENT_SECRET", "")
 FLITT_PAYMENT_KEY = os.environ.get("FLITT_PAYMENT_KEY", "")
+FLITT_MERCHANT_ID = os.environ.get("FLITT_MERCHANT_ID", "")
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`

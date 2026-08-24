@@ -19,7 +19,7 @@ class ForceCanonicalDomainAndLanguageMiddleware:
             '/admin/',
             '/static/',
             '/media/',
-        )
+        ) + tuple(getattr(settings, 'CANONICAL_EXEMPT_PATHS', ()))
 
         # Hosts served directly (the raw IP before DNS cutover): keep the
         # language-prefix behaviour but stay on the requested host and scheme.

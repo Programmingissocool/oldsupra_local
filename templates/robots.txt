@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Nothing useful for crawlers behind these
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /carts/
+Disallow: /orders/
+Disallow: /socialaccounts/
+Disallow: /shop/ajax/
+
+Sitemap: https://oldsupra.ge/sitemap.xml
