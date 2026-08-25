@@ -29,13 +29,22 @@
 
     #sale-countdown,
     .sale-countdown-label {
-        font-weight: 700;
+        font-weight: 800;
     }
 
     #sale-countdown {
         display: inline-block;
         min-width: 178px;
+        padding: 4px 10px;
+        color: #fff;
+        background: #294062;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(4, 29, 64, 0.18);
+        font-weight: 900;
         font-variant-numeric: tabular-nums;
+        letter-spacing: 0;
+        line-height: 1.2;
         white-space: nowrap;
     }
 
@@ -66,7 +75,9 @@
 
         #sale-countdown {
             min-width: auto;
-            width: 100%;
+            width: auto;
+            max-width: 100%;
+            padding: 4px 8px;
         }
 
         .sale-countdown-divider {
