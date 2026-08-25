@@ -72,60 +72,6 @@ src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 
 <style>
-.sale-site-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10002;
-    min-height: 34px;
-    padding: 7px 14px;
-    background: #111;
-    color: #fff;
-    text-align: center;
-    font-size: 13px;
-    line-height: 1.35;
-}
-
-.sale-site-bar-content {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-#sale-site-countdown,
-.sale-site-countdown-label {
-    font-weight: 600;
-}
-
-#sale-site-countdown {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-}
-
-.sale-site-countdown-divider {
-    opacity: 0.65;
-}
-
-body.has-sale-site-bar #tt-header {
-    top: 34px;
-}
-
-body.has-sale-site-bar #scroll-container {
-    padding-top: 34px;
-}
-
-@media (max-width: 575px) {
-    .sale-site-bar-content {
-        gap: 5px;
-    }
-
-    .sale-site-countdown-divider {
-        display: none;
-    }
-}
 /* Search container */
 .search-container {
     position: relative;
@@ -254,14 +200,6 @@ body.has-sale-site-bar #scroll-container {
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TDFFC3Z"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<div class="sale-site-bar" id="sale-site-bar">
-    <span class="sale-site-bar-content">
-        უფასო მიწოდება მინ. 100₾-იან შენაძენზე
-        <span class="sale-site-countdown-divider">|</span>
-        <span class="sale-site-countdown-label">დასრულებამდე დარჩა:</span>
-        <span id="sale-site-countdown" data-sale-ends-at="2026-08-31T23:59:59+04:00" aria-live="polite"></span>
-    </span>
-</div>
 
 
 		<!-- *************************************
@@ -678,48 +616,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		<!-- ====================
 		///// Scripts below /////
 		===================== -->
-
-		<script>
-(function () {
-    var bar = document.getElementById("sale-site-bar");
-    var countdown = document.getElementById("sale-site-countdown");
-    if (bar === null || countdown === null) {
-        return;
-    }
-
-    var saleEndsAt = new Date(countdown.getAttribute("data-sale-ends-at")).getTime();
-
-    function hideSaleBar() {
-        bar.style.display = "none";
-        document.body.classList.remove("has-sale-site-bar");
-    }
-
-    function updateCountdown() {
-        var distance = saleEndsAt - Date.now();
-        if (distance <= 0) {
-            hideSaleBar();
-            window.clearInterval(timer);
-            return;
-        }
-
-        document.body.classList.add("has-sale-site-bar");
-
-        var secondsTotal = Math.floor(distance / 1000);
-        var days = Math.floor(secondsTotal / 86400);
-        var hours = Math.floor((secondsTotal % 86400) / 3600);
-        var minutes = Math.floor((secondsTotal % 3600) / 60);
-        var seconds = secondsTotal % 60;
-
-        countdown.textContent = days + " დღე "
-            + String(hours).padStart(2, "0") + " სთ "
-            + String(minutes).padStart(2, "0") + " წთ "
-            + String(seconds).padStart(2, "0") + " წმ";
-    }
-
-    updateCountdown();
-    var timer = window.setInterval(updateCountdown, 1000);
-})();
-</script>
 		<!-- Core JS -->
 		<script src="{% static 'assets/vendor/jquery/jquery.min.js'%}"></script> <!-- jquery JS (https://jquery.com) -->
 

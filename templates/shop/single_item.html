@@ -1264,6 +1264,7 @@ $(document).ready(function () {
 
 <script>
     const countdownElement = document.getElementById("countdown");
+if (countdownElement) {
 
 const STORAGE_KEY = "maintenance_end_time";
 
@@ -1294,6 +1295,7 @@ function updateCountdown() {
 
 updateCountdown();
 const timer = setInterval(updateCountdown, 1000);
+}
 </script>
 
 

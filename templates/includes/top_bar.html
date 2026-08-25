@@ -1,6 +1,6 @@
 <div class="top-bar" id="sale-top-bar">
     <span class="line-1 sale-top-bar-content">
-         უფასო მიწოდება მინ. 100₾-იან შენაძენზე
+        <span>უფასო მიწოდება მინ. 100₾-იან შენაძენზე</span>
         <span class="sale-countdown-divider">|</span>
         <span class="sale-countdown-label">დასრულებამდე დარჩა:</span>
         <span id="sale-countdown" data-sale-ends-at="2026-08-31T23:59:59+04:00" aria-live="polite"></span>
@@ -8,21 +8,33 @@
 </div>
 
 <style>
+    #sale-top-bar {
+        min-height: 60px;
+        height: auto;
+        padding: 8px 12px;
+        box-sizing: border-box;
+    }
+
     .sale-top-bar-content {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
         flex-wrap: wrap;
-        line-height: 1.4;
+        width: 100%;
+        max-width: 100%;
+        line-height: 1.35;
+        text-align: center;
     }
 
     #sale-countdown,
     .sale-countdown-label {
-        font-weight: 600;
+        font-weight: 700;
     }
 
     #sale-countdown {
+        display: inline-block;
+        min-width: 178px;
         font-variant-numeric: tabular-nums;
         white-space: nowrap;
     }
@@ -32,9 +44,19 @@
     }
 
     @media (max-width: 575px) {
+        #sale-top-bar {
+            min-height: 64px;
+            padding: 7px 44px 7px 10px;
+        }
+
         .sale-top-bar-content {
-            gap: 5px;
-            padding: 0 10px;
+            gap: 4px 6px;
+            font-size: 12px;
+        }
+
+        #sale-countdown {
+            min-width: auto;
+            width: 100%;
         }
 
         .sale-countdown-divider {
