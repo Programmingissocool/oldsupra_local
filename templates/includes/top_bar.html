@@ -1,11 +1,83 @@
-<div class="top-bar">
-    
-    <!--  <span class="line-1">-->
-    <!--  50%-ანი ფასდაკლების დასრულებამდე დარჩა-->
-    <!--    <span id="countdown"></span>-->
-    <!--</span>-->
-    <span class="line-1">
+<div class="top-bar" id="sale-top-bar">
+    <span class="line-1 sale-top-bar-content">
          უფასო მიწოდება მინ. 100₾-იან შენაძენზე
+        <span class="sale-countdown-divider">|</span>
+        <span class="sale-countdown-label">დასრულებამდე დარჩა:</span>
+        <span id="sale-countdown" data-sale-ends-at="2026-08-31T23:59:59+04:00" aria-live="polite"></span>
     </span>
-
 </div>
+
+<style>
+    .sale-top-bar-content {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        line-height: 1.4;
+    }
+
+    #sale-countdown,
+    .sale-countdown-label {
+        font-weight: 600;
+    }
+
+    #sale-countdown {
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+
+    .sale-countdown-divider {
+        opacity: 0.65;
+    }
+
+    @media (max-width: 575px) {
+        .sale-top-bar-content {
+            gap: 5px;
+            padding: 0 10px;
+        }
+
+        .sale-countdown-divider {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    (function () {
+        var bar = document.getElementById("sale-top-bar");
+        var countdown = document.getElementById("sale-countdown");
+        if (bar === null || countdown === null) {
+            return;
+        }
+
+        var saleEndsAt = new Date(countdown.getAttribute("data-sale-ends-at")).getTime();
+
+        function hideSaleBar() {
+            bar.style.display = "none";
+        }
+
+        function updateCountdown() {
+            var distance = saleEndsAt - Date.now();
+            if (distance <= 0) {
+                hideSaleBar();
+                window.clearInterval(timer);
+                return;
+            }
+
+            var secondsTotal = Math.floor(distance / 1000);
+            var days = Math.floor(secondsTotal / 86400);
+            var hours = Math.floor((secondsTotal % 86400) / 3600);
+            var minutes = Math.floor((secondsTotal % 3600) / 60);
+            var seconds = secondsTotal % 60;
+
+            countdown.textContent = days + " დღე "
+                + String(hours).padStart(2, "0") + " სთ "
+                + String(minutes).padStart(2, "0") + " წთ "
+                + String(seconds).padStart(2, "0") + " წმ";
+        }
+
+        updateCountdown();
+        var timer = window.setInterval(updateCountdown, 1000);
+    })();
+</script>
