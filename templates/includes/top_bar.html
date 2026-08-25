@@ -1,11 +1,90 @@
 <div class="top-bar">
-    
-    <!--  <span class="line-1">-->
-    <!--  50%-ანი ფასდაკლების დასრულებამდე დარჩა-->
-    <!--    <span id="countdown"></span>-->
-    <!--</span>-->
-    <span class="line-1">
+    <span class="line-1 promo-countdown-bar">
          უფასო მიწოდება მინ. 100₾-იან შენაძენზე
+        <span class="promo-countdown-separator">|</span>
+        <span class="promo-countdown-label">დასრულებამდე დარჩა:</span>
+        <span
+            id="promo-countdown"
+            class="promo-countdown"
+            data-sale-ends-at="2026-08-31T23:59:59+04:00"
+            aria-live="polite"
+        >
+            იტვირთება...
+        </span>
     </span>
-
 </div>
+
+<style>
+    .promo-countdown-bar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        line-height: 1.4;
+    }
+
+    .promo-countdown,
+    .promo-countdown-label {
+        font-weight: 600;
+    }
+
+    .promo-countdown {
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+
+    .promo-countdown-separator {
+        opacity: 0.65;
+    }
+
+    @media (max-width: 575px) {
+        .promo-countdown-bar {
+            gap: 5px;
+            padding: 0 10px;
+        }
+
+        .promo-countdown-separator {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    (function () {
+        var countdown = document.getElementById("promo-countdown");
+        if (countdown === null) {
+            return;
+        }
+
+        var saleEndsAt = new Date(countdown.getAttribute("data-sale-ends-at")).getTime();
+
+        function formatTimeLeft(distance) {
+            var secondsTotal = Math.max(0, Math.floor(distance / 1000));
+            var days = Math.floor(secondsTotal / 86400);
+            var hours = Math.floor((secondsTotal % 86400) / 3600);
+            var minutes = Math.floor((secondsTotal % 3600) / 60);
+            var seconds = secondsTotal % 60;
+
+            return days + " დღე "
+                + String(hours).padStart(2, "0") + " სთ "
+                + String(minutes).padStart(2, "0") + " წთ "
+                + String(seconds).padStart(2, "0") + " წმ";
+        }
+
+        function updateCountdown() {
+            var distance = saleEndsAt - Date.now();
+
+            if (distance <= 0) {
+                countdown.textContent = "აქცია დასრულდა";
+                window.clearInterval(timer);
+                return;
+            }
+
+            countdown.textContent = formatTimeLeft(distance);
+        }
+
+        updateCountdown();
+        var timer = window.setInterval(updateCountdown, 1000);
+    })();
+</script>
