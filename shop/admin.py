@@ -20,8 +20,9 @@ class Site_ContentAdmin(TabbedTranslationAdmin):
 
 class SaleCountdownAdmin(admin.ModelAdmin):
     fields = ('sale_countdown_enabled', 'sale_countdown_ends_at')
-    list_display = ('name', 'countdown_status', 'sale_countdown_ends_at', 'countdown_actions')
+    list_display = ('name', 'sale_countdown_enabled', 'countdown_status', 'sale_countdown_ends_at', 'countdown_actions')
     list_display_links = ('name',)
+    list_editable = ('sale_countdown_enabled',)
 
     def get_queryset(self, request):
         return super().get_queryset(request).filter(name='DEFAULT')
