@@ -9,6 +9,8 @@ from adminsortable2.admin import SortableAdminMixin
 from django.contrib.admin.widgets import AdminFileWidget
 from django.urls import path, reverse
 from django.http import HttpResponseRedirect
+from django.utils import timezone
+from datetime import datetime
 
 
 
@@ -16,6 +18,12 @@ from django.http import HttpResponseRedirect
 class Site_ContentAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'sale_countdown_enabled', 'sale_countdown_ends_at')
 
+
+
+SALE_COUNTDOWN_DEFAULT_ENDS_AT = timezone.make_aware(
+    datetime(2026, 8, 31, 23, 59, 59),
+    timezone.get_current_timezone(),
+)
 
 
 class SaleCountdownAdmin(admin.ModelAdmin):
@@ -61,7 +69,11 @@ class SaleCountdownAdmin(admin.ModelAdmin):
         obj = self.get_object(request, object_id)
         if obj is not None:
             obj.sale_countdown_enabled = True
-            obj.save(update_fields=['sale_countdown_enabled'])
+            update_fields = ['sale_countdown_enabled']
+            if obj.sale_countdown_ends_at is None:
+                obj.sale_countdown_ends_at = SALE_COUNTDOWN_DEFAULT_ENDS_AT
+                update_fields.append('sale_countdown_ends_at')
+            obj.save(update_fields=update_fields)
             self.message_user(request, 'Sale countdown added.')
         return HttpResponseRedirect(reverse('admin:shop_salecountdown_changelist'))
 
