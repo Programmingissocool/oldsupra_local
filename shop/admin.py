@@ -7,6 +7,8 @@ from django.conf import settings
 from django.utils.html import format_html
 from adminsortable2.admin import SortableAdminMixin
 from django.contrib.admin.widgets import AdminFileWidget
+from django.urls import path, reverse
+from django.http import HttpResponseRedirect
 
 
 
@@ -18,10 +20,58 @@ class Site_ContentAdmin(TabbedTranslationAdmin):
 
 class SaleCountdownAdmin(admin.ModelAdmin):
     fields = ('sale_countdown_enabled', 'sale_countdown_ends_at')
-    list_display = ('name', 'sale_countdown_enabled', 'sale_countdown_ends_at')
+    list_display = ('name', 'countdown_status', 'sale_countdown_ends_at', 'countdown_actions')
+    list_display_links = ('name',)
 
     def get_queryset(self, request):
         return super().get_queryset(request).filter(name='DEFAULT')
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                '<path:object_id>/enable-countdown/',
+                self.admin_site.admin_view(self.enable_countdown),
+                name='shop_salecountdown_enable',
+            ),
+            path(
+                '<path:object_id>/remove-countdown/',
+                self.admin_site.admin_view(self.remove_countdown),
+                name='shop_salecountdown_remove',
+            ),
+        ]
+        return custom_urls + urls
+
+    def countdown_status(self, obj):
+        return 'Active' if obj.sale_countdown_enabled else 'Removed'
+    countdown_status.short_description = 'Status'
+
+    def countdown_actions(self, obj):
+        enable_url = reverse('admin:shop_salecountdown_enable', args=[obj.pk])
+        remove_url = reverse('admin:shop_salecountdown_remove', args=[obj.pk])
+        change_url = reverse('admin:shop_salecountdown_change', args=[obj.pk])
+        if obj.sale_countdown_enabled:
+            toggle_button = format_html('<a class="button" href="{}">Remove</a>', remove_url)
+        else:
+            toggle_button = format_html('<a class="button" href="{}">Add</a>', enable_url)
+        return format_html('{} <a class="button" href="{}">Change</a>', toggle_button, change_url)
+    countdown_actions.short_description = 'Actions'
+
+    def enable_countdown(self, request, object_id):
+        obj = self.get_object(request, object_id)
+        if obj is not None:
+            obj.sale_countdown_enabled = True
+            obj.save(update_fields=['sale_countdown_enabled'])
+            self.message_user(request, 'Sale countdown added.')
+        return HttpResponseRedirect(reverse('admin:shop_salecountdown_changelist'))
+
+    def remove_countdown(self, request, object_id):
+        obj = self.get_object(request, object_id)
+        if obj is not None:
+            obj.sale_countdown_enabled = False
+            obj.save(update_fields=['sale_countdown_enabled'])
+            self.message_user(request, 'Sale countdown removed.')
+        return HttpResponseRedirect(reverse('admin:shop_salecountdown_changelist'))
 
     def has_add_permission(self, request):
         return False
