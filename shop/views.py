@@ -1,18 +1,57 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from . models import Brand, Product, ProductGallery, Category, subcategory, Variation, Color, Size, Banner, Page, About_Us, Fabric, About_UsGallery
+from . models import Brand, Product, ProductGallery, Category, subcategory, Variation, Color, Size, Banner, Page, About_Us, Fabric, About_UsGallery, Site_Content
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 # from .forms import ReviewForm
 from django.contrib import messages
 from collections import defaultdict
 from django.core.serializers import serialize
 import json
 from django.db.models import Min, Max
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.http import require_POST
+from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 
 
 # Create your views here.
+@staff_member_required
+@require_POST
+def update_sale_countdown(request):
+    site_info = Site_Content.objects.filter(name="DEFAULT").first()
+    if site_info is None:
+        return HttpResponseForbidden("Default site content is not configured.")
+
+    ends_at_raw = request.POST.get("sale_countdown_ends_at", "").strip()
+    ends_at = parse_datetime(ends_at_raw)
+    if ends_at is None:
+        messages.error(request, "Enter a valid countdown end date and time.")
+        return redirect(request.META.get("HTTP_REFERER", "store"))
+
+    if timezone.is_naive(ends_at):
+        ends_at = timezone.make_aware(ends_at, timezone.get_current_timezone())
+
+    site_info.sale_countdown_enabled = True
+    site_info.sale_countdown_ends_at = ends_at
+    site_info.save(update_fields=["sale_countdown_enabled", "sale_countdown_ends_at"])
+    messages.success(request, "Countdown updated.")
+    return redirect(request.META.get("HTTP_REFERER", "store"))
+
+
+@staff_member_required
+@require_POST
+def remove_sale_countdown(request):
+    site_info = Site_Content.objects.filter(name="DEFAULT").first()
+    if site_info is None:
+        return HttpResponseForbidden("Default site content is not configured.")
+
+    site_info.sale_countdown_enabled = False
+    site_info.sale_countdown_ends_at = None
+    site_info.save(update_fields=["sale_countdown_enabled", "sale_countdown_ends_at"])
+    messages.success(request, "Countdown removed.")
+    return redirect(request.META.get("HTTP_REFERER", "store"))
 
 
 def pages(request, Page_slug):
