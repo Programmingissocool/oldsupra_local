@@ -1,25 +1,10 @@
-{% if not SiteInfo or SiteInfo.sale_countdown_enabled or request.user.is_staff %}
+{% if not SiteInfo or SiteInfo.sale_countdown_enabled %}
 <div class="top-bar" id="sale-top-bar">
     <span class="line-1 sale-top-bar-content">
-        {% if not SiteInfo or SiteInfo.sale_countdown_enabled %}
         <span>უფასო მიწოდება მინ. 100₾-იან შენაძენზე</span>
         <span class="sale-countdown-divider">|</span>
         <span class="sale-countdown-label">დასრულებამდე დარჩა:</span>
         <span id="sale-countdown" data-sale-ends-at="{{ SiteInfo.sale_countdown_ends_at|date:'c'|default:'2026-08-31T23:59:59+04:00' }}" aria-live="polite"></span>
-        {% elif request.user.is_staff %}
-            <span class="sale-countdown-label">Countdown removed</span>
-        {% endif %}
-        {% if request.user.is_staff and SiteInfo %}
-            <form class="sale-countdown-admin" method="post" action="{% url 'update_sale_countdown' %}">
-                {% csrf_token %}
-                <input type="datetime-local" name="sale_countdown_ends_at" value="{{ SiteInfo.sale_countdown_ends_at|date:'Y-m-d\TH:i' }}" required>
-                <button type="submit">Change</button>
-            </form>
-            <form class="sale-countdown-admin" method="post" action="{% url 'remove_sale_countdown' %}">
-                {% csrf_token %}
-                <button type="submit">Remove</button>
-            </form>
-        {% endif %}
     </span>
 </div>
 
@@ -66,36 +51,6 @@
 
     .sale-countdown-divider {
         opacity: 0.65;
-    }
-
-    .sale-countdown-admin {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        margin: 0;
-    }
-
-    .sale-countdown-admin input,
-    .sale-countdown-admin button {
-        height: 28px;
-        border: 1px solid rgba(41, 64, 98, 0.35);
-        border-radius: 4px;
-        font-size: 12px;
-        line-height: 1;
-    }
-
-    .sale-countdown-admin input {
-        width: 190px;
-        padding: 3px 6px;
-        color: #294062;
-        background: #fff;
-    }
-
-    .sale-countdown-admin button {
-        padding: 0 9px;
-        color: #fff;
-        background: #294062;
-        cursor: pointer;
     }
 
     /* Keep legacy hamburger below the sale bar on pages that use both. */
