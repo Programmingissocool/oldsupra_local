@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from . models import Brand, Category, subcategory, Product, ProductGallery, Brand, Banner, Variation, Color, Size, Page, About_Us, Fabric, About_UsGallery, Site_Content
+from . models import Brand, Category, subcategory, Product, ProductGallery, Brand, Banner, Variation, Color, Size, Page, About_Us, Fabric, About_UsGallery, Site_Content, SaleCountdown
 import admin_thumbnails
 from modeltranslation.admin import TranslationAdmin, TabbedTranslationAdmin
 from django.conf import settings
@@ -14,6 +14,20 @@ from django.contrib.admin.widgets import AdminFileWidget
 class Site_ContentAdmin(TabbedTranslationAdmin):
     list_display = ('name', 'sale_countdown_enabled', 'sale_countdown_ends_at')
 
+
+
+class SaleCountdownAdmin(admin.ModelAdmin):
+    fields = ('sale_countdown_enabled', 'sale_countdown_ends_at')
+    list_display = ('name', 'sale_countdown_enabled', 'sale_countdown_ends_at')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(name='DEFAULT')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 # Register your models here.
@@ -315,4 +329,5 @@ admin.site.register(About_Us,About_UsAdmin)
 admin.site.register(Fabric,FabricAdmin)
 admin.site.register(About_UsGallery)
 admin.site.register(Site_Content,Site_ContentAdmin)
+admin.site.register(SaleCountdown,SaleCountdownAdmin)
 

@@ -330,6 +330,16 @@ class Site_Content(models.Model):
         
             
             
+class SaleCountdown(Site_Content):
+    class Meta:
+        proxy = True
+        verbose_name = 'Sale Countdown'
+        verbose_name_plural = 'Sale Countdown'
+
+    def __str__(self):
+        return 'Sale Countdown'
+
+
 class Variation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True)
     color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
