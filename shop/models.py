@@ -321,6 +321,8 @@ class Site_Content(models.Model):
     edit_profile        = models.CharField(max_length=200, blank=True) 
     search  = models.CharField(max_length=200, blank=True) 
     pages  = models.CharField(max_length=200, blank=True) 
+    sale_countdown_enabled = models.BooleanField(default=True)
+    sale_countdown_ends_at = models.DateTimeField(blank=True, null=True)
     
    
     def __str__(self):

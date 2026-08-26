@@ -1,9 +1,10 @@
+{% if not SiteInfo or SiteInfo.sale_countdown_enabled %}
 <div class="top-bar" id="sale-top-bar">
     <span class="line-1 sale-top-bar-content">
         <span>უფასო მიწოდება მინ. 100₾-იან შენაძენზე</span>
         <span class="sale-countdown-divider">|</span>
         <span class="sale-countdown-label">დასრულებამდე დარჩა:</span>
-        <span id="sale-countdown" data-sale-ends-at="2026-08-31T23:59:59+04:00" aria-live="polite"></span>
+        <span id="sale-countdown" data-sale-ends-at="{{ SiteInfo.sale_countdown_ends_at|date:'c'|default:'2026-08-31T23:59:59+04:00' }}" aria-live="polite"></span>
     </span>
 </div>
 
@@ -124,3 +125,5 @@
         var timer = window.setInterval(updateCountdown, 1000);
     })();
 </script>
+
+{% endif %}

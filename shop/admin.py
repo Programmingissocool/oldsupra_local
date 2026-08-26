@@ -12,7 +12,7 @@ from django.contrib.admin.widgets import AdminFileWidget
 
 
 class Site_ContentAdmin(TabbedTranslationAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'sale_countdown_enabled', 'sale_countdown_ends_at')
 
 
 
