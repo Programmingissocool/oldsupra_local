@@ -11,7 +11,7 @@ from django.http import JsonResponse
 import requests
 import json
 from orders.models import Payment
-from django.db.models import Sum 
+from django.db.models import Sum
 from .utils.omnisend import send_contact, send_cart_event, send_cart_event_beta, send_placed_order_event
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
@@ -35,6 +35,10 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
     language_code = "en" if language_code.startswith("en") else "ka"
 
     logo_url = request.build_absolute_uri(static("assets/img/suprawhite.svg"))
+    payment_number = getattr(getattr(order, "payment", None), "p_number", "")
+    order_url = request.build_absolute_uri(
+        f"/{language_code}/carts/payment_check/?id={payment_number}&show_order=1"
+    ) if payment_number else ""
     context = {
         "order": order,
         "ordered_products": ordered_products,
@@ -44,6 +48,7 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
         "current_year": datetime.datetime.now().year,
         "email_language": language_code,
         "logo_url": logo_url,
+        "order_url": order_url,
     }
 
     subject = (
@@ -268,7 +273,7 @@ def wishlist(request, total=0, quantity=0, shipping=0,wishlist_item_total = 0, w
     return render(request, 'shop/wishlist.html', context)
 
 
-        
+
 from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Product, Variation
 from .models import Cart, CartItem
@@ -308,7 +313,7 @@ def add_cart(request, product_id):
 
     if current_user.is_authenticated:
         is_cart_item_exists = CartItem.objects.filter(product=product, user=current_user).exists()
-        send_contact(request.user.email, request.user.first_name, request.user.last_name) 
+        send_contact(request.user.email, request.user.first_name, request.user.last_name)
 
         if is_cart_item_exists:
             cart_item = CartItem.objects.get(product=product, user=current_user)
@@ -325,8 +330,8 @@ def add_cart(request, product_id):
             if product_variation:
                 cart_item.variations.set(product_variation)
             cart_item.save()
-            
-            
+
+
 
         cart_items = CartItem.objects.filter(user=current_user)
         cart_items_html = render_to_string('cart/cart_items.html', {'cart_items_cart': cart_items})
@@ -341,9 +346,9 @@ def add_cart(request, product_id):
             'cart_items_html': cart_items_html,
             'grand_total': grand_total
         })
-        
-    
-       
+
+
+
 
     else:
         try:
@@ -384,7 +389,7 @@ def add_cart(request, product_id):
             'grand_total': grand_total
         })
 
-        
+
 
 
 
@@ -446,7 +451,7 @@ def add_cart_main(request, product_id):
 
     messages.warning(request, "Invalid request method.")
     return redirect(request.META.get('HTTP_REFERER', '/') + f'?item_added=true&pid={product.id}')
-    
+
 def add_cart_main_cart(request, product_id):
     current_user = request.user
     product = get_object_or_404(Product, id=product_id)
@@ -507,8 +512,8 @@ def add_cart_main_cart(request, product_id):
     messages.warning(request, "Invalid request method.")
     return redirect(reverse('cartcheck') + f'?item_added=true&pid={product.id}')
 
-    
-    
+
+
 def add_cart_main_cartcheck(request, product_id):
     current_user = request.user
     product = get_object_or_404(Product, id=product_id)
@@ -660,7 +665,7 @@ def add_cart_new(request, product_id):
     messages.success(request, "Item added to cart successfully.")
     return redirect('cart')
 
-        
+
 
 def remove_cart(request, product_id, cart_item_id):
 
@@ -749,9 +754,9 @@ def remove_cart_item(request, product_id, cart_item_id):
         cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)
     cart_item.delete()
     return redirect('cart')
-    
-    
- 
+
+
+
 from django.template.loader import render_to_string
 
 def remove_cart_item_cart(request, product_id, cart_item_id):
@@ -806,9 +811,9 @@ def remove_cart_item_cart(request, product_id, cart_item_id):
     except CartItem.DoesNotExist:
         return JsonResponse({
             'success': False
-        })    
-    
-    
+        })
+
+
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -930,23 +935,23 @@ def cart(request):
     # -----------------------------
     # Free shipping for orders over 100
     if total > 100:
-        
+
         shipping = 0
-    
+
     elif voucher_code in valid_vouchers and total > 50:
-    
+
         if voucher_code == "since1998":
             shipping = 0
-    
+
         elif voucher_code == "sale5":
             discount = total * 0.05
-    
+
         elif voucher_code == "sale10":
             discount = total * 0.10
-    
+
         elif voucher_code == "sale15":
             discount = total * 0.15
-    
+
     else:
         voucher_code = ""  # invalid reset
 
@@ -972,9 +977,9 @@ def cart(request):
         # voucher
         'voucher_code': voucher_code,
     })
-    
-    
-    
+
+
+
 def cartcheck(
     request,
     total=0,
@@ -1088,7 +1093,7 @@ def cartcheck(
         'cart.html',
         context
     )
-    
+
 def add_gift_product(request, cart_item_id, product_id):
 
     try:
@@ -1144,22 +1149,22 @@ def add_gift_product(request, cart_item_id, product_id):
             id=product_id,
             is_availiable=True
         )
-        
+
         gift_variation = None
-        
+
         gift_price = gift_product.price
-        
+
         try:
-        
+
             gift_price = get_effective_price(
                 gift_product,
                 gift_variation
             )
-        
+
         except Exception as e:
-        
+
             print('GIFT PRICE FALLBACK:', str(e))
-        
+
             gift_price = gift_product.price
 
         # PRICE VALIDATION
@@ -1266,7 +1271,7 @@ def add_gift_product(request, cart_item_id, product_id):
 #             price = get_effective_price(cart_item.product, variation)
 #             total += price * cart_item.quantity
 #             quantity += cart_item.quantity
-            
+
 
 #         grand_total = total + shipping
 
@@ -1347,7 +1352,7 @@ def html_autopost_form(action_url: str, fields: dict) -> HttpResponse:
 </body>
 </html>"""
     return HttpResponse(html)
-    
+
 def checkout_generate(request):
     requested_bank = request.GET.get("bank")
     voucher_code = request.GET.get("voucher", "").strip().lower()
@@ -1427,7 +1432,7 @@ def checkout_generate(request):
                 return {"error": resp_json}
         else:
             return {"error": f"HTTP {response.status_code}"}
-        
+
 
 
     if requested_bank == "tbc":
@@ -1458,12 +1463,12 @@ def checkout_generate(request):
 
     shipping_value = request.GET.get("checkout_shipping", "8")
     shipping = Decimal(shipping_value)
-    
+
     voucher_code = request.GET.get('voucher', '').strip().lower()
     request.session['voucher_code'] = voucher_code
 
     discount = Decimal('0')
-    
+
     if total > 100:
         shipping = 0
     elif voucher_code == "since1998" and total > 50:
@@ -1498,53 +1503,53 @@ def checkout_generate(request):
     detailed_cart = []
 
     for item in cart_items:
-    
+
         color_title = ''
         size_title = ''
-    
+
         color_var = item.variations.filter(
             color__isnull=False
         ).first()
-    
+
         if color_var and color_var.color:
             color_title = color_var.color.title
-    
+
         size_var = item.variations.filter(
             size__isnull=False
         ).first()
-    
+
         if size_var and size_var.size:
             size_title = size_var.size.title
-    
+
         item_data = {
-    
+
             "name": item.product.Product_name,
-    
+
             "product_id": item.product.id,
-    
+
             "quantity": item.quantity,
-    
+
             # 🔥 ALWAYS USE NORMALIZED UNIT PRICE
             "price": str(item.get_unit_price()),
-    
+
             # 🔥 IMPORTANT
             "gift": bool(item.is_gift),
-    
+
             "variations": [
-    
+
                 {
                     "variation_category": "Color",
                     "variation_value": color_title
                 },
-    
+
                 {
                     "variation_category": "Size",
                     "variation_value": size_title
                 }
-    
+
             ]
         }
-    
+
         detailed_cart.append(item_data)
 
     paymentobj.products = ','.join(product_ids)
@@ -1561,14 +1566,14 @@ def checkout_generate(request):
         'shipping': str(shipping),
         'voucher_code': voucher_code,
     }
-    
+
     paymentobj.checkout_data = json.dumps(checkout_snapshot)
     paymentobj.save(update_fields=["checkout_data"])
-    
+
     # (Optional but fine to keep for redirect UX)
     request.session['order_form_data'] = checkout_snapshot
-    
-    
+
+
 
     redirect_url = ""
     base_url = request.build_absolute_uri('/').rstrip('/')
@@ -1674,8 +1679,8 @@ def checkout_generate(request):
         paymentobj.save()
         return redirect(redirect_url)
 
-    
-    
+
+
     elif requested_bank == "tbc_installment":
         payment_key = settings.FLITT_PAYMENT_KEY
         merchant_id = settings.FLITT_MERCHANT_ID
@@ -1683,15 +1688,15 @@ def checkout_generate(request):
         amount = int(round(float(payment_amount_str) * 100))
         currency = "GEL"
         order_desc = f"Order #{paymentobj.p_number}"
-    
+
         server_callback_url = request.build_absolute_uri(
             "/en/carts/check_flitt_webhook/"
         )
-    
+
         response_url = request.build_absolute_uri(
             f"/{request.LANGUAGE_CODE}/carts/payment_check/?id={paymentobj.p_number}"
         )
-    
+
         params = {
             "amount": amount,
             "currency": currency,
@@ -1703,54 +1708,54 @@ def checkout_generate(request):
             "response_url": response_url,
             "server_callback_url": server_callback_url,
         }
-    
+
         signature_parts = [payment_key]
-    
+
         for key in sorted(params.keys()):
             value = params[key]
             if value is not None and value != "":
                 signature_parts.append(str(value))
-    
+
         signature = hashlib.sha1(
             "|".join(signature_parts).encode("utf-8")
         ).hexdigest()
-    
+
         payload = {
             "request": {
                 **params,
                 "signature": signature,
             }
         }
-    
+
         response = requests.post(
             "https://pay.flitt.com/api/checkout/url",
             json=payload
         )
-    
+
         print(response.text)
-    
+
         data = response.json()
         resp_json = data.get("response", {})
-    
+
         redirect_url = resp_json.get("checkout_url")
-    
+
         if not redirect_url:
             return HttpResponse(response.text)
-    
+
         paymentobj.payment_id = resp_json.get(
             "payment_id",
             paymentobj.p_number
         )
         paymentobj.save()
-    
+
         return redirect(redirect_url)
-            
-    
+
+
     elif requested_bank == "liberty":
         PAY_URL = "https://www.pay.ge/pay"
         MERCHANT = settings.PAYGE_MERCHANT_ID
         PASSWORD = settings.PAYGE_PASSWORD
-    
+
         ORDER_CODE = str(paymentobj.p_number)
         # Always store amount in GEL two-decimal format
         payment_amount_gel = Decimal(payment_amount_str).quantize(Decimal("0.01"))
@@ -1759,7 +1764,7 @@ def checkout_generate(request):
         LNG = "KA"
         DESCRIPTION = f"Order #{paymentobj.p_number}"
         CUSTOMDATA = str(paymentobj.id)
-    
+
         params = {
             "merchant": MERCHANT,
             "ordercode": ORDER_CODE,
@@ -1771,16 +1776,16 @@ def checkout_generate(request):
             "lng": LNG,
             "ispreauth": "",
         }
-    
+
         CHECK = payge_check(PASSWORD, params)
-    
+
         pay_fields = dict(params)
         pay_fields["check"] = CHECK
-    
+
         paymentobj.payment_id = ORDER_CODE
         paymentobj.amount_paid = str(payment_amount_gel)  # <-- always store GEL decimal
         paymentobj.save(update_fields=["payment_id", "amount_paid"])
-    
+
         return html_autopost_form(PAY_URL, pay_fields)
 
 
@@ -1869,7 +1874,7 @@ def build_xml_response(resultcode: int, resultdesc: str, transactioncode: str) -
 # CALLBACK
 # ---------------------------------------------------------
 
-from django.db import transaction 
+from django.db import transaction
 from django.utils import timezone
 
 
@@ -2793,7 +2798,7 @@ def check_flitt(request):
         "order": order,
         "id": payment.payment_id,
     })
-    
+
 
 
 # def payment_check(request):
@@ -2828,7 +2833,7 @@ def check_flitt(request):
 
 #         elif paymentl.bank == 'flitt':
 #     	    return check_flitt(request)
-        
+
 #         # elif paymentl.bank == 'liberty':
 #         #     PAY_URL = "https://www.pay.ge/payments/v1/transactions/status"
 #         #     MERCHANT = settings.PAYGE_MERCHANT_ID
@@ -2973,7 +2978,7 @@ def check_flitt(request):
 #             try:
 #                 send_placed_order_event(order, ordered_products)
 #             except Exception as e:
-#                 print("Omnisend placed-order send failed:", e)    
+#                 print("Omnisend placed-order send failed:", e)
 
 #         elif response_status in [
 #             "Failed", "101", "102", "103", "104", "105", "106", "107",
@@ -3005,7 +3010,7 @@ def check_flitt(request):
 #         'id': paymentl.payment_id,
 #         'total': paymentl.amount_paid,
 #     })
-    
+
 
 def payment_check(request):
     """
@@ -3503,9 +3508,9 @@ def check_bog_callback(request):
         )
 
     return HttpResponse(status=200)
-    
 
-    
+
+
 
 @login_required(login_url='login')
 def checkout(request, total=0, quantity=0, shipping=0, cart_items=None):
@@ -3547,8 +3552,8 @@ def checkout(request, total=0, quantity=0, shipping=0, cart_items=None):
 
 def submit_order(request):
     return render(request, 'shop/submit_order.html',)
-    
-    
+
+
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import json
@@ -3637,8 +3642,8 @@ def update_cart_quantity(request, cart_item_id):
 
         # DISCOUNT LOGIC
         discount = Decimal('0')
-        
-        
+
+
         if total >= 100:
             shipping = Decimal('0')
 
@@ -3731,7 +3736,7 @@ def update_cart_quantity(request, cart_item_id):
 
 #         if voucher_code == 'since1998' and total > 50:
 #             shipping = Decimal('0')
-        
+
 #         elif total >= 50:
 #             if voucher_code == 'sale5':
 #                 discount = total * Decimal('0.05')
@@ -3741,7 +3746,7 @@ def update_cart_quantity(request, cart_item_id):
 #                 discount = total * Decimal('0.15')
 #         else:
 #             pass
-        
+
 #         total_after_discount = total - discount
 #         grand_total = total_after_discount + shipping
 
