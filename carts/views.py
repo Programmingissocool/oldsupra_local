@@ -14,8 +14,10 @@ from orders.models import Payment
 from django.db.models import Sum 
 from .utils.omnisend import send_contact, send_cart_event, send_cart_event_beta, send_placed_order_event
 from django.template.loader import render_to_string
+from django.core.mail import send_mail
 from orders.models import Order, OrderProduct
 from django.urls import reverse
+from django.templatetags.static import static
 from hashlib import sha1
 import hashlib
 import time
@@ -25,6 +27,46 @@ import random
 from decimal import Decimal
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.utils import translation
+
+
+def _send_customer_order_email(request, order, ordered_products, total, grand_total, shipping):
+    language_code = getattr(request, "LANGUAGE_CODE", None) or "ka"
+    language_code = "en" if language_code.startswith("en") else "ka"
+
+    logo_url = request.build_absolute_uri(static("assets/img/suprawhite.svg"))
+    context = {
+        "order": order,
+        "ordered_products": ordered_products,
+        "total": total,
+        "grand_total": grand_total,
+        "shipping": shipping,
+        "current_year": datetime.datetime.now().year,
+        "email_language": language_code,
+        "logo_url": logo_url,
+    }
+
+    subject = (
+        f"Order Confirmation - {order.order_number}"
+        if language_code == "en"
+        else f"შეკვეთის დადასტურება - {order.order_number}"
+    )
+
+    with translation.override(language_code):
+        body = render_to_string(
+            "shop/customer_new_order_notification.html",
+            context,
+            request=request,
+        )
+
+    send_mail(
+        subject=subject,
+        message="",
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[order.email],
+        html_message=body,
+        fail_silently=False,
+    )
 
 @require_POST
 def cart_recalculate(request):
@@ -1541,8 +1583,8 @@ def checkout_generate(request):
                 "currency": "GEL",
                 "total": payment_amount_str,
             },
-            "returnurl": f"{base_url}/en/carts/payment_check/?id={paymentobj.p_number}",
-            "callbackUrl": f"{base_url}/en/carts/payment_check/?id={paymentobj.p_number}",
+            "returnurl": f"{base_url}/{request.LANGUAGE_CODE}/carts/payment_check/?id={paymentobj.p_number}",
+            "callbackUrl": f"{base_url}/{request.LANGUAGE_CODE}/carts/payment_check/?id={paymentobj.p_number}",
             "extra": "GE55TB7881436020100013",
             "expirationMinutes": 12,
             "methods": [5],
@@ -1587,8 +1629,8 @@ def checkout_generate(request):
                 ]
             },
             "redirect_urls": {
-                "fail": f"{base_url}/en/carts/payment_check/?id={paymentobj.p_number}",
-                "success": f"{base_url}/en/carts/payment_check/?id={paymentobj.p_number}",
+                "fail": f"{base_url}/{request.LANGUAGE_CODE}/carts/payment_check/?id={paymentobj.p_number}",
+                "success": f"{base_url}/{request.LANGUAGE_CODE}/carts/payment_check/?id={paymentobj.p_number}",
             }
         }
 
@@ -1647,7 +1689,7 @@ def checkout_generate(request):
         )
     
         response_url = request.build_absolute_uri(
-            f"/en/carts/payment_check/?id={paymentobj.p_number}"
+            f"/{request.LANGUAGE_CODE}/carts/payment_check/?id={paymentobj.p_number}"
         )
     
         params = {
@@ -1745,7 +1787,6 @@ def checkout_generate(request):
     return redirect(redirect_url)
 
 
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.mail import EmailMessage
@@ -2243,26 +2284,13 @@ def check_liberty_callback(request):
         # =================================================
 
         if order.email:
-
-            customer_context = {
-                "order": order,
-                "ordered_products": ordered_products,
-                "grand_total": grand_total,
-                "shipping": shipping,
-            }
-
-            customer_body = render_to_string(
-                "shop/customer_new_order_notification.html",
-                customer_context
-            )
-
-            send_mail(
-                subject=f"Order Confirmation - {order.order_number}",
-                message="",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[order.email],
-                html_message=customer_body,
-                fail_silently=False,
+            _send_customer_order_email(
+                request,
+                order,
+                ordered_products,
+                total,
+                grand_total,
+                shipping,
             )
 
         # =================================================
@@ -2680,30 +2708,13 @@ def check_flitt_webhook(request):
     # =================================================
 
     if order.email:
-
-        customer_context = {
-            "order": order,
-            "ordered_products": ordered_products,
-            "grand_total": grand_total,
-            "shipping": shipping,
-        }
-
-        customer_subject = (
-            f"Order Confirmation - {order.order_number}"
-        )
-
-        customer_body = render_to_string(
-            "shop/customer_new_order_notification.html",
-            customer_context,
-        )
-
-        send_mail(
-            subject=customer_subject,
-            message="",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[order.email],
-            html_message=customer_body,
-            fail_silently=False,
+        _send_customer_order_email(
+            request,
+            order,
+            ordered_products,
+            total,
+            grand_total,
+            shipping,
         )
 
     # =================================================
@@ -3003,12 +3014,71 @@ def payment_check(request):
     """
     payment_id = request.GET.get('id')
     payment = get_object_or_404(Payment, p_number=payment_id)
+    order = Order.objects.filter(payment=payment).first()
+    ordered_products = OrderProduct.objects.none()
+    cart_snapshot_items = []
+    shipping = Decimal('0')
+    total = Decimal('0')
+    grand_total = Decimal(str(payment.amount_paid or '0'))
+
+    if payment.cart_data:
+        for item in payment.cart_data:
+            quantity = int(item.get('quantity', 0))
+            unit_price = Decimal(str(item.get('price', '0')))
+            product_id = item.get('product_id')
+            product = None
+            if str(product_id).isdigit():
+                product = Product.objects.filter(id=product_id).first()
+            color = ''
+            size = ''
+
+            for variation in item.get('variations', []):
+                category = variation.get('variation_category', '').lower()
+                value = variation.get('variation_value', '')
+                if category == 'color':
+                    color = value
+                elif category == 'size':
+                    size = value
+
+            is_gift = bool(item.get('is_gift', item.get('gift', False)))
+            line_total = Decimal('0') if is_gift else unit_price * quantity
+
+            cart_snapshot_items.append({
+                'name': product.Product_name if product else item.get('name', ''),
+                'product': product,
+                'quantity': quantity,
+                'color': color,
+                'size': size,
+                'line_total': line_total,
+            })
+
+            total += line_total
+
+        checkout_data = payment.checkout_data or {}
+        shipping = Decimal(str(checkout_data.get('shipping', '0')))
+        grand_total = total + shipping
+
+    if order:
+        ordered_products = OrderProduct.objects.filter(order=order).select_related(
+            'product',
+            'variation',
+            'variation__color',
+            'variation__size',
+        )
+        shipping = Decimal(str(order.shipping_price or '0'))
+        grand_total = Decimal(str(order.order_total or '0'))
+        total = grand_total - shipping
 
     return render(request, 'shop/submit_order.html', {
         'response': payment.status,
         'ecom': payment,
         'id': payment.payment_id,
-        'total': payment.amount_paid,
+        'order': order,
+        'ordered_products': ordered_products,
+        'cart_snapshot_items': cart_snapshot_items,
+        'total': total,
+        'grand_total': grand_total,
+        'shipping': shipping,
     })
 
 
@@ -3350,31 +3420,13 @@ def check_bog_callback(request):
         # =================================================
 
         if order.email:
-
-            mail_context = {
-                "order": order,
-                "ordered_products": ordered_products,
-                "grand_total": grand_total,
-                "shipping": shipping,
-            }
-
-            email_subject = (
-                f"Order Confirmation - "
-                f"{order.order_number}"
-            )
-
-            email_body = render_to_string(
-                "shop/customer_new_order_notification.html",
-                mail_context
-            )
-
-            send_mail(
-                email_subject,
-                "",
-                settings.DEFAULT_FROM_EMAIL,
-                [order.email],
-                html_message=email_body,
-                fail_silently=False,
+            _send_customer_order_email(
+                request,
+                order,
+                ordered_products,
+                total,
+                grand_total,
+                shipping,
             )
 
         # =================================================

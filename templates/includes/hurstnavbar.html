@@ -8,7 +8,7 @@
 						<div class="row">
 							<div class="col-md-4 offset-md-4 col-7 d-flex justify-content-center align-items-center">
 								<div class="logo text-md-center">
-									<a href="{% url 'home' %}"><img src="{% static 'newlogo.png' %}" alt="" /></a>
+									<a href="{% url 'home' %}"><img src="{% static 'assets/img/suprawhite.svg' %}" alt="OldSupra" /></a>
 								</div>
 							</div>
 							<div class="col-md-4 col-5">
@@ -17,15 +17,15 @@
 										<li>
 											<a class="cart-icon" href="#">
 												<i class="zmdi zmdi-shopping-cart"></i>
-											
+
 											</a>
 											<div class="mini-cart-brief text-left">
-												
+
 												<div class="all-cart-product clearfix">
 												    {% for cart_item in cart_items_cart %}
 													<div class="single-cart clearfix">
 														<div class="cart-photo">
-															<a href="{{cart_item.product.get_url}}"><img src="{{ cart_item.product.images.url }}" alt="" /></a>
+															<a href="{{cart_item.product.get_url}}"><img src="{{ cart_item.product.images.url }}" alt="OldSupra" /></a>
 														</div>
 														<div class="cart-info">
 															<h5><a href="#">{{ cart_item.product.Product_name }}</a></h5>
@@ -35,7 +35,7 @@
 														</div>
 													</div>
 													{% endfor %}
-												
+
 												</div>
 												<div class="cart-totals">
 													<h5 class="mb-0">Total <span class="floatright"></span></h5>
@@ -65,14 +65,14 @@
 				</div>
 				<div class="main-menu  d-none d-md-block">
 <nav>
-						<ul> 
+						<ul>
 						    {% for cat in cats %}
-						    
-						   	<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
-						   	
-						   	{% endfor %}
+
+							<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+
+							{% endfor %}
 						</ul>
-					</nav>   
+					</nav>
 				</div>
 				<!-- MAIN-MENU END -->
 			</header>
@@ -86,11 +86,11 @@
 								<nav id="dropdown">
 									<ul>
 										 {% for cat in cats %}
-						    
-						   	<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
-						   	
-						   	{% endfor %}
-										
+
+							<li><a href="{{cat.get_url_cat}}">{{cat.category_name}}</a></li>
+
+							{% endfor %}
+
 									</ul>
 								</nav>
 							</div>

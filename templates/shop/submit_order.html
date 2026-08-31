@@ -1,141 +1,154 @@
 {% extends 'hurstbase.html' %}
-
-
-
-
 {% load static %}
-
+{% load i18n %}
 
 {% block content %}
-<div class="heading-banner-area overlay-bg">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="heading-banner">
-								<div class="heading-banner-title">
-									<h2>order complete</h2>
-								</div>
-								<div class="breadcumbs pb-15">
-									<ul>
-										<li><a href="#">Home</a></li>
-										<li>order complete</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- HEADING-BANNER END -->
-			<!-- ORDER-AREA START -->
-			<div class="shopping-cart-area  pt-80 pb-80">
-				<div class="container">	
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="shopping-cart">
-								<!-- Nav tabs -->
-								<ul class="cart-page-menu nav row clearfix mb-30">
-									<li><a href="#shopping-cart" data-bs-toggle="tab">shopping cart</a></li>	<li><a href="#check-out" data-bs-toggle="tab">check out</a></li>
-									<li><a class="active" href="#order-complete" data-bs-toggle="tab">order complete</a></li>
-								</ul>
+{% get_current_language as CURRENT_LANGUAGE %}
+<main class="order-success" aria-labelledby="order-success-title">
+  <section class="order-success-hero">
+    <div class="order-success-card">
+      <div class="order-success-mark" aria-hidden="true">
+        <span></span>
+      </div>
 
-								<!-- Tab panes -->
-								<div class="tab-content">
-									<!-- shopping-cart start -->
-									<div class="tab-pane" id="shopping-cart">
-							
-									</div>
-									<!-- shopping-cart end -->
-									<!-- wishlist start -->
-									<div class="tab-pane" id="wishlist">
-																	
-									</div>
-									<!-- wishlist end -->
-									<!-- check-out start -->
-									<div class="tab-pane" id="check-out">
-																		
-									</div>
-									<!-- check-out end -->
-									<!-- order-complete start -->
-									<div class="tab-pane active" id="order-complete">
-										<form action="#">
-											<div class="thank-recieve bg-white mb-30">
-												<p>Thank you. Your order has been received.</p>
-											</div>
-											<div class="order-info bg-white text-center clearfix mb-30">
-												<div class="single-order-info">
-													<h4 class="title-1 text-uppercase text-light-black mb-0">{{order.order_number}}</h4>
-													<p class="text-uppercase text-light-black mb-0"><strong>m 2653257</strong></p>
-												</div>
-												<div class="single-order-info">
-													<h4 class="title-1 text-uppercase text-light-black mb-0">Date</h4>
-													<p class="text-uppercase text-light-black mb-0"><strong></strong>{{order.created_at}}</p>
-												</div>
-												<div class="single-order-info">
-													<h4 class="title-1 text-uppercase text-light-black mb-0">Total</h4>
-													<p class="text-uppercase text-light-black mb-0"><strong>{{grand_total}}</strong></p>
-												</div>
-												<div class="single-order-info">
-													<h4 class="title-1 text-uppercase text-light-black mb-0">payment method</h4>
-													<p class="text-uppercase text-light-black mb-0"><a href="#"><strong>{{order.payment.BANK}}</strong></a></p>
-												</div>
-											</div>
-											<div class="shop-cart-table check-out-wrap">
-												<div class="row">
-													<div class="col-md-6">
-														<div class="our-order payment-details pr-20">
-															<h4 class="title-1 title-border text-uppercase mb-30">our order</h4>
-															<table>
-																<thead>
-																	<tr>
-																		<th><strong>Product</strong></th>
-																		<th class="text-end"><strong>Total</strong></th>
-																	</tr>
-																</thead>
-																<tbody>
-																 {% for item in ordered_products %}
-																	<tr>
-																		<td>{{item.product.Product_name}} x {{ item.product.quantity }}</td>
-																		<td class="text-end">{{item.price}}</td>
-																	</tr>
-																	    {% endfor %}
-																	
-																	<tr>
-																		<td>Cart Subtotal</td>
-																		<td class="text-end">{{total}}</td>
-																	</tr>
-																	<tr>
-																		<td>Shipping and Handing</td>
-																		<td class="text-end">{{shipping}}</td>
-																	</tr>
-																
-																	<tr>
-																		<td>Order Total</td>
-																		<td class="text-end">{{grand_total}}</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</div>
-										
-												</div>
-											</div>
-										</form>										
-									</div>
-									<!-- order-complete end -->
-								</div>
+      {% if CURRENT_LANGUAGE == 'ka' %}
+      <h1 id="order-success-title">გმადლობთ შეკვეთისთვის</h1>
+      <p>თქვენი შეკვეთა წარმატებით მიღებულია. დეტალების სანახავად დააჭირეთ ქვემოთ მოცემულ ღილაკს.</p>
+      <div class="order-success-summary" aria-label="შეკვეთის ინფორმაცია"><div class="order-success-detail"><span>შეკვეთის ნომერი</span><strong>{% if order.order_number %}{{ order.order_number }}{% else %}{{ ecom.p_number }}{% endif %}</strong></div><div class="order-success-detail"><span>შეკვეთის თარიღი</span><strong>{% if order.created_at %}{{ order.created_at|date:'M d, Y' }}{% elif ecom.created_at %}{{ ecom.created_at|date:'M d, Y' }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მომხმარებელი</span><strong>{% if order.full_name %}{{ order.full_name }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მიტანის მისამართი</span><strong>{% if order.address_line_1 %}{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}{% else %}-{% endif %}</strong></div></div><button class="order-success-action" type="button" data-order-modal-open>შეკვეთის ნახვა</button>
+      {% else %}
+      <h1 id="order-success-title">Thank you for your order</h1>
+      <p>Your order has been received successfully. Use the button below to view the full order details.</p>
+      <div class="order-success-summary" aria-label="Order information"><div class="order-success-detail"><span>Order number</span><strong>{% if order.order_number %}{{ order.order_number }}{% else %}{{ ecom.p_number }}{% endif %}</strong></div><div class="order-success-detail"><span>Order date</span><strong>{% if order.created_at %}{{ order.created_at|date:'M d, Y' }}{% elif ecom.created_at %}{{ ecom.created_at|date:'M d, Y' }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>Customer</span><strong>{% if order.full_name %}{{ order.full_name }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>Delivery address</span><strong>{% if order.address_line_1 %}{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}{% else %}-{% endif %}</strong></div></div><button class="order-success-action" type="button" data-order-modal-open>View order</button>
+      {% endif %}
+    </div>
+  </section>
 
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			{% if response in 'Succeeded,100,completed,success' or response == 'success' %}
+  <div class="order-modal" data-order-modal aria-hidden="true">
+    <div class="order-modal-backdrop" data-order-modal-close></div>
+    <section class="order-modal-panel order-mail-panel" role="dialog" aria-modal="true" aria-labelledby="order-modal-title" tabindex="-1">
+      <button class="order-modal-close order-mail-close" type="button" aria-label="{% if CURRENT_LANGUAGE == 'ka' %}დახურვა{% else %}Close{% endif %}" data-order-modal-close>
+        <i class="zmdi zmdi-close" aria-hidden="true"></i>
+      </button>
+
+      <div class="order-mail-shell">
+        <div class="order-mail-card">
+          <header class="order-mail-head">
+            <span class="order-mail-logo-frame"><img class="order-mail-logo" src="{% static 'assets/img/suprawhite.svg' %}" alt="OldSupra"></span>
+
+            {% if CURRENT_LANGUAGE == 'ka' %}
+            <h2 id="order-modal-title">თქვენი შეკვეთა დადასტურდა</h2>
+            <p>{{ order.first_name|default:'' }}, მადლობა OldSupra-ში შეძენისთვის. თქვენი შეკვეთა მიღებულია და დეტალების დასაზუსტებლად საჭიროების შემთხვევაში დაგიკავშირდებით.</p>
+            {% else %}
+            <h2 id="order-modal-title">Your order is confirmed</h2>
+            <p>Dear {{ order.first_name|default:'customer' }}, thank you for shopping with OldSupra. We have received your order and will contact you if any details need confirmation.</p>
+            {% endif %}
+          </header>
+
+          <div class="order-mail-summary" aria-label="{% if CURRENT_LANGUAGE == 'ka' %}შეკვეთის ინფორმაცია{% else %}Order information{% endif %}">
+            <div>
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}შეკვეთის ნომერი{% else %}Order number{% endif %}</span>
+              <strong>{% if order.order_number %}{{ order.order_number }}{% else %}{{ ecom.p_number }}{% endif %}</strong>
+            </div>
+            <div>
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}შეკვეთის თარიღი{% else %}Order date{% endif %}</span>
+              <strong>{% if order.created_at %}{{ order.created_at|date:'M d, Y' }}{% elif ecom.created_at %}{{ ecom.created_at|date:'M d, Y' }}{% else %}-{% endif %}</strong>
+            </div>
+            <div>
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}მომხმარებელი{% else %}Customer{% endif %}</span>
+              <strong>{% if order.full_name %}{{ order.full_name }}{% else %}-{% endif %}</strong>
+            </div>
+            <div>
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}მიტანის მისამართი{% else %}Delivery address{% endif %}</span>
+              <strong>{% if order.address_line_1 %}{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}{% else %}-{% endif %}</strong>
+            </div>
+          </div>
+
+          <div class="order-mail-details">
+            <h3>{% if CURRENT_LANGUAGE == 'ka' %}შეკვეთის დეტალები{% else %}Order details{% endif %}</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>{% if CURRENT_LANGUAGE == 'ka' %}პროდუქტი{% else %}Product{% endif %}</th>
+                  <th>{% if CURRENT_LANGUAGE == 'ka' %}რაოდ.{% else %}Qty{% endif %}</th>
+                  <th>{% if CURRENT_LANGUAGE == 'ka' %}ჯამი{% else %}Total{% endif %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if ordered_products %}
+                  {% for item in ordered_products %}
+                  <tr>
+                    <td>
+                      <strong>{{ item.product.Product_name }}</strong>
+                      {% if item.color or item.size or item.gift %}
+                      <small>
+                        {% if item.color %}{% if CURRENT_LANGUAGE == 'ka' %}ფერი{% else %}Color{% endif %}: {{ item.color }}{% endif %}
+                        {% if item.size %}{% if item.color %} · {% endif %}{% if CURRENT_LANGUAGE == 'ka' %}ზომა{% else %}Size{% endif %}: {{ item.size }}{% endif %}
+                        {% if item.gift %}{% if item.color or item.size %} · {% endif %}{% if CURRENT_LANGUAGE == 'ka' %}საჩუქრად შეფუთვა{% else %}Gift wrap{% endif %}{% endif %}
+                      </small>
+                      {% endif %}
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product_total|floatformat:2 }} ₾</td>
+                  </tr>
+                  {% endfor %}
+                {% elif cart_snapshot_items %}
+                  {% for item in cart_snapshot_items %}
+                  <tr>
+                    <td>
+                      <strong>{{ item.name }}</strong>
+                      {% if item.color or item.size %}
+                      <small>
+                        {% if item.color %}{% if CURRENT_LANGUAGE == 'ka' %}ფერი{% else %}Color{% endif %}: {{ item.color }}{% endif %}
+                        {% if item.size %}{% if item.color %} · {% endif %}{% if CURRENT_LANGUAGE == 'ka' %}ზომა{% else %}Size{% endif %}: {{ item.size }}{% endif %}
+                      </small>
+                      {% endif %}
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.line_total|floatformat:2 }} ₾</td>
+                  </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td colspan="3" class="order-mail-empty">{% if CURRENT_LANGUAGE == 'ka' %}შეკვეთის პროდუქტები ჯერ არ არის ხელმისაწვდომი.{% else %}Order items are not available yet.{% endif %}</td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="order-mail-totals">
+            <div>
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}ქვეჯამი{% else %}Subtotal{% endif %}</span>
+              <strong>{{ total|floatformat:2 }} ₾</strong>
+            </div>
+            <div>
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}მიტანა{% else %}Shipping{% endif %}</span>
+              <strong>{{ shipping|floatformat:2 }} ₾</strong>
+            </div>
+            <div class="order-mail-grand">
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}სულ გადახდილი{% else %}Total paid{% endif %}</span>
+              <strong>{{ grand_total|floatformat:2 }} ₾</strong>
+            </div>
+          </div>
+
+          <footer class="order-mail-footer">
+            {% if CURRENT_LANGUAGE == 'ka' %}
+            <p>შეკვეთასთან დაკავშირებით კითხვების შემთხვევაში უპასუხეთ ამ წერილს და ჩვენი გუნდი დაგეხმარებათ.</p>
+            {% else %}
+            <p>Questions about your order? Reply to this email and our team will help you.</p>
+            {% endif %}
+            <span>© {% now 'Y' %} OldSupra.ge</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+{% if response in 'Succeeded,100,completed,success' or response == 'success' %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   if (typeof fbq === 'function') {
-
-    // Build the product ID list
     const productIds = [
       {% for p in ordered_products %}
         '{{ p.product.id }}'{% if not forloop.last %},{% endif %}
@@ -148,12 +161,48 @@ document.addEventListener("DOMContentLoaded", function() {
       value: {{ grand_total|floatformat:2 }},
       currency: 'USD'
     });
-
-    console.log('✅ FB Pixel Purchase event fired for products:', productIds);
   } else {
-    console.warn('⚠️ FB Pixel not ready for Purchase event.');
+    console.warn('FB Pixel not ready for Purchase event.');
   }
 });
 </script>
 {% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.querySelector('[data-order-modal]');
+  const panel = modal ? modal.querySelector('.order-modal-panel') : null;
+  const openers = document.querySelectorAll('[data-order-modal-open]');
+  const closers = document.querySelectorAll('[data-order-modal-close]');
+
+  if (!modal || !panel) {
+    return;
+  }
+
+  const openModal = function() {
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('order-modal-is-open');
+    panel.focus();
+  };
+
+  const closeModal = function() {
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('order-modal-is-open');
+  };
+
+  openers.forEach(function(button) {
+    button.addEventListener('click', openModal);
+  });
+
+  closers.forEach(function(button) {
+    button.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+      closeModal();
+    }
+  });
+});
+</script>
 {% endblock %}
