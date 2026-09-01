@@ -28,6 +28,27 @@
   margin: 0 auto;
   text-align: center;
 }
+.order-success-logo-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(76px, 14vh, 120px);
+  height: clamp(76px, 14vh, 120px);
+  margin: 0 auto clamp(14px, 3vh, 24px);
+  background: #294062;
+  border-radius: 50%;
+}
+
+.order-success-logo-frame img {
+  display: block;
+  width: auto;
+  max-width: 78%;
+  max-height: 78%;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  object-fit: contain;
+}
 .order-success-title-hidden {
   position: absolute;
   width: 1px;
@@ -444,6 +465,11 @@
 }
 
 @media (max-width: 767px) {
+  .order-success-logo-frame {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 12px;
+  }
   .order-success-card {
     width: min(100%, 500px);
   }
@@ -509,6 +535,12 @@
 }
 
 @media (max-height: 620px) {
+  .order-success-logo-frame {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 8px;
+  }
+
   .order-success-hero {
     padding: 6px 12px;
   }
@@ -558,6 +590,7 @@
 <main class="order-success" aria-labelledby="order-success-title">
   <section class="order-success-hero">
     <div class="order-success-card">
+      <span class="order-success-logo-frame"><img src="{% static 'assets/img/suprawhite.svg' %}" alt="OldSupra"></span>
       {% if CURRENT_LANGUAGE == 'ka' %}
       <h1 id="order-success-title" class="order-success-title-hidden">გმადლობთ შეკვეთისთვის</h1>
       <div class="order-success-summary" aria-label="შეკვეთის ინფორმაცია"><div class="order-success-detail"><span>შეკვეთის ნომერი</span><strong>{% if order.order_number %}{{ order.order_number }}{% else %}{{ ecom.p_number }}{% endif %}</strong></div><div class="order-success-detail"><span>შეკვეთის თარიღი</span><strong>{% if order.created_at %}{{ order.created_at|date:'M d, Y' }}{% elif ecom.created_at %}{{ ecom.created_at|date:'M d, Y' }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მომხმარებელი</span><strong>{% if order.full_name %}{{ order.full_name }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მიტანის მისამართი</span><strong>{% if order.address_line_1 %}{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}{% else %}-{% endif %}</strong></div></div><button class="order-success-action" type="button" data-order-modal-open>შეკვეთის ნახვა</button>
