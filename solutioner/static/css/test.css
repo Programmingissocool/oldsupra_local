@@ -740,17 +740,18 @@ body:not(.is-mobile) .menu-toggle.hamburger--emphatic:not(.active):hover .hambur
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 130px;
-  height: 130px;
-  background: #294062;
-  border-radius: 50%;
+  width: min(58vw, 190px);
+  min-height: 46px;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
 }
 
 #sticky-menu .logo img {
   display: block;
-  width: auto;
-  max-width: 112px;
-  max-height: 112px;
+  width: min(100%, 190px);
+  max-height: 66px;
+  height: auto;
   object-fit: contain;
   border-radius: 0;
 }
