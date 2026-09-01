@@ -29,15 +29,64 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import translation
 
+def _normalize_order_language(value):
+    value = (value or "").lower()
+    return "en" if value.startswith("en") else "ka"
+
+
+def _request_path_language(request):
+    path = getattr(request, "path_info", "") or ""
+    first_segment = path.strip("/").split("/", 1)[0].lower()
+    if first_segment in ("en", "ka"):
+        return first_segment
+    return ""
+
+
+def _checkout_data_for_payment(payment):
+    checkout_data = getattr(payment, "checkout_data", None) or {}
+    if isinstance(checkout_data, str):
+        try:
+            checkout_data = json.loads(checkout_data) or {}
+        except (TypeError, ValueError):
+            checkout_data = {}
+    return checkout_data if isinstance(checkout_data, dict) else {}
+
+
+def _selected_order_language(request, order=None):
+    payment = getattr(order, "payment", None) if order is not None else None
+    checkout_data = _checkout_data_for_payment(payment)
+    for value in (
+        checkout_data.get("language_code"),
+        _request_path_language(request),
+        getattr(request, "LANGUAGE_CODE", ""),
+    ):
+        if value:
+            return _normalize_order_language(value)
+    return "ka"
+
+
+def _non_empty_text(value):
+    value = str(value or "").strip()
+    return value if value and value != "-" else ""
+
+
+def _compose_order_address(order):
+    parts = [
+        getattr(order, "address_line_1", ""),
+        getattr(order, "address_line_2", ""),
+        getattr(order, "city", ""),
+        getattr(order, "state", ""),
+        getattr(order, "country", ""),
+    ]
+    return ", ".join(part for part in (_non_empty_text(part) for part in parts) if part) or "-"
 
 def _send_customer_order_email(request, order, ordered_products, total, grand_total, shipping):
-    language_code = getattr(request, "LANGUAGE_CODE", None) or "ka"
-    language_code = "en" if language_code.startswith("en") else "ka"
+    language_code = _selected_order_language(request, order)
 
     logo_url = request.build_absolute_uri(static("assets/img/suprawhite.svg"))
     payment_number = getattr(getattr(order, "payment", None), "p_number", "")
     order_url = request.build_absolute_uri(
-        f"/{language_code}/carts/payment_check/?id={payment_number}"
+        f"/{language_code}/carts/payment_check/?id={payment_number}&show_order=1"
     ) if payment_number else ""
     context = {
         "order": order,
@@ -49,6 +98,7 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
         "email_language": language_code,
         "logo_url": logo_url,
         "order_url": order_url,
+        "delivery_address": _compose_order_address(order),
     }
 
     subject = (
@@ -1561,10 +1611,14 @@ def checkout_generate(request):
         'email': request.GET.get('email', ''),
         'phone': request.GET.get('phone', ''),
         'address_line_1': request.GET.get('address_line_1', ''),
+        'address_line_2': request.GET.get('address_line_2', ''),
         'city': request.GET.get('city', ''),
+        'state': request.GET.get('state', ''),
+        'country': request.GET.get('country', ''),
         'order_note': request.GET.get('order_note', ''),
         'shipping': str(shipping),
         'voucher_code': voucher_code,
+        'language_code': _selected_order_language(request),
     }
 
     paymentobj.checkout_data = json.dumps(checkout_snapshot)
@@ -2117,9 +2171,7 @@ def check_liberty_callback(request):
                 ]
             )
 
-            checkout_data = json.loads(
-                payment.checkout_data or "{}"
-            )
+            checkout_data = _checkout_data_for_payment(payment)
 
             cart_data = payment.cart_data or []
 
@@ -2156,7 +2208,10 @@ def check_liberty_callback(request):
                 phone=checkout_data.get("phone", ""),
                 email=checkout_data.get("email", ""),
                 address_line_1=checkout_data.get("address_line_1", ""),
+                address_line_2=checkout_data.get("address_line_2", ""),
                 city=checkout_data.get("city", ""),
+                state=checkout_data.get("state", ""),
+                country=checkout_data.get("country", ""),
                 order_note=checkout_data.get("order_note", ""),
                 order_total=grand_total,
                 shipping_price=shipping,
@@ -2514,9 +2569,7 @@ def check_flitt_webhook(request):
 
     try:
 
-        checkout_data = json.loads(
-            payment.checkout_data or "{}"
-        )
+        checkout_data = _checkout_data_for_payment(payment)
 
     except Exception:
 
@@ -2571,7 +2624,10 @@ def check_flitt_webhook(request):
             phone=checkout_data.get("phone", ""),
             email=checkout_data.get("email", ""),
             address_line_1=checkout_data.get("address_line_1", ""),
+            address_line_2=checkout_data.get("address_line_2", ""),
             city=checkout_data.get("city", ""),
+            state=checkout_data.get("state", ""),
+            country=checkout_data.get("country", ""),
             order_note=checkout_data.get("order_note", ""),
             order_total=grand_total,
             tax=Decimal("0"),
@@ -3241,9 +3297,7 @@ def check_bog_callback(request):
                 ]
             )
 
-            checkout_data = json.loads(
-                payment.checkout_data or "{}"
-            )
+            checkout_data = _checkout_data_for_payment(payment)
 
             cart_data = payment.cart_data or []
 
@@ -3304,8 +3358,20 @@ def check_bog_callback(request):
                     "address_line_1",
                     ""
                 ),
+                address_line_2=checkout_data.get(
+                    "address_line_2",
+                    ""
+                ),
                 city=checkout_data.get(
                     "city",
+                    ""
+                ),
+                state=checkout_data.get(
+                    "state",
+                    ""
+                ),
+                country=checkout_data.get(
+                    "country",
                     ""
                 ),
                 order_note=checkout_data.get(

@@ -43,7 +43,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding:16px 18px; color:#294062; font-size:13px;">{% if email_language == 'en' %}Delivery address{% else %}მიტანის მისამართი{% endif %}</td>
-                                    <td align="right" style="padding:16px 18px; color:#294062; font-size:14px; line-height:1.45;">{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}</td>
+                                    <td align="right" style="padding:16px 18px; color:#294062; font-size:14px; line-height:1.45;">{{ delivery_address }}</td>
                                 </tr>
                             </table>
                         </td>
