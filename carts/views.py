@@ -37,7 +37,7 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
     logo_url = request.build_absolute_uri(static("assets/img/suprawhite.svg"))
     payment_number = getattr(getattr(order, "payment", None), "p_number", "")
     order_url = request.build_absolute_uri(
-        f"/{language_code}/carts/payment_check/?id={payment_number}&show_order=1"
+        f"/{language_code}/carts/payment_check/?id={payment_number}"
     ) if payment_number else ""
     context = {
         "order": order,
