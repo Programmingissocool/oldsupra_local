@@ -14,7 +14,7 @@ from orders.models import Payment
 from django.db.models import Sum
 from .utils.omnisend import send_contact, send_cart_event, send_cart_event_beta, send_placed_order_event
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from orders.models import Order, OrderProduct
 from django.urls import reverse
 from django.templatetags.static import static
@@ -64,14 +64,14 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
             request=request,
         )
 
-    send_mail(
+    email = EmailMessage(
         subject=subject,
-        message="",
+        body=body,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[order.email],
-        html_message=body,
-        fail_silently=False,
+        to=[order.email],
     )
+    email.content_subtype = "html"
+    email.send(fail_silently=False)
 
 @require_POST
 def cart_recalculate(request):
