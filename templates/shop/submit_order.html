@@ -7,17 +7,11 @@
 <main class="order-success" aria-labelledby="order-success-title">
   <section class="order-success-hero">
     <div class="order-success-card">
-      <div class="order-success-mark" aria-hidden="true">
-        <span></span>
-      </div>
-
       {% if CURRENT_LANGUAGE == 'ka' %}
-      <h1 id="order-success-title">გმადლობთ შეკვეთისთვის</h1>
-      <p>თქვენი შეკვეთა წარმატებით მიღებულია. დეტალების სანახავად დააჭირეთ ქვემოთ მოცემულ ღილაკს.</p>
+      <h1 id="order-success-title" class="order-success-title-hidden">გმადლობთ შეკვეთისთვის</h1>
       <div class="order-success-summary" aria-label="შეკვეთის ინფორმაცია"><div class="order-success-detail"><span>შეკვეთის ნომერი</span><strong>{% if order.order_number %}{{ order.order_number }}{% else %}{{ ecom.p_number }}{% endif %}</strong></div><div class="order-success-detail"><span>შეკვეთის თარიღი</span><strong>{% if order.created_at %}{{ order.created_at|date:'M d, Y' }}{% elif ecom.created_at %}{{ ecom.created_at|date:'M d, Y' }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მომხმარებელი</span><strong>{% if order.full_name %}{{ order.full_name }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მიტანის მისამართი</span><strong>{% if order.address_line_1 %}{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}{% else %}-{% endif %}</strong></div></div><button class="order-success-action" type="button" data-order-modal-open>შეკვეთის ნახვა</button>
       {% else %}
-      <h1 id="order-success-title">Thank you for your order</h1>
-      <p>Your order has been received successfully. Use the button below to view the full order details.</p>
+      <h1 id="order-success-title" class="order-success-title-hidden">Thank you for your order</h1>
       <div class="order-success-summary" aria-label="Order information"><div class="order-success-detail"><span>Order number</span><strong>{% if order.order_number %}{{ order.order_number }}{% else %}{{ ecom.p_number }}{% endif %}</strong></div><div class="order-success-detail"><span>Order date</span><strong>{% if order.created_at %}{{ order.created_at|date:'M d, Y' }}{% elif ecom.created_at %}{{ ecom.created_at|date:'M d, Y' }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>Customer</span><strong>{% if order.full_name %}{{ order.full_name }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>Delivery address</span><strong>{% if order.address_line_1 %}{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}{% else %}-{% endif %}</strong></div></div><button class="order-success-action" type="button" data-order-modal-open>View order</button>
       {% endif %}
     </div>
