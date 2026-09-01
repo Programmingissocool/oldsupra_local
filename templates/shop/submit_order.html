@@ -32,20 +32,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(76px, 14vh, 120px);
-  height: clamp(76px, 14vh, 120px);
+  width: min(76vw, 230px);
+  min-height: 58px;
   margin: 0 auto clamp(14px, 3vh, 24px);
-  background: #294062;
-  border-radius: 50%;
+  background: transparent;
+  border-radius: 0;
 }
 
 .order-success-logo-frame img {
   display: block;
-  width: auto;
-  max-width: 78%;
-  max-height: 78%;
+  width: min(100%, 230px);
+  max-height: 86px;
   height: auto;
-  margin: 0;
+  margin: 0 auto;
   border-radius: 0;
   object-fit: contain;
 }
@@ -267,20 +266,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 96px;
-  height: 96px;
+  width: min(72vw, 220px);
+  min-height: 56px;
   margin: 0 auto 20px;
-  background: #294062;
-  border-radius: 50%;
+  background: transparent;
+  border-radius: 0;
 }
 
 .order-mail-logo {
   display: block;
-  width: auto;
-  max-width: 78%;
-  max-height: 78%;
+  width: min(100%, 220px);
+  max-height: 82px;
   height: auto;
-  margin: 0;
+  margin: 0 auto;
   border-radius: 0;
   object-fit: contain;
 }
@@ -466,9 +464,13 @@
 
 @media (max-width: 767px) {
   .order-success-logo-frame {
-    width: 72px;
-    height: 72px;
+    width: min(78vw, 190px);
+    min-height: 48px;
     margin-bottom: 12px;
+  }
+  .order-success-logo-frame img {
+    width: min(100%, 190px);
+    max-height: 68px;
   }
   .order-success-card {
     width: min(100%, 500px);
@@ -525,8 +527,12 @@
   }
 
   .order-mail-logo-frame {
-    width: 76px;
-    height: 76px;
+    width: min(76vw, 180px);
+    min-height: 46px;
+  }
+  .order-mail-logo {
+    width: min(100%, 180px);
+    max-height: 64px;
   }
 
   .order-mail-head h2 {
@@ -590,7 +596,7 @@
 <main class="order-success" aria-labelledby="order-success-title">
   <section class="order-success-hero">
     <div class="order-success-card">
-      <span class="order-success-logo-frame"><img src="{% static 'assets/img/suprawhite.svg' %}" alt="OldSupra"></span>
+      <span class="order-success-logo-frame"><img src="{% static 'assets/img/logo-dark.png' %}" alt="OldSupra"></span>
       {% if CURRENT_LANGUAGE == 'ka' %}
       <h1 id="order-success-title" class="order-success-title-hidden">გმადლობთ შეკვეთისთვის</h1>
       <div class="order-success-summary" aria-label="შეკვეთის ინფორმაცია"><div class="order-success-detail"><span>შეკვეთის ნომერი</span><strong>{% if order.order_number %}{{ order.order_number }}{% else %}{{ ecom.p_number }}{% endif %}</strong></div><div class="order-success-detail"><span>შეკვეთის თარიღი</span><strong>{% if order.created_at %}{{ order.created_at|date:'M d, Y' }}{% elif ecom.created_at %}{{ ecom.created_at|date:'M d, Y' }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მომხმარებელი</span><strong>{% if order.full_name %}{{ order.full_name }}{% else %}-{% endif %}</strong></div><div class="order-success-detail"><span>მიტანის მისამართი</span><strong>{% if order.address_line_1 %}{{ order.address_line_1 }}{% if order.city %}, {{ order.city }}{% endif %}{% else %}-{% endif %}</strong></div></div><button class="order-success-action" type="button" data-order-modal-open>შეკვეთის ნახვა</button>
@@ -611,7 +617,7 @@
       <div class="order-mail-shell">
         <div class="order-mail-card">
           <header class="order-mail-head">
-            <span class="order-mail-logo-frame"><img class="order-mail-logo" src="{% static 'assets/img/suprawhite.svg' %}" alt="OldSupra"></span>
+            <span class="order-mail-logo-frame"><img class="order-mail-logo" src="{% static 'assets/img/logo-dark.png' %}" alt="OldSupra"></span>
 
             {% if CURRENT_LANGUAGE == 'ka' %}
             <h2 id="order-modal-title">თქვენი შეკვეთა დადასტურდა</h2>

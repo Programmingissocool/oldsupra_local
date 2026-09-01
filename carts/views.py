@@ -34,7 +34,7 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
     language_code = getattr(request, "LANGUAGE_CODE", None) or "ka"
     language_code = "en" if language_code.startswith("en") else "ka"
 
-    logo_url = request.build_absolute_uri(static("assets/img/suprawhite.svg"))
+    logo_url = request.build_absolute_uri(static("assets/img/logo-dark.png"))
     payment_number = getattr(getattr(order, "payment", None), "p_number", "")
     order_url = request.build_absolute_uri(
         f"/{language_code}/carts/payment_check/?id={payment_number}"
