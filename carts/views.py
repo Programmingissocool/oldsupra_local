@@ -1507,11 +1507,20 @@ def checkout_generate(request):
     product_ids = request.GET.getlist("id")
 
     if user and user.is_authenticated:
-        cart_items = CartItem.objects.filter(user=user, product_id__in=product_ids, is_active=True)
+        cart_items = CartItem.objects.filter(user=user, is_active=True)
+        if product_ids and not _is_pretend_checkout_user(user):
+            cart_items = cart_items.filter(product_id__in=product_ids)
     else:
-        cart_id = request.session.session_key
-        cart, _ = Cart.objects.get_or_create(cart_id=cart_id)
-        cart_items = CartItem.objects.filter(cart=cart, product_id__in=product_ids, is_active=True)
+        cart, _ = Cart.objects.get_or_create(cart_id=_cart_id(request))
+        cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+        if product_ids:
+            cart_items = cart_items.filter(product_id__in=product_ids)
+
+    if not cart_items.exists():
+        return redirect('cart')
+
+    if not requested_bank and not _is_pretend_checkout_user(user):
+        return redirect('cart')
 
     total = Decimal("0.00")
     for item in cart_items:
@@ -1519,7 +1528,10 @@ def checkout_generate(request):
         total += unit_price * item.quantity
 
     shipping_value = request.GET.get("checkout_shipping", "8")
-    shipping = Decimal(shipping_value)
+    try:
+        shipping = Decimal(str(shipping_value or "8"))
+    except Exception:
+        shipping = Decimal("8")
 
     voucher_code = request.GET.get('voucher', '').strip().lower()
     request.session['voucher_code'] = voucher_code
