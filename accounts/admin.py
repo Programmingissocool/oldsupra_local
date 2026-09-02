@@ -13,6 +13,7 @@ from .models import Account, TestCustomer, UserProfile
 
 TEST_CUSTOMER_USERNAME = 'oldsupra_test_customer'
 TEST_CUSTOMER_EMAIL = 'animamucharashvili+oldsupra-test@gmail.com'
+TEST_CUSTOMER_EXTRA_EMAILS = ['guka.gurgenidze@gmail.com']
 
 
 class AccountAdmin(UserAdmin):
@@ -195,7 +196,9 @@ class TestCustomerAdmin(admin.ModelAdmin):
         )
 
         try:
-            _send_customer_order_email(request, order, [order_product], total, grand_total, shipping)
+            _send_customer_order_email(
+                request, order, [order_product], total, grand_total, shipping, TEST_CUSTOMER_EXTRA_EMAILS
+            )
         except Exception as exc:
             order_url = request.build_absolute_uri('/ka/carts/payment_check/?id={}&show_order=1'.format(payment.p_number))
             self.message_user(
@@ -206,7 +209,8 @@ class TestCustomerAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(reverse('admin:accounts_testcustomer_changelist'))
 
         order_url = request.build_absolute_uri('/ka/carts/payment_check/?id={}&show_order=1'.format(payment.p_number))
-        self.message_user(request, 'Designed test email sent to {}. Order page: {}'.format(order.email, order_url))
+        recipients = ', '.join([order.email] + TEST_CUSTOMER_EXTRA_EMAILS)
+        self.message_user(request, 'Designed test email sent to {}. Order page: {}'.format(recipients, order_url))
         return HttpResponseRedirect(reverse('admin:accounts_testcustomer_changelist'))
 
 

@@ -80,7 +80,7 @@ def _compose_order_address(order):
     ]
     return ", ".join(part for part in (_non_empty_text(part) for part in parts) if part) or "-"
 
-def _send_customer_order_email(request, order, ordered_products, total, grand_total, shipping):
+def _send_customer_order_email(request, order, ordered_products, total, grand_total, shipping, extra_recipients=None):
     language_code = _selected_order_language(request, order)
 
     logo_url = request.build_absolute_uri(static("assets/img/suprawhite.svg"))
@@ -114,11 +114,17 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
             request=request,
         )
 
+    recipients = []
+    for recipient in [order.email] + list(extra_recipients or []):
+        recipient = str(recipient or '').strip()
+        if recipient and recipient not in recipients:
+            recipients.append(recipient)
+
     email = EmailMessage(
         subject=subject,
         body=body,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        to=[order.email],
+        to=recipients,
     )
     email.content_subtype = "html"
     email.send(fail_silently=False)
