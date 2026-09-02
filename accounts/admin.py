@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.db import IntegrityError
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import path, reverse
 from django.utils import timezone
@@ -12,7 +13,7 @@ from .models import Account, TestCustomer, UserProfile
 
 
 TEST_CUSTOMER_USERNAME = 'oldsupra_test_customer'
-TEST_CUSTOMER_EMAIL = 'animamucharashvili+oldsupra-test@gmail.com'
+TEST_CUSTOMER_EMAIL = 'Guram.gurgenidze@gipa.ge'
 TEST_CUSTOMER_EXTRA_EMAILS = ['guka.gurgenidze@gmail.com']
 
 
@@ -35,7 +36,7 @@ class TestCustomerAdmin(admin.ModelAdmin):
     list_display_links = ('email',)
 
     def get_queryset(self, request):
-        return super().get_queryset(request).filter(username=TEST_CUSTOMER_USERNAME)
+        return super().get_queryset(request).filter(Q(username=TEST_CUSTOMER_USERNAME) | Q(email__iexact=TEST_CUSTOMER_EMAIL))
 
     def get_urls(self):
         urls = super().get_urls()
@@ -54,7 +55,7 @@ class TestCustomerAdmin(admin.ModelAdmin):
         return custom_urls + urls
 
     def has_add_permission(self, request):
-        return not TestCustomer.objects.filter(username=TEST_CUSTOMER_USERNAME).exists()
+        return not TestCustomer.objects.filter(Q(username=TEST_CUSTOMER_USERNAME) | Q(email__iexact=TEST_CUSTOMER_EMAIL)).exists()
 
     def has_delete_permission(self, request, obj=None):
         return False
@@ -86,10 +87,31 @@ class TestCustomerAdmin(admin.ModelAdmin):
                 return email
         raise IntegrityError('Could not find an unused pretend customer email address.')
 
+    def _prepare_test_customer(self, customer):
+        customer.first_name = customer.first_name or 'Pretend'
+        customer.last_name = customer.last_name or 'Customer'
+        customer.phone_number = customer.phone_number or '+995555000000'
+        customer.is_staff = False
+        customer.is_admin = False
+        customer.is_superadmin = False
+        update_fields = ['first_name', 'last_name', 'phone_number', 'is_staff', 'is_admin', 'is_superadmin']
+        if not Account.objects.filter(username=TEST_CUSTOMER_USERNAME).exclude(pk=customer.pk).exists():
+            customer.username = TEST_CUSTOMER_USERNAME
+            update_fields.append('username')
+        customer.save(update_fields=update_fields)
+        return customer
+
     def _get_or_create_test_customer(self):
+        customer = TestCustomer.objects.filter(email__iexact=TEST_CUSTOMER_EMAIL).first()
+        if customer:
+            return self._prepare_test_customer(customer), False
+
         customer = TestCustomer.objects.filter(username=TEST_CUSTOMER_USERNAME).first()
         if customer:
-            return customer, False
+            if not Account.objects.filter(email__iexact=TEST_CUSTOMER_EMAIL).exclude(pk=customer.pk).exists():
+                customer.email = TEST_CUSTOMER_EMAIL
+                customer.save(update_fields=['email'])
+            return self._prepare_test_customer(customer), False
 
         customer = TestCustomer(
             username=TEST_CUSTOMER_USERNAME,
@@ -97,7 +119,7 @@ class TestCustomerAdmin(admin.ModelAdmin):
             first_name='Pretend',
             last_name='Customer',
             phone_number='+995555000000',
-            is_active=False,
+            is_active=True,
             is_staff=False,
             is_admin=False,
             is_superadmin=False,

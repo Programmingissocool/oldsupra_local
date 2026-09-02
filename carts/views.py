@@ -24,10 +24,22 @@ import time
 import random
 
 
+PRETEND_CHECKOUT_EMAILS = {'guram.gurgenidze@gipa.ge'}
+PRETEND_CHECKOUT_EXTRA_EMAILS = ['guka.gurgenidze@gmail.com']
+
+
 from decimal import Decimal
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.utils import translation
+from django.utils import timezone, translation
+
+
+def _is_pretend_checkout_user(user, checkout_email=''):
+    allowed_emails = {email.lower() for email in PRETEND_CHECKOUT_EMAILS}
+    user_email = str(getattr(user, 'email', '') or '').strip().lower()
+    checkout_email = str(checkout_email or '').strip().lower()
+    return bool(user and user.is_authenticated and user_email in allowed_emails and checkout_email in allowed_emails)
+
 
 def _normalize_order_language(value):
     value = (value or "").lower()
@@ -1491,17 +1503,7 @@ def checkout_generate(request):
 
 
 
-    if requested_bank == "tbc":
-        token = tbcgenerate()
-    elif requested_bank == "bog":
-        token = boggenerate()
-    elif requested_bank == "flitt":
-        token = ""
-    elif requested_bank == "liberty":
-        token = ""
-    elif requested_bank == "tbc_installment":
-        token = ""
-
+    token = ""
     user = request.user if request.user.is_authenticated else None
     product_ids = request.GET.getlist("id")
 
@@ -1526,7 +1528,7 @@ def checkout_generate(request):
     discount = Decimal('0')
 
     if total > 100:
-        shipping = 0
+        shipping = Decimal('0')
     elif voucher_code == "since1998" and total > 50:
         shipping = Decimal('0')
     elif total >= 50:
@@ -1614,6 +1616,7 @@ def checkout_generate(request):
 
     checkout_snapshot = {
         'first_name': request.GET.get('first_name', ''),
+        'last_name': request.GET.get('last_name', ''),
         'email': request.GET.get('email', ''),
         'phone': request.GET.get('phone', ''),
         'address_line_1': request.GET.get('address_line_1', ''),
@@ -1633,7 +1636,92 @@ def checkout_generate(request):
     # (Optional but fine to keep for redirect UX)
     request.session['order_form_data'] = checkout_snapshot
 
+    if _is_pretend_checkout_user(user, checkout_snapshot.get('email')):
+        paymentobj.status = 'success'
+        paymentobj.payment_method = 'pretend_checkout'
+        paymentobj.payment_id = paymentobj.p_number
+        paymentobj.bank = 'bog'
+        paymentobj.save(update_fields=['status', 'payment_method', 'payment_id', 'bank'])
 
+        order = Order.objects.create(
+            user=user,
+            first_name=checkout_snapshot.get('first_name', ''),
+            last_name=checkout_snapshot.get('last_name', ''),
+            phone=checkout_snapshot.get('phone', ''),
+            email=checkout_snapshot.get('email', ''),
+            address_line_1=checkout_snapshot.get('address_line_1', ''),
+            address_line_2=checkout_snapshot.get('address_line_2', ''),
+            city=checkout_snapshot.get('city', ''),
+            state=checkout_snapshot.get('state', ''),
+            country=checkout_snapshot.get('country', ''),
+            order_note=checkout_snapshot.get('order_note', ''),
+            order_total=grand_total,
+            shipping_price=shipping,
+            tax=Decimal('0.00'),
+            status='New',
+            ip=request.META.get('REMOTE_ADDR', ''),
+            is_ordered=True,
+            payment=paymentobj,
+        )
+        order.order_number = f"{timezone.now():%Y%m%d}{order.id}"
+        order.save(update_fields=['order_number'])
+
+        ordered_products = []
+        for item in cart_items:
+            color_title = ''
+            size_title = ''
+            variation_instance = item.variations.first()
+
+            color_var = item.variations.filter(color__isnull=False).first()
+            if color_var and color_var.color:
+                color_title = color_var.color.title
+
+            size_var = item.variations.filter(size__isnull=False).first()
+            if size_var and size_var.size:
+                size_title = size_var.size.title
+
+            order_product = OrderProduct.objects.create(
+                order=order,
+                payment=paymentobj,
+                user=user,
+                product=item.product,
+                color=color_title,
+                size=size_title,
+                quantity=item.quantity,
+                variation=variation_instance,
+                product_price=Decimal(str(item.get_unit_price())),
+                ordered=True,
+                gift=bool(item.is_gift),
+            )
+            ordered_products.append(order_product)
+
+        _send_customer_order_email(
+            request,
+            order,
+            ordered_products,
+            total_after_discount,
+            grand_total,
+            shipping,
+            PRETEND_CHECKOUT_EXTRA_EMAILS,
+        )
+        cart_items.delete()
+        return redirect(f"/{_selected_order_language(request, order)}/carts/payment_check/?id={paymentobj.p_number}&show_order=1")
+
+
+    if requested_bank == "tbc":
+        token = tbcgenerate()
+    elif requested_bank == "bog":
+        token = boggenerate()
+    elif requested_bank == "flitt":
+        token = ""
+    elif requested_bank == "liberty":
+        token = ""
+    elif requested_bank == "tbc_installment":
+        token = ""
+
+    if token:
+        paymentobj.bearer = token
+        paymentobj.save(update_fields=["bearer"])
 
     redirect_url = ""
     base_url = request.build_absolute_uri('/').rstrip('/')
