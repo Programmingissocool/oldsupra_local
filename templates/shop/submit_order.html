@@ -616,7 +616,7 @@
 <main class="order-success" aria-labelledby="order-success-title">
   <section class="order-success-hero">
     <div class="order-success-card">
-      <span class="order-success-logo-frame"><img src="{% static 'assets/img/suprawhite.svg' %}" alt="OldSupra"></span>
+      <span class="order-success-logo-frame"><img src="{% static 'assets/img/suprawhite.svg' %}" alt="Old Supra"></span>
       <div class="order-success-mark" aria-hidden="true"><span></span></div>
       {% if CURRENT_LANGUAGE == 'ka' %}
       <h1 id="order-success-title">გმადლობთ შეკვეთისთვის</h1>
@@ -638,14 +638,14 @@
       <div class="order-mail-shell">
         <div class="order-mail-card">
           <header class="order-mail-head">
-            <span class="order-mail-logo-frame"><img class="order-mail-logo" src="{% static 'assets/img/suprawhite.svg' %}" alt="OldSupra"></span>
+            <span class="order-mail-logo-frame"><img class="order-mail-logo" src="{% static 'assets/img/suprawhite.svg' %}" alt="Old Supra"></span>
 
             {% if CURRENT_LANGUAGE == 'ka' %}
             <h2 id="order-modal-title">თქვენი შეკვეთა დადასტურდა</h2>
-            <p>{{ order.first_name|default:'' }}, მადლობა OldSupra-ში შეძენისთვის. თქვენი შეკვეთა მიღებულია და დეტალების დასაზუსტებლად საჭიროების შემთხვევაში დაგიკავშირდებით.</p>
+            <p>{{ order.first_name|default:'' }}, მადლობა Old Supra-ში შეძენისთვის. თქვენი შეკვეთა მიღებულია და დეტალების დასაზუსტებლად საჭიროების შემთხვევაში დაგიკავშირდებით.</p>
             {% else %}
             <h2 id="order-modal-title">Your order is confirmed</h2>
-            <p>Dear {{ order.first_name|default:'customer' }}, thank you for shopping with OldSupra. We have received your order and will contact you if any details need confirmation.</p>
+            <p>Dear {{ order.first_name|default:'customer' }}, thank you for shopping with Old Supra. We have received your order and will contact you if any details need confirmation.</p>
             {% endif %}
           </header>
 
@@ -723,7 +723,7 @@
 
           <div class="order-mail-totals">
             <div>
-              <span>{% if CURRENT_LANGUAGE == 'ka' %}ქვეჯამი{% else %}Subtotal{% endif %}</span>
+              <span>{% if CURRENT_LANGUAGE == 'ka' %}პროდუქტების ჯამი{% else %}Subtotal{% endif %}</span>
               <strong>{{ total|floatformat:2 }} ₾</strong>
             </div>
             <div>
@@ -742,7 +742,7 @@
             {% else %}
             <p>Questions about your order? Reply to this email and our team will help you.</p>
             {% endif %}
-            <span>© {% now 'Y' %} OldSupra.ge</span>
+            <span>© {% now 'Y' %} Old Supra.ge</span>
           </footer>
         </div>
       </div>

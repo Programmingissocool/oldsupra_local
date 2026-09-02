@@ -3099,14 +3099,14 @@ def payment_check(request):
             'ordered_products': OrderProduct.objects.none(),
             'cart_snapshot_items': [
                 {
-                    'name': 'OldSupra მაისური',
+                    'name': 'Old Supra მაისური',
                     'quantity': 1,
                     'color': 'შავი',
                     'size': 'M',
                     'line_total': Decimal('89.00'),
                 },
                 {
-                    'name': 'OldSupra ქუდი',
+                    'name': 'Old Supra ქუდი',
                     'quantity': 1,
                     'color': 'თეთრი',
                     'size': '',
