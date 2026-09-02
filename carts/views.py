@@ -34,11 +34,10 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone, translation
 
 
-def _is_pretend_checkout_user(user, checkout_email=''):
+def _is_pretend_checkout_user(user):
     allowed_emails = {email.lower() for email in PRETEND_CHECKOUT_EMAILS}
     user_email = str(getattr(user, 'email', '') or '').strip().lower()
-    checkout_email = str(checkout_email or '').strip().lower()
-    return bool(user and user.is_authenticated and user_email in allowed_emails and checkout_email in allowed_emails)
+    return bool(user and user.is_authenticated and user_email in allowed_emails)
 
 
 def _normalize_order_language(value):
@@ -1636,12 +1635,14 @@ def checkout_generate(request):
     # (Optional but fine to keep for redirect UX)
     request.session['order_form_data'] = checkout_snapshot
 
-    if _is_pretend_checkout_user(user, checkout_snapshot.get('email')):
+    if _is_pretend_checkout_user(user):
+        checkout_snapshot['email'] = user.email
+        paymentobj.checkout_data = json.dumps(checkout_snapshot)
         paymentobj.status = 'success'
         paymentobj.payment_method = 'pretend_checkout'
         paymentobj.payment_id = paymentobj.p_number
         paymentobj.bank = 'bog'
-        paymentobj.save(update_fields=['status', 'payment_method', 'payment_id', 'bank'])
+        paymentobj.save(update_fields=['checkout_data', 'status', 'payment_method', 'payment_id', 'bank'])
 
         order = Order.objects.create(
             user=user,
