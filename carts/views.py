@@ -53,6 +53,17 @@ def _request_path_language(request):
     return ""
 
 
+
+def _cart_data_for_payment(payment):
+    cart_data = getattr(payment, "cart_data", None) or []
+    if isinstance(cart_data, str):
+        try:
+            cart_data = json.loads(cart_data) or []
+        except (TypeError, ValueError):
+            cart_data = []
+    return cart_data if isinstance(cart_data, list) else []
+
+
 def _checkout_data_for_payment(payment):
     checkout_data = getattr(payment, "checkout_data", None) or {}
     if isinstance(checkout_data, str):
@@ -3232,8 +3243,11 @@ def payment_check(request):
     total = Decimal('0')
     grand_total = Decimal(str(payment.amount_paid or '0'))
 
-    if payment.cart_data:
-        for item in payment.cart_data:
+    cart_data = _cart_data_for_payment(payment)
+    if cart_data:
+        for item in cart_data:
+            if not isinstance(item, dict):
+                continue
             quantity = int(item.get('quantity', 0))
             unit_price = Decimal(str(item.get('price', '0')))
             product_id = item.get('product_id')
@@ -3265,8 +3279,11 @@ def payment_check(request):
 
             total += line_total
 
-        checkout_data = payment.checkout_data or {}
-        shipping = Decimal(str(checkout_data.get('shipping', '0')))
+        checkout_data = _checkout_data_for_payment(payment)
+        try:
+            shipping = Decimal(str(checkout_data.get('shipping', '0') or '0'))
+        except Exception:
+            shipping = Decimal('0')
         grand_total = total + shipping
 
     if order:
