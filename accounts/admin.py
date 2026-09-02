@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import path, reverse
 from django.utils import timezone
@@ -11,7 +12,7 @@ from .models import Account, TestCustomer, UserProfile
 
 
 TEST_CUSTOMER_USERNAME = 'oldsupra_test_customer'
-TEST_CUSTOMER_EMAIL = 'animamucharashvili@gmail.com'
+TEST_CUSTOMER_EMAIL = 'animamucharashvili+oldsupra-test@gmail.com'
 
 
 class AccountAdmin(UserAdmin):
@@ -76,31 +77,45 @@ class TestCustomerAdmin(admin.ModelAdmin):
         return format_html('<a class="button" href="{}">Create test order and send email</a>', send_url)
     test_actions.short_description = 'Actions'
 
+    def _available_test_email(self):
+        local_part, domain = TEST_CUSTOMER_EMAIL.split('@', 1)
+        for index in range(1, 1000):
+            email = TEST_CUSTOMER_EMAIL if index == 1 else '{}-{}@{}'.format(local_part, index, domain)
+            if not Account.objects.filter(email=email).exists():
+                return email
+        raise IntegrityError('Could not find an unused pretend customer email address.')
+
     def _get_or_create_test_customer(self):
-        customer, created = TestCustomer.objects.get_or_create(
+        customer = TestCustomer.objects.filter(username=TEST_CUSTOMER_USERNAME).first()
+        if customer:
+            return customer, False
+
+        customer = TestCustomer(
             username=TEST_CUSTOMER_USERNAME,
-            defaults={
-                'email': TEST_CUSTOMER_EMAIL,
-                'first_name': 'Pretend',
-                'last_name': 'Customer',
-                'phone_number': '+995555000000',
-                'is_active': False,
-                'is_staff': False,
-                'is_admin': False,
-                'is_superadmin': False,
-            },
+            email=self._available_test_email(),
+            first_name='Pretend',
+            last_name='Customer',
+            phone_number='+995555000000',
+            is_active=False,
+            is_staff=False,
+            is_admin=False,
+            is_superadmin=False,
         )
-        if created:
-            customer.set_unusable_password()
-            customer.save(update_fields=['password'])
-        return customer, created
+        customer.set_unusable_password()
+        customer.save()
+        return customer, True
 
     def create_test_customer(self, request):
-        customer, created = self._get_or_create_test_customer()
+        try:
+            customer, created = self._get_or_create_test_customer()
+        except Exception as exc:
+            self.message_user(request, 'Pretend customer could not be created: {}'.format(exc), level='ERROR')
+            return HttpResponseRedirect(reverse('admin:accounts_testcustomer_changelist'))
+
         if created:
-            self.message_user(request, 'Pretend customer created. Edit the email if you want test emails to go somewhere else.')
+            self.message_user(request, 'Pretend customer created. Emails will be sent to {}.'.format(customer.email))
         else:
-            self.message_user(request, 'Pretend customer already exists.')
+            self.message_user(request, 'Pretend customer already exists. Emails will be sent to {}.'.format(customer.email))
         return HttpResponseRedirect(reverse('admin:accounts_testcustomer_changelist'))
 
     def send_test_order(self, request, object_id):
