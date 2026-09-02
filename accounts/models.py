@@ -104,6 +104,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return True
 
 
+class TestCustomer(Account):
+    class Meta:
+        proxy = True
+        verbose_name = 'Pretend Customer'
+        verbose_name_plural = 'Pretend Customer'
+
 
 # User Profile Model
 class UserProfile(models.Model):
