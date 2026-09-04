@@ -106,6 +106,8 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
     language_code = _selected_order_language(request, order)
 
     logo_url = request.build_absolute_uri(static("assets/img/suprawhite.svg"))
+    firago_medium_url = request.build_absolute_uri(static("assets/fonts/firago/FiraGO-Medium.ttf"))
+    firago_extra_bold_url = request.build_absolute_uri(static("assets/fonts/firago/FiraGO-ExtraBold.ttf"))
     payment_number = getattr(getattr(order, "payment", None), "p_number", "")
     order_url = request.build_absolute_uri(
         f"/{language_code}/carts/payment_check/?id={payment_number}&show_order=1"
@@ -119,6 +121,8 @@ def _send_customer_order_email(request, order, ordered_products, total, grand_to
         "current_year": datetime.datetime.now().year,
         "email_language": language_code,
         "logo_url": logo_url,
+        "firago_medium_url": firago_medium_url,
+        "firago_extra_bold_url": firago_extra_bold_url,
         "order_url": order_url,
         "delivery_address": _compose_order_address(order),
     }

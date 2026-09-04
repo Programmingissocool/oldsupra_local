@@ -4,20 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if email_language == 'en' %}Order Confirmation{% else %}შეკვეთის დადასტურება{% endif %} - {{ order.order_number }}</title>
+    <style>
+        @font-face {
+            font-family: 'FiraGOOrder';
+            src: url('{{ firago_medium_url }}') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'FiraGOOrder';
+            src: url('{{ firago_extra_bold_url }}') format('truetype');
+            font-weight: 800;
+            font-style: normal;
+        }
+    </style>
 </head>
-<body style="margin:0; padding:0; background:#ffffff; color:#294062; font-family:Arial, Helvetica, sans-serif;">
+<body style="margin:0; padding:0; background:#ffffff; color:#294062; font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; font-weight:500;">
     <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#ffffff; margin:0; padding:34px 12px;">
         <tr>
             <td align="center">
                 <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px; background:#ffffff; border:1px solid #E8D7D4; border-radius:18px; overflow:hidden;">
                     <tr>
-                        <td align="center" style="padding:34px 28px 18px; background:#ffffff;">
-                            <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto 24px; border-collapse:separate;"><tr><td align="center" valign="middle" width="96" height="96" style="width:96px; height:96px; padding:12px; background:#294062; border-radius:999px; overflow:hidden;"><img src="{{ logo_url }}" width="72" height="72" alt="Old Supra" style="display:block; width:72px; height:72px; max-width:72px; max-height:72px; margin:0 auto; border:0; border-radius:999px; overflow:hidden; object-fit:contain;"></td></tr></table>
+                        <td align="center" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:34px 28px 18px; background:#ffffff;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto 24px; border-collapse:separate;"><tr><td align="center" valign="middle" width="96" height="96" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; width:96px; height:96px; padding:12px; background:#294062; border-radius:999px; overflow:hidden;"><img src="{{ logo_url }}" width="72" height="72" alt="Old Supra" style="display:block; width:72px; height:72px; max-width:72px; max-height:72px; margin:0 auto; border:0; border-radius:999px; overflow:hidden; object-fit:contain;"></td></tr></table>
 
-                            <h1 style="margin:0; color:#294062; font-size:28px; line-height:1.25; font-weight:700; letter-spacing:0;">
+                            <h1 style="margin:0; color:#294062; font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; font-size:28px; line-height:1.25; font-weight:800; letter-spacing:0;">
                                 {% if email_language == 'en' %}Your order is confirmed{% else %}თქვენი შეკვეთა დადასტურდა{% endif %}
                             </h1>
-                            <p style="margin:12px 0 0; color:#294062; font-size:15px; line-height:1.65; max-width:470px;">
+                            <p style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; margin:12px 0 0; color:#294062; font-size:15px; line-height:1.65; max-width:470px;">
                                 {% if email_language == 'en' %}
                                     Dear {{ order.first_name }}, thank you for shopping with Old Supra. We have received your order and will contact you if any details need confirmation.
                                 {% else %}
@@ -27,30 +41,30 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding:0 28px 26px;">
+                        <td style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:0 28px 26px;">
                             <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate; border-spacing:0; background:#F6E7E4; border:1px solid #F6E7E4; border-radius:12px; overflow:hidden;">
                                 <tr>
-                                    <td style="padding:16px 18px; color:#294062; font-size:13px; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Order number{% else %}შეკვეთის ნომერი{% endif %}</td>
-                                    <td align="right" style="padding:16px 18px; color:#294062; font-size:14px; font-weight:700; border-bottom:1px solid #F6E7E4;">{{ order.order_number }}</td>
+                                    <td style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:13px; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Order number{% else %}შეკვეთის ნომერი{% endif %}</td>
+                                    <td align="right" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:14px; font-weight:500; border-bottom:1px solid #F6E7E4;">{{ order.order_number }}</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:16px 18px; color:#294062; font-size:13px; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Order date{% else %}შეკვეთის თარიღი{% endif %}</td>
-                                    <td align="right" style="padding:16px 18px; color:#294062; font-size:14px; border-bottom:1px solid #F6E7E4;">{{ order.created_at|date:"M d, Y" }}</td>
+                                    <td style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:13px; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Order date{% else %}შეკვეთის თარიღი{% endif %}</td>
+                                    <td align="right" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:14px; border-bottom:1px solid #F6E7E4;">{{ order.created_at|date:"M d, Y" }}</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:16px 18px; color:#294062; font-size:13px; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Customer{% else %}მომხმარებელი{% endif %}</td>
-                                    <td align="right" style="padding:16px 18px; color:#294062; font-size:14px; border-bottom:1px solid #F6E7E4;">{{ order.full_name }}</td>
+                                    <td style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:13px; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Customer{% else %}მომხმარებელი{% endif %}</td>
+                                    <td align="right" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:14px; border-bottom:1px solid #F6E7E4;">{{ order.full_name }}</td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:16px 18px; color:#294062; font-size:13px;">{% if email_language == 'en' %}Delivery address{% else %}მიტანის მისამართი{% endif %}</td>
-                                    <td align="right" style="padding:16px 18px; color:#294062; font-size:14px; line-height:1.45;">{{ delivery_address }}</td>
+                                    <td style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:13px;">{% if email_language == 'en' %}Delivery address{% else %}მიტანის მისამართი{% endif %}</td>
+                                    <td align="right" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:16px 18px; color:#294062; font-size:14px; line-height:1.45;">{{ delivery_address }}</td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td align="center" style="padding:0 28px 28px;">
-                            <a href="{{ order_url }}" target="_blank" style="display:inline-block; width:100%; max-width:420px; min-height:52px; line-height:52px; background:#294062; color:#ffffff; border:1px solid #294062; text-align:center; text-decoration:none; font-size:14px; font-weight:700; text-transform:uppercase; border-radius:12px;">
+                        <td align="center" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; padding:0 28px 28px;">
+                            <a href="{{ order_url }}" target="_blank" style="font-family:'FiraGOOrder', Arial, Helvetica, sans-serif; display:inline-block; width:100%; max-width:420px; min-height:52px; line-height:52px; background:#294062; color:#ffffff; border:1px solid #294062; text-align:center; text-decoration:none; font-size:14px; font-weight:500; text-transform:uppercase; border-radius:12px;">
                                 {% if email_language == 'en' %}View order{% else %}შეკვეთის ნახვა{% endif %}
                             </a>
                         </td>
