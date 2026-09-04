@@ -54,65 +54,6 @@
                                 {% if email_language == 'en' %}View order{% else %}შეკვეთის ნახვა{% endif %}
                             </a>
                         </td>
-                    </tr>                    <tr>
-                        <td style="padding:0 28px;">
-                            <h2 style="margin:0 0 12px; color:#294062; font-size:18px; line-height:1.35; font-weight:700;">
-                                {% if email_language == 'en' %}Order details{% else %}შეკვეთის დეტალები{% endif %}
-                            </h2>
-                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
-                                <thead>
-                                    <tr>
-                                        <th align="left" style="padding:12px 0; color:#294062; font-size:12px; font-weight:700; text-transform:uppercase; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Product{% else %}პროდუქტი{% endif %}</th>
-                                        <th align="center" style="padding:12px 8px; color:#294062; font-size:12px; font-weight:700; text-transform:uppercase; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Qty{% else %}რაოდ.{% endif %}</th>
-                                        <th align="right" style="padding:12px 0; color:#294062; font-size:12px; font-weight:700; text-transform:uppercase; border-bottom:1px solid #F6E7E4;">{% if email_language == 'en' %}Total{% else %}ჯამი{% endif %}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for item in ordered_products %}
-                                    <tr>
-                                        <td style="padding:16px 0; border-bottom:1px solid #F6E7E4; color:#294062; font-size:14px; line-height:1.45;">
-                                            <strong>{{ item.product.Product_name }}</strong>
-                                            {% if item.color or item.size or item.gift %}
-                                            <div style="margin-top:4px; color:#294062; font-size:12px; line-height:1.45;">
-                                                {% if item.color %}{% if email_language == 'en' %}Color{% else %}ფერი{% endif %}: {{ item.color }}{% endif %}
-                                                {% if item.size %}{% if item.color %} · {% endif %}{% if email_language == 'en' %}Size{% else %}ზომა{% endif %}: {{ item.size }}{% endif %}
-                                                {% if item.gift %}{% if item.color or item.size %} · {% endif %}{% if email_language == 'en' %}Gift wrap{% else %}საჩუქრად შეფუთვა{% endif %}{% endif %}
-                                            </div>
-                                            {% endif %}
-                                        </td>
-                                        <td align="center" style="padding:16px 8px; border-bottom:1px solid #F6E7E4; color:#294062; font-size:14px;">{{ item.quantity }}</td>
-                                        <td align="right" style="padding:16px 0; border-bottom:1px solid #F6E7E4; color:#294062; font-size:14px; font-weight:700; white-space:nowrap;">{{ item.product_total|floatformat:2 }} ₾</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding:20px 28px 28px;">
-                            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;">
-                                <tr>
-                                    <td style="padding:7px 0; color:#294062; font-size:14px;">{% if email_language == 'en' %}Subtotal{% else %}პროდუქტების ჯამი{% endif %}</td>
-                                    <td align="right" style="padding:7px 0; color:#294062; font-size:14px; white-space:nowrap;">{{ total|floatformat:2 }} ₾</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding:7px 0; color:#294062; font-size:14px;">{% if email_language == 'en' %}Shipping{% else %}მიტანა{% endif %}</td>
-                                    <td align="right" style="padding:7px 0; color:#294062; font-size:14px; white-space:nowrap;">{{ shipping|floatformat:2 }} ₾</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding:14px 0 0; color:#294062; font-size:18px; font-weight:700; border-top:1px solid #F6E7E4;">{% if email_language == 'en' %}Total paid{% else %}სულ გადახდილი{% endif %}</td>
-                                    <td align="right" style="padding:14px 0 0; color:#294062; font-size:20px; font-weight:700; border-top:1px solid #F6E7E4; white-space:nowrap;">{{ grand_total|floatformat:2 }} ₾</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="padding:24px 28px 34px; background:#294062; color:#ffffff;">
-                            <p style="margin:0 0 8px; font-size:14px; line-height:1.55; color:#ffffff;">
-                                {% if email_language == 'en' %}Questions about your order? Reply to this email and our team will help you.{% else %}შეკვეთასთან დაკავშირებით კითხვების შემთხვევაში უპასუხეთ ამ წერილს და ჩვენი გუნდი დაგეხმარებათ.{% endif %}
-                            </p>
-                            <p style="margin:0; font-size:12px; line-height:1.5; color:#F6E7E4;">© {{ current_year }} Old Supra.ge</p>
-                        </td>
                     </tr>
                 </table>
             </td>
