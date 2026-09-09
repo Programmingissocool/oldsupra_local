@@ -6,10 +6,26 @@
 
 <style>
     #sale-top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10020;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         min-height: 60px;
         height: auto;
         padding: 8px 12px;
         box-sizing: border-box;
+        background: #f6e7e4;
+        border-top: 1px solid #e6d6d2;
+        border-bottom: 1px solid #e6d6d2;
+        color: #ef5b3a;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0;
     }
 
     .sale-top-bar-content {
@@ -22,12 +38,18 @@
         text-align: center;
     }
 
+    body #tt-header.tt-header-fixed {
+        top: 60px;
+    }
     /* Keep legacy hamburger below the sale bar on pages that use both. */
     body .menu-toggle.menu-toggle-2.hamburger--emphatic {
         top: 82px;
     }
 
     @media (max-width: 575px) {
+        body #tt-header.tt-header-fixed {
+            top: 64px;
+        }
         body .menu-toggle.menu-toggle-2.hamburger--emphatic {
             top: 86px;
             left: 12px;
