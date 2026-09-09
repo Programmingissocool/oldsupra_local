@@ -1,10 +1,6 @@
-{% if not SiteInfo or SiteInfo.sale_countdown_enabled %}
 <div class="top-bar" id="sale-top-bar">
     <span class="line-1 sale-top-bar-content">
-        <span>უფასო მიწოდება მინ. 100₾-იან შენაძენზე</span>
-        <span class="sale-countdown-divider">|</span>
-        <span class="sale-countdown-label">დასრულებამდე დარჩა:</span>
-        <span id="sale-countdown" data-sale-ends-at="{{ SiteInfo.sale_countdown_ends_at|date:'c'|default:'2026-08-31T23:59:59+04:00' }}" aria-live="polite"></span>
+        უფასო მიწოდება მინ. 100₾-იან შენაძენზე
     </span>
 </div>
 
@@ -20,37 +16,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        flex-wrap: wrap;
         width: 100%;
         max-width: 100%;
         line-height: 1.35;
         text-align: center;
-    }
-
-    #sale-countdown,
-    .sale-countdown-label {
-        font-weight: 800;
-    }
-
-    #sale-countdown {
-        display: inline-block;
-        min-width: 178px;
-        padding: 4px 10px;
-        color: #fff;
-        background: #294062;
-        border: 1px solid rgba(255, 255, 255, 0.45);
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(4, 29, 64, 0.18);
-        font-weight: 900;
-        font-variant-numeric: tabular-nums;
-        letter-spacing: 0;
-        line-height: 1.2;
-        white-space: nowrap;
-    }
-
-    .sale-countdown-divider {
-        opacity: 0.65;
     }
 
     /* Keep legacy hamburger below the sale bar on pages that use both. */
@@ -70,60 +39,7 @@
         }
 
         .sale-top-bar-content {
-            gap: 4px 6px;
             font-size: 12px;
-        }
-
-        #sale-countdown {
-            min-width: auto;
-            width: auto;
-            max-width: 100%;
-            padding: 4px 8px;
-        }
-
-        .sale-countdown-divider {
-            display: none;
         }
     }
 </style>
-
-<script>
-    (function () {
-        var bar = document.getElementById("sale-top-bar");
-        var countdown = document.getElementById("sale-countdown");
-        if (bar === null || countdown === null) {
-            return;
-        }
-
-        var saleEndsAt = new Date(countdown.getAttribute("data-sale-ends-at")).getTime();
-
-        function hideSaleBar() {
-            bar.style.display = "none";
-        }
-
-        function updateCountdown() {
-            var distance = saleEndsAt - Date.now();
-            if (distance <= 0) {
-                hideSaleBar();
-                window.clearInterval(timer);
-                return;
-            }
-
-            var secondsTotal = Math.floor(distance / 1000);
-            var days = Math.floor(secondsTotal / 86400);
-            var hours = Math.floor((secondsTotal % 86400) / 3600);
-            var minutes = Math.floor((secondsTotal % 3600) / 60);
-            var seconds = secondsTotal % 60;
-
-            countdown.textContent = days + " დღე "
-                + String(hours).padStart(2, "0") + " სთ "
-                + String(minutes).padStart(2, "0") + " წთ "
-                + String(seconds).padStart(2, "0") + " წმ";
-        }
-
-        updateCountdown();
-        var timer = window.setInterval(updateCountdown, 1000);
-    })();
-</script>
-
-{% endif %}
