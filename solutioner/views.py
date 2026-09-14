@@ -19,6 +19,7 @@ def home(request):
     banners       = Banner.objects.all().filter(availiable=True)
     banners2       = Banner.objects.all().filter(hamburger_menu=True)
     PProduct       = Product.objects.all()
+    home_products  = Product.objects.filter(is_availiable=True).order_by('-created_date')[:12]
     cats          = Category.objects.all()
     product_with_images = []
     audio_banner  = Banner.objects.all().filter(Banner_name="Audio_System")
@@ -47,6 +48,7 @@ def home(request):
         'banners'           : banners,
         'banners2'          : banners2,
         'PProduct'           : PProduct,
+        'home_products'      : home_products,
         'all_projects'      : all_projects,
         'cats'              : cats,
         'product_with_images': product_with_images,
