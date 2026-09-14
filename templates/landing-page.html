@@ -321,6 +321,11 @@ src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"
     .home-product-name { min-height: 46px; font-size: 13px; }
     .home-product-price { font-size: 13px; }
 }
+
+/* Keep the catalog reachable even if the optional smooth-scroll script is unavailable. */
+body.tt-smooth-scroll { overflow: auto !important; }
+body.tt-transition #page-transition { display: none !important; }
+.tt-portfolio-slider .swiper { height: min(68vh, 720px); }
 </style>
 </head>
 
