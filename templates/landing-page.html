@@ -190,6 +190,53 @@ src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"
     background: #f0f8ff;
     text-decoration: none;
 }
+.tt-header-actions,
+.tt-header-actions-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+}
+
+.tt-header-action-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 32px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.tt-header-action-link i {
+    font-size: 22px;
+    line-height: 1;
+}
+
+@media (max-width: 575px) {
+    .tt-header-actions,
+    .tt-header-actions-secondary {
+        gap: 10px;
+    }
+
+    .tt-header-action-link {
+        min-width: 28px;
+        min-height: 28px;
+        font-size: 12px;
+    }
+
+    .tt-header-action-link i,
+    .search-icon {
+        font-size: 20px;
+    }
+
+    .search-container.active .search-input-wrapper {
+        width: 140px;
+    }
+}
 </style>
 </head>
 
@@ -260,7 +307,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						</div> <!-- /.tt-header-col -->
 
 						<div class="tt-header-col">
-                            							<div id="tt-ol-menu-toggle-btn-wrap">
+							<div class="tt-header-actions">
 					           
 							       <div id="searchContainer" class="search-container">
   <a class="cart-icon" href="#">
@@ -343,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function () {
 								</div>
 							<!-- /.tt-ol-menu-toggle-btn-holder -->
 							</div>
-							<div id="tt-ol-menu-toggle-btn-wrap">
+							<div class="tt-header-actions-secondary">
 								<div class="tt-ol-menu-toggle-btn-text-wrap hide-cursor">
 									<div class="tt-ol-menu-toggle-btn-text">
 										
@@ -354,14 +401,14 @@ document.addEventListener('DOMContentLoaded', function () {
     
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE == "en" %}
-        <a href="{% url 'set_language' 'ka' %}" class="tt-ol-menu-toggle-btn magnetic-item">GEO</a>
+        <a href="{% url 'set_language' 'ka' %}" class="tt-header-action-link magnetic-item">GEO</a>
     {% else %}
-        <a href="{% url 'set_language' 'en' %}" class="tt-ol-menu-toggle-btn magnetic-item">ENG</a>
+        <a href="{% url 'set_language' 'en' %}" class="tt-header-action-link magnetic-item">ENG</a>
     {% endif %}
 
 </div>
 <div class="tt-ol-menu-toggle-btn-holder account-icon">
-    <a href="{% url 'login' %}" class="tt-ol-menu-toggle-btn magnetic-item" title="Login">
+    <a href="{% url 'login' %}" class="tt-header-action-link magnetic-item" title="Login">
         <i class="zmdi zmdi-account"></i>
     </a>
 </div>

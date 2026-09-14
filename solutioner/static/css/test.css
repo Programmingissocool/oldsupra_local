@@ -769,3 +769,56 @@ body:not(.is-mobile) .menu-toggle.hamburger--emphatic:not(.active):hover .hambur
     max-height: 62px;
   }
 }
+
+/* Keep the Georgian category heading inside the sidebar at every width. */
+.product-area .col-lg-3.order-lg-1 {
+  position: relative;
+  z-index: 2;
+}
+
+.product-area .col-lg-9.order-lg-2 {
+  position: relative;
+  z-index: 1;
+}
+
+.widget-categories,
+.widget-categories .widget-title,
+.widget-categories .widget-title h1 {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.widget-categories .widget-title {
+  overflow: hidden;
+}
+
+.widget-categories .widget-title h1 {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0 8px;
+  color: #666;
+  font-size: clamp(10px, calc(24px - 1vw), 18px) !important;
+  font-weight: 900;
+  line-height: 50px;
+  letter-spacing: 0;
+  text-align: center;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .widget-categories .widget-title h1 {
+    font-size: clamp(12px, calc(24px - 1vw), 14px) !important;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+
+@media (max-width: 991px) {
+  .widget-categories .widget-title h1 {
+    font-size: 18px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
