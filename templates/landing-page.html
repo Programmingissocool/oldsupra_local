@@ -237,6 +237,90 @@ src="https://www.facebook.com/tr?id=1424236331274463&ev=PageView&noscript=1"
         width: 140px;
     }
 }
+
+.home-products-section {
+    padding: 72px 24px 88px;
+    background: #ffffff;
+    color: #294062;
+}
+
+.home-products-inner {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+}
+
+.home-products-heading {
+    margin: 0 0 28px;
+    color: #294062;
+    font-family: 'FiraGO ExtraBold', Arial, Helvetica, sans-serif;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.15;
+    text-align: center;
+}
+
+.home-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.home-product-card {
+    min-width: 0;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #eadbd8;
+    border-radius: 12px;
+}
+
+.home-product-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #faf0ee;
+}
+
+.home-product-info {
+    padding: 14px 14px 16px;
+}
+
+.home-product-name {
+    display: block;
+    min-height: 42px;
+    color: #294062;
+    font-family: 'FiraGO Medium', Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+.home-product-price {
+    display: block;
+    margin-top: 9px;
+    color: #294062;
+    font-family: 'FiraGO ExtraBold', Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.home-product-old-price {
+    margin-left: 6px;
+    color: #8a8f98;
+    font-family: 'FiraGO Medium', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    text-decoration: line-through;
+}
+
+@media (max-width: 900px) {
+    .home-products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+    .home-products-section { padding: 48px 16px 60px; }
+    .home-products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .home-product-info { padding: 11px 10px 13px; }
+    .home-product-name { min-height: 46px; font-size: 13px; }
+    .home-product-price { font-size: 13px; }
+}
 </style>
 </head>
 
@@ -613,7 +697,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 						</div>
 
-					
+                        <section class="home-products-section" aria-labelledby="home-products-heading">
+                            <div class="home-products-inner">
+                                <h2 id="home-products-heading" class="home-products-heading">პროდუქტები</h2>
+                                <div class="home-products-grid">
+                                    {% for product in home_products %}
+                                    <article class="home-product-card">
+                                        <a href="{{ product.get_url }}">
+                                            <img class="home-product-image" src="{{ product.images.url }}" alt="{{ product.Product_name }}" loading="lazy">
+                                        </a>
+                                        <div class="home-product-info">
+                                            <a class="home-product-name" href="{{ product.get_url }}">{{ product.Product_name }}</a>
+                                            <span class="home-product-price">
+                                                {{ product.get_price|floatformat:2 }} ₾
+                                                {% if product.is_discounted %}<span class="home-product-old-price">{{ product.price|floatformat:2 }} ₾</span>{% endif %}
+                                            </span>
+                                        </div>
+                                    </article>
+                                    {% empty %}
+                                    <p>პროდუქტები ამჟამად მიუწვდომელია.</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </section>
+
+						
 
 							<!-- Begin portfolio slider caption
 							==================================== 
